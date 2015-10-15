@@ -41,6 +41,8 @@ public class MotorTestOp extends OpMode {
         runtime.reset();
         telemetry.addData("Null Op Init Loop", runtime.toString());
         startTime = -1;
+        motorOne.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+        motorOne.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
 
     /*
@@ -54,13 +56,16 @@ public class MotorTestOp extends OpMode {
         telemetry.addData("2 Status", "running for " + runtime.toString());
         if (startTime == -1) {
             startTime = System.currentTimeMillis();
-            motorOne.setPower(.5);
+            //motorOne.setChannelMode(DcMotorController.RunMode.RESET_ENCODERS);
+            motorOne.setPower(.1);
         }
 //    if(System.currentTimeMillis ()>startTime+3500) {
 //      motorOne.setPower(0);
 //      motorOne.getCurrentPosition();
 //    }
         telemetry.addData("EncoderValue", "encoder value: " + encoderValue);
+        int currentPosition = motorOne.getCurrentPosition();
+        telemetry.addData("currentPosition", "Current Position: " + currentPosition);
 
     }
 }
