@@ -3,7 +3,6 @@ package org.novalabs.robotics.techbytes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.text.SimpleDateFormat;
@@ -14,22 +13,16 @@ import java.util.Date;
  * <p/>
  * Enables control of the robot via the gamepad
  */
-public class MotorTestOp extends OpMode {
-    private long startTime = -1;
+public class GamePadTestOp extends OpMode {
+
     private String startDate;
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor motorOne;
-    private DcMotorController controler;
 
-    @Override
     public void init() {
         motorOne = hardwareMap.dcMotor.get("motor_1");
-        motorOne.setChannelMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-
-        controler = hardwareMap.dcMotorController.get("motor_controller_1");
-        controler.setMotorChannelMode(1, DcMotorController.RunMode.RUN_USING_ENCODERS);
-
     }
+
 
     /*
        * Code to run when the op mode is first enabled goes here
@@ -40,7 +33,8 @@ public class MotorTestOp extends OpMode {
         startDate = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(new Date());
         runtime.reset();
         telemetry.addData("Null Op Init Loop", runtime.toString());
-        startTime = -1;
+
+
     }
 
     /*
@@ -49,19 +43,16 @@ public class MotorTestOp extends OpMode {
      */
     @Override
     public void loop() {
-        int encoderValue = motorOne.getCurrentPosition();
         telemetry.addData("1 Start", "NullOp started at " + startDate);
         telemetry.addData("2 Status", "running for " + runtime.toString());
-        if (startTime == -1) {
-            startTime = System.currentTimeMillis();
+        if (gamepad1.a) {
             motorOne.setPower(.5);
+        } else {
+            motorOne.setPower(0);
         }
-//    if(System.currentTimeMillis ()>startTime+3500) {
-//      motorOne.setPower(0);
-//      motorOne.getCurrentPosition();
-//    }
-        telemetry.addData("EncoderValue", "encoder value: " + encoderValue);
-
     }
+
+
 }
+
 
