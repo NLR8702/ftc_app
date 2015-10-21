@@ -18,9 +18,17 @@ public class GamePadTestOp extends OpMode {
     private String startDate;
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor motorOne;
+    private DcMotor motorTwo;
+    private DcMotor motorThree;
+    private DcMotor motorFour;
+
 
     public void init() {
         motorOne = hardwareMap.dcMotor.get("motor_1");
+        motorTwo = hardwareMap.dcMotor.get("motor_2");
+        motorThree = hardwareMap.dcMotor.get("motor_3");
+        motorFour = hardwareMap.dcMotor.get("motor_4");
+
     }
 
 
@@ -45,11 +53,15 @@ public class GamePadTestOp extends OpMode {
     public void loop() {
         telemetry.addData("1 Start", "NullOp started at " + startDate);
         telemetry.addData("2 Status", "running for " + runtime.toString());
-        if (gamepad1.a) {
-            motorOne.setPower(.5);
-        } else {
-            motorOne.setPower(0);
-        }
+        telemetry.addData("left-trigger", gamepad1.left_trigger);
+        telemetry.addData("right-trigge", gamepad1.right_trigger);
+        telemetry.addData("gamepad 2 right trigger", gamepad2.right_trigger);
+        motorOne.setPower(.5);
+        motorTwo.setPower(.5);
+        motorThree.setPower(.5);
+        motorFour.setPower(.5);
+
+
     }
 
 
