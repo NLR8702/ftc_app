@@ -26,8 +26,8 @@ public class GamePadTestOp extends OpMode {
     public void init() {
         motorOne = hardwareMap.dcMotor.get("motor_1");
         motorTwo = hardwareMap.dcMotor.get("motor_2");
-        motorThree = hardwareMap.dcMotor.get("motor_3");
-        motorFour = hardwareMap.dcMotor.get("motor_4");
+        //motorThree = hardwareMap.dcMotor.get("motor_3");
+        //motorFour = hardwareMap.dcMotor.get("motor_4");
 
     }
 
@@ -51,15 +51,29 @@ public class GamePadTestOp extends OpMode {
      */
     @Override
     public void loop() {
+
+        double yl = gamepad1.left_stick_y;
+        double yr = gamepad1.right_stick_y;
+//        if (y < -1) {
+//            y = -1;
+//        }
+//        if (y > 1) {
+//            y = 1;
+//        }
+
         telemetry.addData("1 Start", "NullOp started at " + startDate);
         telemetry.addData("2 Status", "running for " + runtime.toString());
         telemetry.addData("left-trigger", gamepad1.left_trigger);
         telemetry.addData("right-trigge", gamepad1.right_trigger);
         telemetry.addData("gamepad 2 right trigger", gamepad2.right_trigger);
-        motorOne.setPower(.5);
-        motorTwo.setPower(.5);
-        motorThree.setPower(.5);
-        motorFour.setPower(.5);
+        motorOne.setPower(yl);
+        motorTwo.setPower(yl);
+//        motorThree.setPower(yr);
+//        motorFour.setPower(yr);
+        //motorThree.setPower(.5);
+        //motorFour.setPower(.5);
+
+
 
 
     }
