@@ -67,7 +67,7 @@ public class GamePadTestOp extends OpMode {
         telemetry.addData("right-trigge", gamepad1.right_trigger);
         telemetry.addData("gamepad 2 right trigger", gamepad2.right_trigger);
         motorOne.setPower(yl);
-        motorTwo.setPower(yl);
+        motorTwo.setPower(yr);
 //        motorThree.setPower(yr);
 //        motorFour.setPower(yr);
         //motorThree.setPower(.5);
