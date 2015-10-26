@@ -15,7 +15,6 @@ import java.util.Date;
  * Enables control of the robot via the gamepad
  * This is a comment from Tyler in order to commit something!
  */
-// test
 public class MotorTestOp extends OpMode {
     private long startTime = -1;
     private String startDate;
