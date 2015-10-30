@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 import org.novalabs.robotics.techbytes.MotorTestOp;
 import org.novalabs.robotics.techbytes.PullUpBar_Op;
+import org.novalabs.robotics.techbytes.UltrasonicTestOp;
 
 /**
  * Register Op Modes
@@ -66,6 +67,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register ("PushBotManual", PushBotManual.class);
     manager.register("MotorTestOp", MotorTestOp.class);
     manager.register("PullUpBar_Op", PullUpBar_Op.class);
+    manager.register("UltrasonicTestOp", UltrasonicTestOp.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
