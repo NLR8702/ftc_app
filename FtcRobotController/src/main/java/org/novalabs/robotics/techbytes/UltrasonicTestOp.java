@@ -17,8 +17,8 @@ ultrasonicSensor = hardwareMap.ultrasonicSensor.get("Ult_1");
 
     @Override
     public void loop() {
-ultrasonicSensor.getUltrasonicLevel();
-        telemetry.addData("", "Ultrasonic Level: " + ultrasonicSensor);
+        double ultrasonic = ultrasonicSensor.getUltrasonicLevel();
+        telemetry.addData("", "Inches: " + ultrasonic / 2.78);
 
     }
 
