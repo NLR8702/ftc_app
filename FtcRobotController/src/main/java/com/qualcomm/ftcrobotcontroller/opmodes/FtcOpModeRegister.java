@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 import org.novalabs.robotics.techbytes.MotorTestOp;
 import org.novalabs.robotics.techbytes.PullUpBar_Op;
+import org.novalabs.robotics.techbytes.TK_ColorOpMode;
 import org.novalabs.robotics.techbytes.TS_OpticalDistanceIsFun;
 
 /**
@@ -68,6 +69,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("MotorTestOp", MotorTestOp.class);
     manager.register("PullUpBar_Op", PullUpBar_Op.class);
     manager.register("TSOpticalTester", TS_OpticalDistanceIsFun.class);
+    manager.register("TK_ColorOpMode", TK_ColorOpMode.class);
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
