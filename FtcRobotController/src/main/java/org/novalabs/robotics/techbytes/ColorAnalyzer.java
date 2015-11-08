@@ -3,29 +3,28 @@ package org.novalabs.robotics.techbytes;
 
 
 /**
- * Created by tylerkim on 11/1/15.
+ * Created by tyler kim on 11/1/15.
  */
 public class ColorAnalyzer{
 
 
 
-   public String Color_Result(float Red, float Blue, float Green, int Alpha) {
+   public ColorTypes Color_Result(float Red, float Blue, float Green, int Alpha) {
 
        // 1. Convert to percent
        float BluePercent = (Blue / (Blue + Red + Green));
        float RedPercent = ((Red / (Blue + Red + Green)));
-       float GreenPercent = ((Green / (Blue + Red + Green)));
 
 
        //2. compare
-       // If Alpha is around 2600 or less, it does not detect anycolor
+       // If Alpha is around 2600 or less, it does not detect any color
        if ((Alpha <= 2600)) {
-           return "nothing";
+           return ColorTypes.NOTHING;
        } else if ((RedPercent > BluePercent)) {
            // If the red percent is greater than the blue percent than the color should be red
-           return "Red";
+           return ColorTypes.RED;
        } else {
-           return "Blue";
+           return ColorTypes.BLUE;
        }
    }
 }
