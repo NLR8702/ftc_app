@@ -70,6 +70,8 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("PullUpBar_Op", PullUpBar_Op.class);
     manager.register("TSOpticalTester", TS_OpticalDistanceIsFun.class);
     manager.register("TK_ColorOpMode", TK_ColorOpMode.class);
+
+
     /*
      * Uncomment any of the following lines if you want to register an op mode.
      */
