@@ -34,10 +34,11 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
-import org.novalabs.robotics.techbytes.AutoControlOp;
+import org.novalabs.robotics.techbytes.GamePadTestOp;
+import org.novalabs.robotics.techbytes.MotorControllerOp;
 import org.novalabs.robotics.techbytes.MotorTestOp;
 import org.novalabs.robotics.techbytes.PullUpBar_Op;
-import org.novalabs.robotics.techbytes.UltrasonicTestOp;
+import org.novalabs.robotics.techbytes.TK_ColorOpMode;
 
 /**
  * Register Op Modes
@@ -63,14 +64,17 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("NullOp", NullOp.class);
 
     manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
+
     manager.register("K9TeleOp", K9TeleOp.class);
     manager.register ("PushBotAuto", PushBotAuto.class);
     manager.register ("PushBotManual", PushBotManual.class);
     manager.register("MotorTestOp", MotorTestOp.class);
     manager.register("PullUpBar_Op", PullUpBar_Op.class);
-    manager.register("UltrasonicTestOp", UltrasonicTestOp.class);
-    manager.register("AutoControlOp", AutoControlOp.class);
+    manager.register("TK_ColorOpMode", TK_ColorOpMode.class);
+    manager.register("GamePadTestOp", GamePadTestOp.class);
+    manager.register("MotorControlerOp", MotorControllerOp.class);
     /*
+
      * Uncomment any of the following lines if you want to register an op mode.
      */
 
