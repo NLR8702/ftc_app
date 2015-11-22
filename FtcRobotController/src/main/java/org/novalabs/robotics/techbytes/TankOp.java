@@ -26,9 +26,12 @@ public class TankOp extends OpMode {
         double yl = gamepad1.left_stick_y;
         double rt = gamepad1.right_trigger;
         double lt = gamepad1.left_trigger;
+        double yr = gamepad1.right_stick_y;
+
+        telemetry.addData("rt", gamepad1.right_trigger);
 
         motorOne.setPower(yl);
-        motorTwo.setPower((2 * (rt)) - 2);
+        motorTwo.setPower(yr);
 
 
         if (gamepad1.left_bumper) {
