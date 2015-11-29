@@ -12,7 +12,7 @@ public class TeleOpMode extends OpMode {
     private DcMotor motorLeftBack;
     private DcMotor motorRightFront;
     private DcMotor motorRightBack;
-//    private DcMotor motorTape;
+    //    private DcMotor motorTape;
     private Servo sweeperServo;
     private Servo dumperServo;
     private Servo positionServo;
@@ -30,30 +30,29 @@ public class TeleOpMode extends OpMode {
 //        positionServo = hardwareMap.servo.get("amoter4");
         sweepPosition = .5f;
     }
-        @Override
-        public void loop()
+    @Override
+    public void loop()
 
-        {
-            double yl = gamepad1.left_stick_y;
-            double rt = gamepad1.right_trigger;
-            double lt = gamepad1.left_trigger;
-            double yr = gamepad1.right_stick_y;
+    {
+        double yl = gamepad1.left_stick_y;
+        double rt = gamepad1.right_trigger;
+        double lt = gamepad1.left_trigger;
+        double yr = gamepad1.right_stick_y;
 
-            telemetry.addData("rt", gamepad1.right_trigger);
+        telemetry.addData("rt", gamepad1.right_trigger);
 
-            motorLeftFront.setPower(yl);
-            motorLeftBack.setPower(yl);
-            motorRightFront.setPower(yr);
-            motorRightBack.setPower(yr);
+        motorLeftFront.setPower(yl);
+        motorLeftBack.setPower(yl);
+        motorRightFront.setPower(yr);
+        motorRightBack.setPower(yr);
 
-            if (gamepad2.dpad_down) {
-                dumperServo.setPosition(1);
+        if (gamepad2.dpad_down) {
+            dumperServo.setPosition(1);
 
-            } else if (gamepad2.dpad_up) {
-                dumperServo.setPosition(0);
-                }
-            }
-            
+        } else if (gamepad2.dpad_up) {
+            dumperServo.setPosition(0);
+        }
+
 //
 //
 // telemetry.addData("");
@@ -68,16 +67,16 @@ public class TeleOpMode extends OpMode {
 //                motorTape.setPower(0);
 //            }
 
-            if (gamepad2.right_bumper && sweepPosition < .9) {
-                sweepPosition = sweepPosition + .1f;
+        if (gamepad2.right_bumper && sweepPosition < .9) {
+            sweepPosition = sweepPosition + .1f;
 
-            } else if (gamepad2.left_bumper && sweepPosition > .1) {
-                sweepPosition=sweepPosition-.1f;
-            }
-            sweeperServo.setPosition(sweepPosition);
+        } else if (gamepad2.left_bumper && sweepPosition > .1) {
+            sweepPosition=sweepPosition-.1f;
         }
-
+        sweeperServo.setPosition(sweepPosition);
     }
+
+}
 
 
 
