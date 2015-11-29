@@ -70,25 +70,10 @@ public class MotorControllerOp extends OpMode {
         telemetry.addData("gamepad 2 right trigger", gamepad2.right_trigger);
         motorOne.setPower(yl*(rm));
         motorTwo.setPower(yl*(lm));
-
         //        motorThree.setPower(yr);
 //        motorFour.setPower(yr);
         //motorThree.setPower(.5);
         //motorFour.setPower(.5);
-        telemetry.addData("1 Start", "NullOp started at " + startDate);
-        telemetry.addData("2 Status", "running for " + runtime.toString());
-//        telemetry.addData("");
-        if (gamepad1.y) {
-            motorThree.setPower(.5);
-            motorFour.setPower(.5);
-
-        }else if (gamepad1.a) {
-            motorThree.setPower(-.5);
-            motorFour.setPower(-.5);
-
-        } else {
-            motorThree.setPower(0);
-            motorFour.setPower(0);}
 
 
 

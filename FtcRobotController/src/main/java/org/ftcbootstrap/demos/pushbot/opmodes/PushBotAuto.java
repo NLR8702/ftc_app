@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.TankDriveToEncoder;
+import org.ftcbootstrap.components.utils.DriveDirection;
 import org.ftcbootstrap.demos.pushbot.PushBot;
 
 /**
@@ -83,39 +84,40 @@ public class PushBotAuto extends ActiveOpMode {
         float gp1_right_stick_y = (gamepad1.right_trigger - .5f) * 2;
 
         robot.getLeftDrive().setPower(gp1_right_stick_y);
-//        switch (step) {
-//            case 1:
-//                //full power , forward for 3000
-//                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "DRIVE_FORWARD");
-//                targetReached = tankDriveToEncoder.runToTarget(1, 3000, DriveDirection.DRIVE_FORWARD);
-//                if (targetReached) {
-//                    step++;
-//                }
-//                break;
-//
-//            case 2:
-//                //turn left
-//                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "SPIN_LEFT");
-//                targetReached = tankDriveToEncoder.runToTarget(1, 2000, DriveDirection.SPIN_LEFT);
-//                if (targetReached) {
-//                    step++;
-//                }
-//                break;
-//
-//            case 3:
-//                //turn right
-//                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "SPIN_RIGHT");
-//                targetReached = tankDriveToEncoder.runToTarget(1, 2300, DriveDirection.SPIN_RIGHT);
-//                if (targetReached) {
-//                    step++;
-//                }
-//                break;
-//
-//            default:
-//                setOperationsCompleted();
-//                break;
-//
-//        }
+        switch (step) {
+            case 1:
+                //full power , forward for 3000
+                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "DRIVE_FORWARD");
+                targetReached = tankDriveToEncoder.runToTarget(1, 3000, DriveDirection.DRIVE_FORWARD);
+                if (targetReached) {
+                    step++;
+                }
+                break;
+
+
+            case 2:
+                //turn left
+                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "SPIN_LEFT");
+                targetReached = tankDriveToEncoder.runToTarget(1, 2000, DriveDirection.SPIN_LEFT);
+                if (targetReached) {
+                    step++;
+                }
+                break;
+
+            case 3:
+                //turn right
+                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "SPIN_RIGHT");
+                targetReached = tankDriveToEncoder.runToTarget(1, 2300, DriveDirection.SPIN_RIGHT);
+                if (targetReached) {
+                    step++;
+                }
+                break;
+
+            default:
+                setOperationsCompleted();
+                break;
+
+        }
 
         //send any telemetry that may have been added in the above operations
         getTelemetryUtil().sendTelemetry();
