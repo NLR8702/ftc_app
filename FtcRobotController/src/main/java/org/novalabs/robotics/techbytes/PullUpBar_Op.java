@@ -18,12 +18,14 @@ public class PullUpBar_Op extends OpMode {
     private String startDate;
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor motorOne;
+    private DcMotor motorTwo;
 
 
 
     public void init() {
 
         motorOne = hardwareMap.dcMotor.get("motor_1");
+        motorTwo = hardwareMap.dcMotor.get("motor_2");
     }
 
 
@@ -47,16 +49,23 @@ public class PullUpBar_Op extends OpMode {
     @Override
     public void loop()
 
-        {telemetry.addData("1 Start", "NullOp started at " + startDate);
+    {
+        telemetry.addData("1 Start", "NullOp started at " + startDate);
         telemetry.addData("2 Status", "running for " + runtime.toString());
 
-           if (gamepad1.y)
-               motorOne.setPower(.5);
+//        telemetry.addData("");
+        if (gamepad1.y) {
+            motorOne.setPower(-.25);
+            motorTwo.setPower(.25);
 
-            else if (gamepad1.a)
-                motorOne.setPower(-.5);
-            else
-               motorOne.setPower(0);
+        }else if (gamepad1.a){
+            motorOne.setPower(.25);
+            motorTwo.setPower(-.25);
+
+        } else {
+            motorOne.setPower(0);
+            motorTwo.setPower(0);}
+
 
 
 
