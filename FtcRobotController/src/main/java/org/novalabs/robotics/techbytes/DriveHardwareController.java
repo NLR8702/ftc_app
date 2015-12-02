@@ -19,6 +19,8 @@ public class DriveHardwareController implements HardwareController {
 
     @Override
     public void loop(OpMode opMode) {
+        leftMotor.setPower(-0.5);
+        rightMotor.setPower(0.5);
 
     }
 }
