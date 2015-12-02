@@ -19,8 +19,8 @@ public class DriveHardwareController implements HardwareController {
 
     @Override
     public void loop(OpMode opMode) {
-        leftMotor.setPower(-0.5);
-        rightMotor.setPower(0.5);
+        leftMotor.setPower(opMode.gamepad1.left_stick_y);
+        rightMotor.setPower(opMode.gamepad1.right_stick_y);
 
     }
 }
