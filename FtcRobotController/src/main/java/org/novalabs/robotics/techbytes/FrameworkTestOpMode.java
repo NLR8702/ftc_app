@@ -19,7 +19,7 @@ public class FrameworkTestOpMode extends OpMode {
     @Override
     public void init() {
         for(HardwareController aController : controllerList) {
-            aController.init();
+            aController.init(this);
         }
 
     }
@@ -27,7 +27,7 @@ public class FrameworkTestOpMode extends OpMode {
     @Override
     public void loop() {
         for(HardwareController aController : controllerList) {
-            aController.loop();
+            aController.loop(this);
         }
 
     }
