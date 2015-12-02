@@ -42,6 +42,7 @@ import org.novalabs.robotics.techbytes.PullUpBar_Op;
 import org.novalabs.robotics.techbytes.TK_ColorOpMode;
 import org.novalabs.robotics.techbytes.TechbytesPushBotAuto;
 import org.novalabs.robotics.techbytes.UltrasonicTestOp;
+import org.novalabs.robotics.techbytes.TeleOpMode;
 
 /**
  * Register Op Modes
@@ -69,7 +70,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
     manager.register("K9TeleOp", K9TeleOp.class);
     manager.register("K9Line", K9Line.class);
-    manager.register ("TechbytesPushBotAuto", TechbytesPushBotAuto.class);
+    manager.register ("PushBotAuto", PushBotAuto.class);
     manager.register ("PushBotManual", PushBotManual.class);
     manager.register("MotorTestOp", MotorTestOp.class);
     manager.register("PullUpBar_Op", PullUpBar_Op.class);
@@ -78,7 +79,7 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register("MotorControlerOp", MotorControllerOp.class);
     manager.register("AutoControlOp", AutoControlOp.class);
     manager.register("UltrasonicTestOp", UltrasonicTestOp.class);
-
+    manager.register("TeleOpMode", TeleOpMode.class);
     /*
 
      * Uncomment any of the following lines if you want to register an op mode.
