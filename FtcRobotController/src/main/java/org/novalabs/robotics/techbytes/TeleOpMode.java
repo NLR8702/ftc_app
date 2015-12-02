@@ -31,6 +31,7 @@ public class TeleOpMode extends OpMode {
         dumperServo = hardwareMap.servo.get("amotor3");
         positionServo = hardwareMap.servo.get("amoter4");
         kickstandservo = hardwareMap.servo.get("amoter5");
+        kickPosition = 0f;
         sweepPosition = .5f;
     }
         @Override
@@ -49,15 +50,6 @@ public class TeleOpMode extends OpMode {
             motorLeftBack.setPower(yl);
             motorRightFront.setPower(yr);
             motorRightBack.setPower(yr);
-
-                if (gamepad1.right_bumper && sweepPosition < .9) {
-                    sweepPosition = sweepPosition + .1f;
-
-                } else if (gamepad1.left_bumper && sweepPosition > .1) {
-                    sweepPosition=sweepPosition-.1f;
-                }
-                sweeperServo.setPosition(sweepPosition);
-            }
 
 
 
@@ -93,6 +85,15 @@ public class TeleOpMode extends OpMode {
                 sweepPosition=sweepPosition-.1f;
             }
             sweeperServo.setPosition(sweepPosition);
+
+            if (gamepad1.right_bumper && kickPosition < .9) {
+                kickPosition = kickPosition + .1f;
+
+            } else if (gamepad1.left_bumper && kickPosition > .1) {
+                kickPosition=kickPosition-.1f;
+            }
+            sweeperServo.setPosition(kickPosition);
+            kickstandservo.setPosition(kickPosition);
         }
 
     }
