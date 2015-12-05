@@ -22,17 +22,17 @@ public class TapeHardwareController implements HardwareController {
     @Override
     public void loop(OpMode opMode) {
         if (opMode.gamepad2.a) {
-            TapeMotor.setPower(-0.5);
+            TapeMotor.setPower(-1);
         } else if (opMode.gamepad2.y) {
-            TapeMotor.setPower(0.5);
+            TapeMotor.setPower(1);
         } else
             TapeMotor.setPower(0);
 
 
-        if (gamepad2.b && tapePosition < .9) {
+        if (opMode.gamepad2.b && tapePosition < .8) {
             tapePosition = tapePosition + .1f;
 
-        } else if (gamepad2.x && tapePosition > .1) {
+        } else if (opMode.gamepad2.x && tapePosition > .1) {
             tapePosition = tapePosition - .1f;
         }
         tapeGuide.setPosition(tapePosition);
