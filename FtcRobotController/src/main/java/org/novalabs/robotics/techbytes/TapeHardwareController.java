@@ -22,7 +22,7 @@ public class TapeHardwareController implements HardwareController {
     @Override
     public void loop(OpMode opMode) {
         if (opMode.gamepad2.a) {
-            TapeMotor.setPower(-1);
+            TapeMotor.setPower(-.5);
         } else if (opMode.gamepad2.y) {
             TapeMotor.setPower(1);
         } else
