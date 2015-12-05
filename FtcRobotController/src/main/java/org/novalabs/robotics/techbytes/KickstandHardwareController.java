@@ -19,7 +19,7 @@ public class KickstandHardwareController implements HardwareController {
     @Override
     public void loop(OpMode opMode) {
         if(opMode.gamepad1.left_bumper) {
-            KickstandMotor.setPower(.25);
+            KickstandMotor.setTargetPosition(1);
         }
         else KickstandMotor.setPower(0);
 
