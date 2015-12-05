@@ -14,6 +14,7 @@ public class FrameworkTestOpMode extends OpMode {
         controllerList.add(new TapeHardwareController());
         controllerList.add(new DriveHardwareController());
         controllerList.add(new DumperHardwareController());
+
     }
 
     @Override
