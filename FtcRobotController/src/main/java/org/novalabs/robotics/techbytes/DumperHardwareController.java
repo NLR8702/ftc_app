@@ -36,16 +36,16 @@ public class DumperHardwareController implements HardwareController {
         if (opMode.gamepad2.dpad_left && RightSweeperPosition < .9) {
             RightSweeperPosition = RightSweeperPosition + .1f;
 
-        } else if (!opMode.gamepad2.dpad_left) {
-            RightSweeperPosition-=.1f;
+        } else if (!opMode.gamepad2.dpad_left && RightSweeperPosition > .1) {
+            RightSweeperPosition = RightSweeperPosition - .1f;
         }
         RightSweeperMotor.setPosition(RightSweeperPosition);
 
         if (opMode.gamepad2.dpad_right && LeftSweeperPosition > .1) {
             LeftSweeperPosition = LeftSweeperPosition - .1f;
 
-        } else if (!opMode.gamepad2.dpad_right){
-            LeftSweeperMotor.setPosition(1);
+        } else if (!opMode.gamepad2.dpad_right && LeftSweeperPosition < .9){
+            LeftSweeperPosition = LeftSweeperPosition + .1f;
         }
         LeftSweeperMotor.setPosition(LeftSweeperPosition);
 
