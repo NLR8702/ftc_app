@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 import com.qualcomm.robotcore.hardware.DigitalChannelController;
 
 /**
- * Created by tylerkim on 10/25/15.
+ * Created by tylerkim on 10/25/15./*
  */
 public class TK_ColorOpMode extends OpMode{
     private static final int LED_CHANNEL = 5;
