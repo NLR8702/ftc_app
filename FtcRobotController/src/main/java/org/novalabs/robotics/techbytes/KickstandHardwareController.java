@@ -14,8 +14,9 @@ public class KickstandHardwareController implements HardwareController {
 
     @Override
     public void init(OpMode opMode) {
+        KickstandMotor = opMode.hardwareMap.dcMotor.get("KickstandMotor");
         KickstandMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        KickstandMotor = opMode.hardwareMap.dcMotor.get("kickstand");
+
     }
     @Override
     public void loop(OpMode opMode) {
