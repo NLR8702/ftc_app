@@ -12,18 +12,21 @@ public class TapeHardwareController implements HardwareController {
     private Servo tapeGuide;
     private float tapePosition;
     private float increment;
+    private Servo tapeLock;
     @Override
     public void init(OpMode opMode) {
         TapeMotor = opMode.hardwareMap.dcMotor.get("tapeMotor");
         tapeGuide = opMode.hardwareMap.servo.get("tapeGuide");
-        tapePosition=.5f;
+        tapeLock= opMode.hardwareMap.servo.get("tapeLock");
         increment=.01f;
-
-
+        tapePosition=.5f;
     }
 
     @Override
     public void loop(OpMode opMode) {
+
+        
+
         if (opMode.gamepad2.a) {
             TapeMotor.setPower(-.5);
         } else if (opMode.gamepad2.y) {
