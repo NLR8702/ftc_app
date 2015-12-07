@@ -15,8 +15,8 @@ public class TapeHardwareController implements HardwareController {
     private Servo tapeLock;
     @Override
     public void init(OpMode opMode) {
-        TapeMotor = opMode.hardwareMap.dcMotor.get("tapeMotor");
-        tapeGuide = opMode.hardwareMap.servo.get("tapeGuide");
+     //   TapeMotor = opMode.hardwareMap.dcMotor.get("tapeMotor");
+     //   tapeGuide = opMode.hardwareMap.servo.get("tapeGuide");
         tapeLock= opMode.hardwareMap.servo.get("tapeLock");
         increment=.01f;
         tapePosition=.5f;
