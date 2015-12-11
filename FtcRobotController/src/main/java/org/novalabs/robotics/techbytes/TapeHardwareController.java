@@ -13,11 +13,22 @@ public class TapeHardwareController implements HardwareController {
     private float tapePosition;
     private float increment;
     private Servo tapeLock;
+    private OpMode opMode;
+    private DriveHardwareController driveController;
+
+
+    public TapeHardwareController(DriveHardwareController driveController) {
+        this.driveController = driveController;
+    }
+
     @Override
     public void init(OpMode opMode) {
+        this.opMode = opMode;
         TapeMotor = opMode.hardwareMap.dcMotor.get("tapeMotor");
         tapeGuide = opMode.hardwareMap.servo.get("tapeGuide");
         tapeLock= opMode.hardwareMap.servo.get("tapeLock");
+
+
         increment=.01f;
         tapePosition=.5f;
 
@@ -30,9 +41,11 @@ public class TapeHardwareController implements HardwareController {
 
 
         if (opMode.gamepad2.a) {
-            TapeMotor.setPower(-.5);
-        } else if (opMode.gamepad2.y) {
             TapeMotor.setPower(1);
+            driveController.forwardSlow();
+        } else if (opMode.gamepad2.y) {
+            TapeMotor.setPower(-.5);
+            driveController.normal();
         } else
             TapeMotor.setPower(0);
 

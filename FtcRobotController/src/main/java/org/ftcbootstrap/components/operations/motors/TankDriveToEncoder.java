@@ -55,7 +55,7 @@ public class TankDriveToEncoder extends OpModeComponent {
             targetReached =  leftMotorToEncoder.runToTarget(power, encoderDistance, motorDirection);
         }
 
-        //stop the other motor if this target is reached
+        //normal the other motor if this target is reached
         if ( targetReached) {
             rightMotorEncoder.stop();
             return true;
@@ -69,7 +69,7 @@ public class TankDriveToEncoder extends OpModeComponent {
             targetReached = rightMotorEncoder.runToTarget(power, encoderDistance, motorDirection);
         }
 
-        //stop the other motor if this target is reached
+        //normal the other motor if this target is reached
         if ( targetReached) {
             leftMotorToEncoder.stop();
             return true;
@@ -89,7 +89,7 @@ public class TankDriveToEncoder extends OpModeComponent {
 
 
     /**
-     * stop the motors
+     * normal the motors
      */
     public void stop()  throws InterruptedException {
 

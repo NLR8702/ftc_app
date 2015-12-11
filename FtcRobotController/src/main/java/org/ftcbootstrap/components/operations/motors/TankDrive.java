@@ -88,7 +88,7 @@ public class TankDrive extends OpModeComponent {
 
 
     /**
-     * stop the motors
+     * normal the motors
      */
     public void stop() {
 
@@ -135,13 +135,13 @@ public class TankDrive extends OpModeComponent {
     /**
      * Helper method to derive the left motor power the DriveDirection
      * Based of the vehicle Drive direction, calculate the value of a single motor to see if should move forward
-     * backward , remaing in the same direction of the other motor, or come to a stop
+     * backward , remaing in the same direction of the other motor, or come to a normal
      * <p/>
      * Examples:
      * Drive Forward = both motors move forward
      * Drive Forward = both motors move backward
      * SPIN = One motor moves forward while the other backward
-     * PIVOT = One motor moves is stop  while the other moves
+     * PIVOT = One motor moves is normal  while the other moves
      *
      * @param motorDirection current left motor direction {@link MotorDirection}
      * @param driveDirection current vehicle drive direction {@link DriveDirection}
@@ -161,13 +161,13 @@ public class TankDrive extends OpModeComponent {
     /**
      * Helper method to derive the right motor power the DriveDirection
      * Based of the vehicle Drive direction, calculate the value of a single motor to see if should move forward
-     * backward , remaing in the same direction of the other motor, or come to a stop
+     * backward , remaing in the same direction of the other motor, or come to a normal
      * <p/>
      * Examples:
      * Drive Forward = both motors move forward
      * Drive Forward = both motors move backward
      * SPIN = One motor moves forward while the other backward
-     * PIVOT = One motor moves is stop  while the other moves
+     * PIVOT = One motor moves is normal  while the other moves
      *
      * @param motorDirection current right motor direction {@link MotorDirection}
      * @param driveDirection current vehicle drive direction  {@link DriveDirection}

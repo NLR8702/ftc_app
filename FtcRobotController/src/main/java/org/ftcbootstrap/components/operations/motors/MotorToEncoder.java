@@ -128,7 +128,7 @@ public class MotorToEncoder extends OpModeComponent {
      */
     public void stop() throws InterruptedException {
         if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData(name + ":stopping motor ", "stop");
+            getOpMode().getTelemetryUtil().addData(name + ":stopping motor ", "normal");
         }
         running = false;
         motor.setPower(0);
