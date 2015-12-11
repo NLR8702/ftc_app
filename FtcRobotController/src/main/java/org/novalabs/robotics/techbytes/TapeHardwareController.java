@@ -44,7 +44,7 @@ public class TapeHardwareController implements HardwareController {
             tapePosition = tapePosition - increment;
         }
         if (opMode.gamepad2.left_bumper) {
-            tapeLock.setPosition(0.5);
+            tapeLock.setPosition(0.4);
         } else if (opMode.gamepad2.right_bumper) {
             tapeLock.setPosition(0);
         }
