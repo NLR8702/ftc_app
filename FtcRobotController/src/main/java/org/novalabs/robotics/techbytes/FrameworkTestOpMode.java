@@ -15,7 +15,8 @@ public class FrameworkTestOpMode extends OpMode {
         controllerList.add(new TapeHardwareController(drive));
         controllerList.add(drive);
         controllerList.add(new DumperHardwareController());
-       // controllerList.add(new KickstandHardwareController());
+        controllerList.add(new ZiplineMechanismHardwareController());
+
 
     }
 
