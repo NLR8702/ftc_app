@@ -51,7 +51,7 @@ public class PushBotIrEvent extends PushBotTelemetrySensors
 
     {
         //
-        // When the robot is close to the IR beacon, stop the motors and
+        // When the robot is close to the IR beacon, normal the motors and
         // transition to the next state.
         //
         int l_status = drive_to_ir_beacon ();

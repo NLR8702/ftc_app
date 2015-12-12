@@ -207,7 +207,7 @@ public class MatrixK9TeleOp extends OpMode {
 	/*
 	 * Code to run when the op mode is first disabled goes here
 	 *
-	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#stop()
+	 * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#normal()
 	 */
 	@Override
 	public void stop() {

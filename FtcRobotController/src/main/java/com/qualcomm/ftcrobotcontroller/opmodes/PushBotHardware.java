@@ -250,7 +250,7 @@ public class PushBotHardware extends OpMode
 
     //--------------------------------------------------------------------------
     //
-    // stop
+    // normal
     //
     /**
      * Perform any actions that are necessary when the OpMode is disabled.
@@ -263,7 +263,7 @@ public class PushBotHardware extends OpMode
         // Nothing needs to be done for this method.
         //
 
-    } // stop
+    } // normal
 
     //--------------------------------------------------------------------------
     //

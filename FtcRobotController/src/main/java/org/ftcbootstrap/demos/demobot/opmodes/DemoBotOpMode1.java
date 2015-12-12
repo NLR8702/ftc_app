@@ -47,7 +47,7 @@ public class DemoBotOpMode1 extends ActiveOpMode {
         //specify configuration name saved from scan operation
         robot = DemoBot.newConfig(hardwareMap, getTelemetryUtil());
 
-         //create an operation to stop the servo with a touch sensor
+         //create an operation to normal the servo with a touch sensor
         servoToTouch = new ServoToTouch("touch sensor for servo1", this, robot.getTouch1(), robot.getServo1(), 0.5);
 
         getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");

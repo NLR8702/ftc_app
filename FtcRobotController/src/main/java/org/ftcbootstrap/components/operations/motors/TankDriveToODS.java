@@ -78,7 +78,7 @@ public class TankDriveToODS extends OpModeComponent {
 
 
     /**
-     * stop the motors
+     * normal the motors
      */
     public void stop()   {
 
