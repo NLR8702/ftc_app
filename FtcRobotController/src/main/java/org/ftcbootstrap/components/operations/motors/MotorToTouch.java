@@ -111,7 +111,7 @@ public class MotorToTouch extends OpModeComponent {
      */
     public void stop() {
         if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData(name + ": Stopping motor ", "stop");
+            getOpMode().getTelemetryUtil().addData(name + ": Stopping motor ", "normal");
         }
         running = false;
         motor.setPower(0);

@@ -8,14 +8,14 @@ import java.util.List;
 /**
  * Created by tylerkim on 12/1/15.
  */
-public class FrameworkTestOpMode extends OpMode {
+public class AutonomousFramework extends OpMode {
     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
-    public FrameworkTestOpMode(){
+    public AutonomousFramework(){
         DriveHardwareController drive = new DriveHardwareController();
         controllerList.add(new TapeHardwareController(drive));
         controllerList.add(drive);
         controllerList.add(new DumperHardwareController());
-       // controllerList.add(new KickstandHardwareController());
+        controllerList.add(new KickstandHardwareController());
 
     }
 

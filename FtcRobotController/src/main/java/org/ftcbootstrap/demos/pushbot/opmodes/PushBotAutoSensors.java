@@ -112,7 +112,7 @@ public class PushBotAutoSensors extends ActiveOpMode {
                 okToExtendArm = true;
 
                 //brightness assumes fixed distance from the target
-                //i.e. line follow or stop on white line
+                //i.e. line follow or normal on white line
                 double targetBrightness = 0.6;
                 //  full power , forward until ODS target brightness >= .6
                 double power =1;

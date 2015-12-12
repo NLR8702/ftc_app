@@ -199,7 +199,7 @@ public class AutoControlHardware extends OpMode
 
     //--------------------------------------------------------------------------
     //
-    // stop
+    // normal
     //
     /**
      * Perform any actions that are necessary when the OpMode is disabled.
@@ -212,7 +212,7 @@ public class AutoControlHardware extends OpMode
         // Nothing needs to be done for this method.
         //
 
-    } // stop
+    } // normal
 
     //--------------------------------------------------------------------------
     //

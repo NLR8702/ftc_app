@@ -34,7 +34,7 @@ public class PushBotOdsFollowEvent extends ActiveOpMode {
     //  full power , forward until target brightness >= .1
     private double power = 0.2;
     //brightness assumes fixed distance from the target
-    //i.e. line follow or stop on white line
+    //i.e. line follow or normal on white line
     private double targetBrightness = 0.8;
 
     /**
