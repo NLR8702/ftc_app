@@ -13,7 +13,7 @@ public class DumperHardwareController implements HardwareController {
     @Override
     public void init(OpMode opMode) {
         DumperMotor = opMode.hardwareMap.servo.get("dumpMotor");
-
+        DumperMotor.setPosition(1);
 
         // :)
 
