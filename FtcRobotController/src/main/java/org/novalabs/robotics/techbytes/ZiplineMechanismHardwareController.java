@@ -11,9 +11,9 @@ public class ZiplineMechanismHardwareController implements HardwareController {
     int rightZiplineState=0;
     private Servo leftZiplineServo;
     int leftZiplineState=0;
-    int rightZiplineRetracted = 40;
-    int rightZiplineMiddle = 80;
-    int rightZiplineFull = 254;
+    int rightZiplineRetracted = 255;
+    int rightZiplineMiddle = 50;
+    int rightZiplineFull = 0;
     int leftZiplineRetracted = 254;
     int leftZiplineMiddle = 210;
     int leftZiplineFull = 31;
@@ -22,7 +22,7 @@ public class ZiplineMechanismHardwareController implements HardwareController {
         rightZiplineServo = opMode.hardwareMap.servo.get("rightZiplineMotor");
         leftZiplineServo = opMode.hardwareMap.servo.get("leftZiplineMotor");
         rightZiplineState = 0;
-        leftZiplineState = 0;
+        leftZiplineState = 255;
         rightZiplineServo.setPosition(rightZiplineRetracted/255);
         leftZiplineServo.setPosition(leftZiplineRetracted/255);
     }
