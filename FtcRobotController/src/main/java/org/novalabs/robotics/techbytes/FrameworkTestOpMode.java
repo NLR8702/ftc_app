@@ -16,14 +16,20 @@ public class FrameworkTestOpMode extends OpMode {
         controllerList.add(new TapeHardwareController(drive));
         controllerList.add(drive);
         controllerList.add(new DumperHardwareController());
-       // controllerList.add(new KickstandHardwareController());
+        controllerList.add(new ZiplineMechanismHardwareController());
+
 
     }
 
     @Override
     public void init() {
         for(HardwareController aController : controllerList) {
-            aController.init(this);
+           try {
+               aController.init(this);
+           } catch(Exception E){
+               telemetry.addData("Cannot Find Device: ", aController.toString());
+               aController = null;
+           }
         }
 
     }
@@ -31,7 +37,10 @@ public class FrameworkTestOpMode extends OpMode {
     @Override
     public void loop() {
         for(HardwareController aController : controllerList) {
-            aController.loop(this);
+            if(aController != null){
+                aController.loop(this);
+
+            }
         }
 
     }
