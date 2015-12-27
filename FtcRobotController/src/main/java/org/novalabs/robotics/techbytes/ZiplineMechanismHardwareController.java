@@ -23,10 +23,6 @@ public class ZiplineMechanismHardwareController implements HardwareController {
     double leftZiplineRetracted =0;
     double leftZiplineMiddle =.8;
     double leftZiplineFull =1;
-
-//    int leftZiplineRetracted = 254/255;
-//    int leftZiplineMiddle = 210/255;
-//    int leftZiplineFull = 31/255;
     ButtonState rightbuttonState;
     ButtonState leftbuttonState;
 
@@ -37,7 +33,7 @@ public class ZiplineMechanismHardwareController implements HardwareController {
         rightZiplineServo = opMode.hardwareMap.servo.get("rightZiplineMotor");
         leftZiplineServo = opMode.hardwareMap.servo.get("leftZiplineMotor");
         rightZiplineState = 0;
-        leftZiplineState = 255;
+        leftZiplineState = 0;
         rightZiplineServo.setPosition(rightZiplineRetracted);
         leftZiplineServo.setPosition(leftZiplineRetracted);
     }
@@ -68,12 +64,11 @@ public class ZiplineMechanismHardwareController implements HardwareController {
         } else if (rightZiplineState == 2) {
             rightZiplineServo.setPosition(rightZiplineFull);
         }
-
-
-
-
         opMode.telemetry.addData("right servo: ", rightZiplineServo.getPosition());
-        if (leftbuttonState == ButtonState.UP && opMode.gamepad2.right_trigger == 1 && opMode.gamepad2.dpad_right) {
+
+
+        opMode.telemetry.addData("Zipline leftstate", leftZiplineState);
+        if (leftbuttonState == ButtonState.UP && opMode.gamepad2.left_trigger == 1 && opMode.gamepad2.dpad_left) {
 
             if (leftZiplineState == 0) {
                 leftZiplineState = 1;
@@ -84,7 +79,7 @@ public class ZiplineMechanismHardwareController implements HardwareController {
                 leftZiplineState = 0;
             }
             leftbuttonState = ButtonState.DOWN;
-        } else if (leftbuttonState == ButtonState.DOWN && opMode.gamepad2.dpad_right == false) {
+        } else if (leftbuttonState == ButtonState.DOWN && opMode.gamepad2.dpad_left == false) {
 
             leftbuttonState = ButtonState.UP;
         }
