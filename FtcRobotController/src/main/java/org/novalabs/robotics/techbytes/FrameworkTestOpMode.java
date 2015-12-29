@@ -40,11 +40,11 @@ public class FrameworkTestOpMode extends OpMode {
             try {
                 aController.loop(this);
             } catch(Exception E){
-                telemetry.addData("Loop Error: ", aController.toString());
+                telemetry.addData("Loop Error: ", aController.getClass().getSimpleName());
             }
         }
         for(HardwareController aController : failedControllerList) {
-            telemetry.addData("Errors: ", aController.toString());
+            telemetry.addData("Errors: ", aController.getClass().getSimpleName());
         }
     }
 }
