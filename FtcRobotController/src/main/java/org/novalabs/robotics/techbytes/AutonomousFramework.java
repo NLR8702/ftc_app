@@ -11,12 +11,8 @@ import java.util.List;
 public class AutonomousFramework extends OpMode {
     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
     public AutonomousFramework(){
-        DriveHardwareController drive = new DriveHardwareController();
-        controllerList.add(new TapeHardwareController(drive));
-        controllerList.add(drive);
-        controllerList.add(new DumperHardwareController());
         controllerList.add(new KickstandHardwareController());
-
+        controllerList.add(new NXTColorSensorAuto());
     }
 
     @Override
