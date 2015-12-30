@@ -19,6 +19,7 @@ public class FrameworkTestOpMode extends OpMode {
         controllerList.add(drive);
         controllerList.add(new DumperHardwareController());
         controllerList.add(new ZiplineMechanismHardwareController());
+        //controllerList.add(new TK_ColorOpMode());
 
 
     }
