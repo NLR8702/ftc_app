@@ -12,7 +12,7 @@ public class AutonomousFramework extends OpMode {
     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
     public AutonomousFramework(){
 //        controllerList.add(new KickstandHardwareController());
-        controllerList.add(new NXTColorSensorAuto());
+        controllerList.add(new NavigationColorSensor());
         controllerList.add(new BeaconDetector());
     }
 

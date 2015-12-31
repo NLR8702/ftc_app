@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
 /**
  * Created by tylerkim on 12/30/15.
  */
-public class NXTColorSensorAuto implements HardwareController {
+public class NavigationColorSensor implements HardwareController {
     ColorSensor sensorRGB;
     DeviceInterfaceModule cdim;
     ColorAnalyzer analyzer = new ColorAnalyzer();
