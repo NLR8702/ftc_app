@@ -82,6 +82,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 //    manager.register("UltrasonicTestOp", UltrasonicTestOp.class);
 //    manager.register("TeleOpMode", TeleOpMode.class);
     manager.register("FrameworkTestOpMode", FrameworkTestOpMode.class);
+    manager.register("TKcoloropmode", TK_ColorOpMode.class);
     /*
 
      * Uncomment any of the following lines if you want to register an op mode.

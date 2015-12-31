@@ -40,8 +40,11 @@ public class TK_ColorOpMode extends OpMode{
         float[] percentageArray = analyzer.getPercentage(red, blue, green);
         telemetry.addData("TEST ", debug_count);
         telemetry.addData("TKS_red",percentageArray[1]);
-        telemetry.addData("TKS _blue",percentageArray[0]);
-        telemetry.addData("TKS_green",percentageArray[2]);
+        telemetry.addData("TKS _blue", percentageArray[0]);
+        telemetry.addData("TKS_green", percentageArray[2]);
+         ColorTypes colorTypes =  analyzer.Color_Result(percentageArray[1], percentageArray[0], percentageArray[2], 0);
+        telemetry.addData("Color= ", colorTypes);
+
         //telemetry.addData("TKS_clear",sensorRGB.alpha());
         //telemetry.addData("detecting: ",  analyzer.Color_Result(red,blue, green, alpha));
         //ColorTypes result = analyzer.Color_Result(red,blue, green, alpha);

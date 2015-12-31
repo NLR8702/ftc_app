@@ -11,6 +11,9 @@ import java.util.List;
  */
 public class FrameworkTestOpMode extends OpMode {
     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
+    List<HardwareController> failedControllerList = new ArrayList();
+
+
     public FrameworkTestOpMode(){
         DriveHardwareController drive = new DriveHardwareController();
         controllerList.add(new TapeHardwareController(drive));
@@ -27,22 +30,23 @@ public class FrameworkTestOpMode extends OpMode {
            try {
                aController.init(this);
            } catch(Exception E){
-               telemetry.addData("Cannot Find Device: ", aController.toString());
-               aController = null;
+               failedControllerList.add(aController);
            }
         }
-
     }
 
     @Override
-    public void loop() {
+       public void loop() {
         for(HardwareController aController : controllerList) {
-            if(aController != null){
+            try {
                 aController.loop(this);
-
+            } catch(Exception E){
+                telemetry.addData("Loop Error: ", aController.getClass().getSimpleName());
             }
         }
-
+        for(HardwareController aController : failedControllerList) {
+            telemetry.addData("Errors: ", aController.getClass().getSimpleName());
+        }
     }
 }
 
