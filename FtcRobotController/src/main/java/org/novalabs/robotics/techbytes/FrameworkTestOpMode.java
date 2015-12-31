@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * Created by tylerkim on 12/1/15.
+ * Ha! no longer default file template now!
  */
 public class FrameworkTestOpMode extends OpMode {
     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
@@ -19,7 +20,7 @@ public class FrameworkTestOpMode extends OpMode {
         controllerList.add(drive);
         controllerList.add(new DumperHardwareController());
         controllerList.add(new ZiplineMechanismHardwareController());
-        //controllerList.add(new TK_ColorOpMode());
+        controllerList.add(new TK_ColorOpMode());
 
 
     }

@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * Created by Zach Shuster on 11/15/2015.
+ * Modified every meeting by children.
  */
 public class TeleOpMode extends OpMode {
     private DcMotor motorLeftFront;
