@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 
 /**
  * Created by Zach Shuster on 12/28/2015.
+ * Tested with some success on 12/30/2015
  */
 public class AutonomousMode extends OpMode {
     private DcMotor leftMotor;
