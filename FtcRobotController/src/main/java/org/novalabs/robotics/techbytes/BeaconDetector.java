@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DigitalChannelController;
 /**
  * Created by tylerkim on 10/25/15./*
  */
-public class TK_ColorOpMode implements HardwareController {
+public class BeaconDetector implements HardwareController {
     private static final int LED_CHANNEL = 5;
     ColorSensor sensorRGB;
     DeviceInterfaceModule cdim;

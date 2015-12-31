@@ -34,17 +34,9 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
-import org.novalabs.robotics.techbytes.AutoControlOp;
 import org.novalabs.robotics.techbytes.AutonomousMode;
 import org.novalabs.robotics.techbytes.FrameworkTestOpMode;
-import org.novalabs.robotics.techbytes.GamePadTestOp;
-import org.novalabs.robotics.techbytes.MotorControllerOp;
-import org.novalabs.robotics.techbytes.MotorTestOp;
-import org.novalabs.robotics.techbytes.PullUpBar_Op;
-import org.novalabs.robotics.techbytes.TK_ColorOpMode;
-import org.novalabs.robotics.techbytes.TechbytesPushBotAuto;
-import org.novalabs.robotics.techbytes.UltrasonicTestOp;
-import org.novalabs.robotics.techbytes.TeleOpMode;
+import org.novalabs.robotics.techbytes.BeaconDetector;
 
 /**
  * Register Op Modes
@@ -76,14 +68,14 @@ public class FtcOpModeRegister implements OpModeRegister {
 //    manager.register ("PushBotManual", PushBotManual.class);
 //    manager.register("MotorTestOp", MotorTestOp.class);
 //    manager.register("PullUpBar_Op", PullUpBar_Op.class);
-//    manager.register("TK_ColorOpMode", TK_ColorOpMode.class);
+//    manager.register("BeaconDetector", BeaconDetector.class);
 //    manager.register("GamePadTestOp", GamePadTestOp.class);
 //    manager.register("MotorControlerOp", MotorControllerOp.class);
 //    manager.register("AutoControlOp", AutoControlOp.class);
 //    manager.register("UltrasonicTestOp", UltrasonicTestOp.class);
 //    manager.register("TeleOpMode", TeleOpMode.class);
     manager.register("FrameworkTestOpMode", FrameworkTestOpMode.class);
-    manager.register("TKcoloropmode", TK_ColorOpMode.class);
+//    manager.register("TKcoloropmode", BeaconDetector.class);
     manager.register("AutonomousMode", AutonomousMode.class);
     /*
 
