@@ -12,18 +12,19 @@ import java.util.List;
  * Tested with some success on 12/30/2015
  */
 public class AutonomousMode extends OpMode {
-//    private List<HardwareController> controllerList = new ArrayList<HardwareController>();
+    //    private List<HardwareController> controllerList = new ArrayList<HardwareController>();
 //    List<HardwareController> failedControllerList = new ArrayList();
     private DcMotor leftMotor;
     private DcMotor rightMotor;
-   // private int loopRotations = 0;
+    // private int loopRotations = 0;
     private static int Stage = 0;
 
-    public AutonomousMode(){
+    public AutonomousMode() {
 //        controllerList.add(new KickstandHardwareController());
 //        controllerList.add(new NavigationColorSensor());
 //        controllerList.add(new BeaconDetector());
     }
+
     @Override
     public void init() {
 //        for(HardwareController aController : controllerList) {
@@ -33,7 +34,7 @@ public class AutonomousMode extends OpMode {
 //                failedControllerList.add(aController);
 //            }
 //        }
-
+        Stage = 0;
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
         leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -43,6 +44,22 @@ public class AutonomousMode extends OpMode {
 
     @Override
     public void loop() {
+
+
+
+        Stage = Stage + 1;
+        if (Stage == 1){
+            leftMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+            rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
+        }else if (Stage == 2) {
+            leftMotor.setPower(.25);
+            rightMotor.setPower(.25);
+//            Stage = Stage + 1;
+        } else if (Stage == 3) {
+            leftMotor.setTargetPosition(560);
+            rightMotor.setTargetPosition(560);
+        }
 //        for(HardwareController aController : controllerList) {
 //            try {
 //                aController.loop(this);
@@ -66,25 +83,23 @@ public class AutonomousMode extends OpMode {
 //            rightMotor.setPower(.25);
 //            leftMotor.setPower(.25);
 //        }}
-        Stage = Stage + 1;
-        if (Stage == 1) {
-            leftMotor.setPower(.25);
-            rightMotor.setPower(.25);
-            Stage = Stage + 1;
-    } else if (Stage == 2) {
-            leftMotor.setPower(.25);
-            rightMotor.setPower(0);
-            Stage = Stage + 1;
-        } else if (Stage == 3) {
-            leftMotor.setPower(.5);
-            rightMotor.setPower(.5);
-            Stage = Stage + 1;
-        } else if (Stage == 4); {
-            leftMotor.setPower(0);
-            rightMotor.setPower(0);
-        }
-    }
-}
+
+
+
+//        } else if (Stage == ) {
+//            leftMotor.setPower(.25);
+//            rightMotor.setPower(0);
+////            Stage = Stage + 1;
+//        } else if (Stage == ) {
+//            leftMotor.setPower(.5);
+//            rightMotor.setPower(.5);
+////            Stage = Stage + 1;
+//        } else if (Stage == ); {
+//            leftMotor.setPower(0);
+//            rightMotor.setPower(0);
+//        }
+//    }
+//}
 
 ////        }else if(loopRotations == 4) {
 ////            leftMotor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
@@ -104,3 +119,5 @@ public class AutonomousMode extends OpMode {
 //        }
 //    }
 ////}
+    }
+}
