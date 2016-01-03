@@ -16,10 +16,11 @@ public class DumperHardwareController implements HardwareController {
     public void init(OpMode opMode) {
         DumperMotor = opMode.hardwareMap.servo.get("dumpMotor");
         DumperMotor.setPosition(1);
+        dumperPosition=1;
         increment = .01f;
 
 
-        // :)
+        //
 
     }
 
