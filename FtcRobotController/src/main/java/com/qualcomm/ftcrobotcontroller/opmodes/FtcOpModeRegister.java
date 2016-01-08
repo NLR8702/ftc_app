@@ -37,6 +37,8 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.novalabs.robotics.techbytes.AutonomousMode;
 import org.novalabs.robotics.techbytes.FrameworkTestOpMode;
 import org.novalabs.robotics.techbytes.BeaconDetector;
+import org.novalabs.robotics.techbytes.GyroSensorAuto;
+import org.novalabs.robotics.techbytes.NavigationColorSensor;
 
 /**
  * Register Op Modes
@@ -59,23 +61,9 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-//    manager.register("NullOp", NullOp.class);
-//
-//    manager.register("MatrixK9TeleOp", MatrixK9TeleOp.class);
-//    manager.register("K9TeleOp", K9TeleOp.class);
-//    manager.register("K9Line", K9Line.class);
-//    manager.register ("PushBotAuto", PushBotAuto.class);
-//    manager.register ("PushBotManual", PushBotManual.class);
-//    manager.register("MotorTestOp", MotorTestOp.class);
-//    manager.register("PullUpBar_Op", PullUpBar_Op.class);
-//    manager.register("BeaconDetector", BeaconDetector.class);
-//    manager.register("GamePadTestOp", GamePadTestOp.class);
-//    manager.register("MotorControlerOp", MotorControllerOp.class);
-//    manager.register("AutoControlOp", AutoControlOp.class);
-//    manager.register("UltrasonicTestOp", UltrasonicTestOp.class);
-//    manager.register("TeleOpMode", TeleOpMode.class);
+
     manager.register("FrameworkTestOpMode", FrameworkTestOpMode.class);
-//    manager.register("TKcoloropmode", BeaconDetector.class);
+    manager.register("Navigation", org.novalabs.robotics.techbytes.tests.NavigationColorSensor.class);
     manager.register("AutonomousMode", AutonomousMode.class);
     /*
 
