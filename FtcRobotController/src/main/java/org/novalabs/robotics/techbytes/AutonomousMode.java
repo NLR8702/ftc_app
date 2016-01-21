@@ -55,12 +55,13 @@ public class AutonomousMode extends OpMode {
 
         }else if (CurrentStage == 1) {
             rightMotor.setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+            rightMotor.setTargetPosition(560);
             rightMotor.setPower(.25);
             CurrentStage = CurrentStage + 1;
         } else if (CurrentStage == 2) {
 
-            rightMotor.setTargetPosition(560);
-            CurrentStage = CurrentStage + 1;
+
+
 
         }
 
