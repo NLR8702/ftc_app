@@ -28,14 +28,14 @@ public class AutonomousModeRight extends LinearOpMode {
         rightMotor.setPower(.5);
         sleep(5000);
         //go back a little
-        leftMotor.setPower(-5);
-        rightMotor.setPower(-5);
+        leftMotor.setPower(-.5);
+        rightMotor.setPower(-.5);
         sleep(2000);
         //turn right
         leftMotor.setPower(.5);
         rightMotor.setPower(-.5);
         sleep(2500);
-        //go up mountain
+        //go up mounta
         leftMotor.setPower(.85);
         rightMotor.setPower(.85);
         sleep(2700);
