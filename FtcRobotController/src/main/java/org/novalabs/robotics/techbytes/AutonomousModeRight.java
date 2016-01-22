@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Zach Shuster on 12/28/2015.
  * Tested with some success on 12/30/2015
  */
-public class AutonomousMode extends LinearOpMode {
+public class AutonomousModeRight extends LinearOpMode {
     private DcMotor leftMotor;
     private DcMotor rightMotor;
 //     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
@@ -22,13 +22,23 @@ public class AutonomousMode extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
+        waitForStart();
+        // go straight
         leftMotor.setPower(.5);
         rightMotor.setPower(.5);
-
-        // sleep (milliseconds)
         sleep(5000);
-        leftMotor.setPower(0);
-        rightMotor.setPower(0);
+        //go back a little
+        leftMotor.setPower(-5);
+        rightMotor.setPower(-5);
+        sleep(2000);
+        //turn right
+        leftMotor.setPower(.5);
+        rightMotor.setPower(-.5);
+        sleep(2500);
+        //go up mountain
+        leftMotor.setPower(.85);
+        rightMotor.setPower(.85);
+        sleep(2700);
     }
 
 
@@ -69,7 +79,7 @@ public class AutonomousMode extends LinearOpMode {
 //    private int loopRotations = 0;
 //    private static int CurrentStage = 0;
 //
-//    public AutonomousMode() {
+//    public AutonomousModeRight() {
 //        controllerList.add(new KickstandHardwareController());
 //        controllerList.add(new NavigationColorSensor());
 //        controllerList.add(new BeaconDetector());
