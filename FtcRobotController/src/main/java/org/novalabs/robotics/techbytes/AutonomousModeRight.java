@@ -17,28 +17,69 @@ public class AutonomousModeRight extends LinearOpMode {
     private DcMotor rightMotor;
 //     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
 //  List<HardwareController> failedControllerList = new ArrayList();
-
+    private int Sleep_1 = 500;
+    private int Sleep_2 = 500;
+    private int Sleep_3 = 2000;
+    private int Sleep_4 = 2000;
+    private int Sleep_5 = 750;
+    private int Sleep_6 = 3000;
+    private void intermediate_halt() throws InterruptedException {
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+        sleep(500);
+    }
+    private float powerlevel = .5f;
     @Override
     public void runOpMode() throws InterruptedException {
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
         waitForStart();
         // go straight
-        leftMotor.setPower(.5);
-        rightMotor.setPower(.5);
-        sleep(5000);
-        //go back a little
-        leftMotor.setPower(-.5);
-        rightMotor.setPower(-.5);
-        sleep(2000);
-        //turn right
-        leftMotor.setPower(.5);
-        rightMotor.setPower(-.5);
-        sleep(2500);
-        //go up mounta
-        leftMotor.setPower(.85);
-        rightMotor.setPower(.85);
-        sleep(2700);
+        leftMotor.setPower(.25);
+        rightMotor.setPower(.25);
+        sleep(Sleep_1);
+        intermediate_halt();
+        // right turn forty five degrees
+        leftMotor.setPower(.0);
+        rightMotor.setPower(.25);
+        sleep(Sleep_2);
+        intermediate_halt();
+        // straight across the field
+        leftMotor.setPower(.25);
+        rightMotor.setPower(.25);
+        sleep(Sleep_3);
+        intermediate_halt();
+        // backup
+        leftMotor.setPower(-.25);
+        rightMotor.setPower(-.25);
+        sleep(Sleep_4);
+        intermediate_halt();
+        // right turn 90o
+        leftMotor.setPower(0);
+        rightMotor.setPower(.25);
+        sleep(Sleep_5);
+        intermediate_halt();
+        // go up the mountain
+        leftMotor.setPower(.25);
+        rightMotor.setPower(.25);
+        sleep(Sleep_6);
+        intermediate_halt();
+        // STTOOOPPPP!!!
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+        //stop
+//        //go back a little
+//        leftMotor.setPower(-.5);
+//        rightMotor.setPower(-.5);
+//        sleep(2000);
+//        //turn right
+//        leftMotor.setPower(.5);
+//        rightMotor.setPower(-.5);
+//        sleep(2500);
+//        //go up mounta
+//        leftMotor.setPower(.85);
+//        rightMotor.setPower(.85);
+//        sleep(2700);
     }
 
 
@@ -190,3 +231,55 @@ public class AutonomousModeRight extends LinearOpMode {
 //////}
 //    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+goals today:
+- work on autonomous
+  1. Zach: left
+           using encoders
+
+  2. Tyler: right
+            using "sleep" program
+
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
