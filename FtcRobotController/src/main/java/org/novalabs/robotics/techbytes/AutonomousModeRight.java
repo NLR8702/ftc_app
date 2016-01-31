@@ -18,7 +18,7 @@ public class AutonomousModeRight extends LinearOpMode {
 //     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
 //  List<HardwareController> failedControllerList = new ArrayList();
     private int Sleep_1 = 500;
-    private int Sleep_2 = 500;
+    private int right_fortyfive_sleep = 500;
     private int Sleep_3 = 2000;
     private int Sleep_4 = 2000;
     private int Sleep_5 = 750;
@@ -35,31 +35,33 @@ public class AutonomousModeRight extends LinearOpMode {
         leftMotor = hardwareMap.dcMotor.get("leftMotor");
         rightMotor = hardwareMap.dcMotor.get("rightMotor");
         waitForStart();
-        // go straight
-        leftMotor.setPower(.25);
-        rightMotor.setPower(.25);
-        sleep(Sleep_1);
+        AutonomousUtility.first_forwards(leftMotor, rightMotor);
         intermediate_halt();
+
         // right turn forty five degrees
         leftMotor.setPower(.0);
         rightMotor.setPower(.25);
-        sleep(Sleep_2);
+        sleep(right_fortyfive_sleep);
         intermediate_halt();
+
         // straight across the field
         leftMotor.setPower(.25);
         rightMotor.setPower(.25);
         sleep(Sleep_3);
         intermediate_halt();
+
         // backup
         leftMotor.setPower(-.25);
         rightMotor.setPower(-.25);
         sleep(Sleep_4);
         intermediate_halt();
+
         // right turn 90o
         leftMotor.setPower(0);
         rightMotor.setPower(.25);
         sleep(Sleep_5);
         intermediate_halt();
+        
         // go up the mountain
        AutonomousUtility.goUpMountain (leftMotor, rightMotor);
         intermediate_halt();
