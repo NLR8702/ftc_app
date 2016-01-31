@@ -12,6 +12,7 @@ public class AutonomousUtility {
     private static float starboard = (float).5;
     private static float port = (float) .5;
     private static double first_forward = .25;
+    private static int Right_90Sleep = 1050;
 
 
 
@@ -41,9 +42,9 @@ public class AutonomousUtility {
         leftMotor.setPower(0);
     }
     public static void rightTurn(DcMotor leftMotor, DcMotor rightMotor) throws InterruptedException {
-        rightMotor.setPower(0);
-        leftMotor.setPower(.25);
-        sleep(1050);
+        leftMotor.setPower(0);
+        rightMotor.setPower(.25);
+        sleep(Right_90Sleep);
         rightMotor.setPower(0);
         leftMotor.setPower(0);
     }
