@@ -20,8 +20,8 @@ public class AutonomousModeRight extends LinearOpMode {
     private int Sleep_1 = 500;
     private int right_fortyfive_sleep = 500;
     private int Sleep_3 = 2000;
-    private int Sleep_4 = 2000;
-    private int Sleep_5 = 750;
+    private int Sleep_4 = 750;
+
 
 
     private void intermediate_halt() throws InterruptedException {
@@ -40,7 +40,7 @@ public class AutonomousModeRight extends LinearOpMode {
 
         // right turn forty five degrees
         leftMotor.setPower(.0);
-        rightMotor.setPower(.25);
+        rightMotor.setPower(.5);
         sleep(right_fortyfive_sleep);
         intermediate_halt();
 
@@ -57,11 +57,9 @@ public class AutonomousModeRight extends LinearOpMode {
         intermediate_halt();
 
         // right turn 90o
-        leftMotor.setPower(0);
-        rightMotor.setPower(.25);
-        sleep(Sleep_5);
+        AutonomousUtility.rightTurn(leftMotor, rightMotor);
         intermediate_halt();
-        
+
         // go up the mountain
        AutonomousUtility.goUpMountain (leftMotor, rightMotor);
         intermediate_halt();
