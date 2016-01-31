@@ -55,6 +55,10 @@ public class AutonomousUtility {
     }
 
 
+    public static void stop(DcMotor leftMotor, DcMotor rightMotor){
+        leftMotor.setPower(0);
+        rightMotor.setPower(0);
+    }
 
 }
 
