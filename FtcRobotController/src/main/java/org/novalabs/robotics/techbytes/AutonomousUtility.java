@@ -11,6 +11,7 @@ public class AutonomousUtility {
     private static float everest = (float) .5;
     private static float starboard = (float).5;
     private static float port = (float) .5;
+    private static double first_forward = .25;
 
 
 
@@ -46,10 +47,10 @@ public class AutonomousUtility {
         rightMotor.setPower(0);
         leftMotor.setPower(0);
     }
-    public static void forwards(DcMotor leftMotor, DcMotor rightMotor) throws InterruptedException {
-        rightMotor.setPower(1);
-        leftMotor.setPower(1);
-        sleep(5000);
+    public static void first_forwards(DcMotor leftMotor, DcMotor rightMotor) throws InterruptedException {
+        rightMotor.setPower(first_forward);
+        leftMotor.setPower(first_forward);
+        sleep(500);
         rightMotor.setPower(0);
         leftMotor.setPower(0);
     }
@@ -59,6 +60,7 @@ public class AutonomousUtility {
         leftMotor.setPower(0);
         rightMotor.setPower(0);
     }
+
 
 }
 
