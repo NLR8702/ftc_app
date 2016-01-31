@@ -18,6 +18,11 @@ public class NavigationColorSensor implements HardwareController {
         sensorRGB = opMode.hardwareMap.colorSensor.get("nxt");
         cdim = opMode.hardwareMap.deviceInterfaceModule.get("dim");
         sensorRGB.enableLed(true);
+        // bEnabled represents the state of the LED.
+        boolean bEnabled = true;
+
+        // turn the LED on in the beginning, just so user will know that the sensor is active.
+        sensorRGB.enableLed(true);
 
 
     }
