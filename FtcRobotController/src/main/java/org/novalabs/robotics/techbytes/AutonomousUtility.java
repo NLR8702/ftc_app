@@ -20,9 +20,9 @@ public class AutonomousUtility {
     }
 
     public static void goUpMountain(DcMotor leftMotor, DcMotor rightMotor) throws InterruptedException {
-        rightMotor.setPower(.5);
-        leftMotor.setPower(.5);
-        sleep(1000);
+        rightMotor.setPower(.35);
+        leftMotor.setPower(.35);
+        sleep(3000);
         rightMotor.setPower(0);
         leftMotor.setPower(0);
     }
@@ -42,8 +42,8 @@ public class AutonomousUtility {
     }
     public static void rightTurn(DcMotor leftMotor, DcMotor rightMotor) throws InterruptedException {
         rightMotor.setPower(0);
-        leftMotor.setPower(.5);
-        sleep(500);
+        leftMotor.setPower(.25);
+        sleep(1050);
         rightMotor.setPower(0);
         leftMotor.setPower(0);
     }
