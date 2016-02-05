@@ -29,7 +29,7 @@ public class TapeHardwareController implements HardwareController {
         tapeLock= opMode.hardwareMap.servo.get("tapeLock");
 
 
-        increment=.005f;
+        increment=.05f;     
         tapePosition=.5f;
 
         tapeLock.setPosition(0.5);
