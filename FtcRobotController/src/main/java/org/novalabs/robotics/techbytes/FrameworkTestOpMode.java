@@ -15,9 +15,8 @@ public class FrameworkTestOpMode extends OpMode {
 
 
     public FrameworkTestOpMode(){
-        DriveHardwareController drive = new DriveHardwareController();
-        controllerList.add(new TapeHardwareController(drive));
-        controllerList.add(drive);
+        controllerList.add(new DriveHardwareController());
+        controllerList.add(new TapeHardwareController());
         controllerList.add(new DumperHardwareController());
         controllerList.add(new ZiplineMechanismHardwareController());
 
@@ -30,6 +29,8 @@ public class FrameworkTestOpMode extends OpMode {
            try {
                aController.init(this);
            } catch(Exception E){
+               telemetry.addData("Init Error: ", aController.getClass().getSimpleName());
+               telemetry.addData("Init Error: ",E.getStackTrace());
                failedControllerList.add(aController);
            }
         }
@@ -42,10 +43,13 @@ public class FrameworkTestOpMode extends OpMode {
                 aController.loop(this);
             } catch(Exception E){
                 telemetry.addData("Loop Error: ", aController.getClass().getSimpleName());
+
             }
         }
         for(HardwareController aController : failedControllerList) {
             telemetry.addData("Errors: ", aController.getClass().getSimpleName());
+            //telemetry.addData("Errors: ", aController.getClass().getSimpleName());
+
         }
     }
 }
