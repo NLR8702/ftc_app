@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.ftcTeam.opmodes.GamePadDriveOpMode;
 import org.ftcbootstrap.demos.TelemetryTest;
 import org.ftcbootstrap.demos.pushbot.opmodes.PushBotAuto;
+import org.novalabs.robotics.techbytes.UltrasonicTestOp;
 
 
 /**
@@ -38,6 +39,8 @@ public class FTCTeamRegistry implements OpModeRegister {
     manager.register("TelemetryTest", TelemetryTest.class);
 
     manager.register("PushBotTest", PushBotAuto.class);
+
+    manager.register("Ultrasonic Test", UltrasonicTestOp.class);
 
     
   }
