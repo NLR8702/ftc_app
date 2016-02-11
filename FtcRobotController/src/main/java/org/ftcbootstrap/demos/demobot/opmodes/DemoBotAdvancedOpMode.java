@@ -2,12 +2,13 @@ package org.ftcbootstrap.demos.demobot.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
+import org.ftcbootstrap.demos.demobot.DemoBot;
+
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.ColorSensorComponent;
 import org.ftcbootstrap.components.operations.motors.TankDriveToEncoder;
 import org.ftcbootstrap.components.operations.motors.TankDriveToODS;
 import org.ftcbootstrap.components.utils.DriveDirection;
-import org.ftcbootstrap.demos.demobot.DemoBot;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
@@ -45,6 +46,7 @@ public class DemoBotAdvancedOpMode extends ActiveOpMode {
         tankDriveToEncoder = new TankDriveToEncoder(this, robot.getMotor1(), robot.getMotor2());
         tankDriveToODS = new TankDriveToODS(this, robot.getOds1(), robot.getMotor1(), robot.getMotor2());
         colorSensorComponent = new ColorSensorComponent(this, robot.getMrColor1(), ColorSensorComponent.ColorSensorDevice.MODERN_ROBOTICS_I2C);
+        colorSensorComponent.enableLed(false);
 
         getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");
         getTelemetryUtil().sendTelemetry();
@@ -56,7 +58,6 @@ public class DemoBotAdvancedOpMode extends ActiveOpMode {
         super.onStart();
         step = 1;
 
-        tankDriveToEncoder.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
         colorSensorComponent.enableLed(true);
 
     }
@@ -103,7 +104,8 @@ public class DemoBotAdvancedOpMode extends ActiveOpMode {
         switch (step) {
             case 1:
                 //full power , forward for 20000
-                targetReached =  tankDriveToEncoder.runToTarget(1, 20000,  DriveDirection.DRIVE_FORWARD);
+                targetReached =  tankDriveToEncoder.runToTarget(1, 20000,
+                        DriveDirection.DRIVE_FORWARD,DcMotorController.RunMode.RUN_USING_ENCODERS);
                 if (targetReached) {
                     step++;
                 }
@@ -111,7 +113,8 @@ public class DemoBotAdvancedOpMode extends ActiveOpMode {
 
             case 2:
                 //turn 90 degrees (note : 5000 will need to be changed
-                targetReached =  tankDriveToEncoder.runToTarget(0.5, 5000,  DriveDirection.SPIN_LEFT);
+                targetReached =  tankDriveToEncoder.runToTarget(0.5, 5000,
+                        DriveDirection.SPIN_LEFT,DcMotorController.RunMode.RUN_USING_ENCODERS );
                 if (targetReached) {
                     step++;
                 }
@@ -119,7 +122,8 @@ public class DemoBotAdvancedOpMode extends ActiveOpMode {
 
             case 3:
                 //full power , forward for 4000
-                targetReached =  tankDriveToEncoder.runToTarget(1, 4000,  DriveDirection.DRIVE_FORWARD);
+                targetReached =  tankDriveToEncoder.runToTarget(1, 4000,
+                        DriveDirection.DRIVE_FORWARD,DcMotorController.RunMode.RUN_USING_ENCODERS  );
                 if (targetReached) {
                     step++;
                 }
@@ -141,7 +145,8 @@ public class DemoBotAdvancedOpMode extends ActiveOpMode {
                 // 1/4 power , forward until target proximity >= .15
                 double power = 0.25;
                 double proximityStrength = 0.15;
-                targetReached = tankDriveToODS.runToTarget("step " + step, power, proximityStrength, DriveDirection.DRIVE_FORWARD);
+                targetReached = tankDriveToODS.runToTarget(power, proximityStrength,
+                        DriveDirection.DRIVE_FORWARD);
                 if (targetReached) {
                     step++;
                 }

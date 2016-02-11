@@ -34,7 +34,7 @@ public class ColorSensorComponent extends OpModeComponent {
 
         this.colorSensor = colorSensor;
         this.device = device;
-        //set to true to intitially illuminate
+        //set to true to illuminate initially
         enableLed(true);
 
     }

@@ -2,8 +2,8 @@ package org.ftcbootstrap.demos.pushbot.opmodes;
 
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.TankDrive;
-import org.ftcbootstrap.components.utils.DriveDirection;
 import org.ftcbootstrap.demos.pushbot.PushBot;
+import org.ftcbootstrap.components.utils.DriveDirection;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
@@ -14,7 +14,7 @@ import org.ftcbootstrap.demos.pushbot.PushBot;
  * <p/>
  * Summary:
  * <p/>
- * Refactored from the original Qaulcomm PushBot examples to demonstrate the use of the latest
+ * Refactored from the original Qualcomm PushBot examples to demonstrate the use of the latest
  * reusable components and operations
  * See:
  * <p/>
@@ -60,7 +60,7 @@ public class PushBotTouchEvent extends ActiveOpMode {
             tankDrive.stop();
         }
         else {
-            tankDrive.drive("driving", 1, DriveDirection.DRIVE_FORWARD);
+            tankDrive.drive( 1, DriveDirection.DRIVE_FORWARD);
         }
 
         //send any telemetry that may have been added in the above operations

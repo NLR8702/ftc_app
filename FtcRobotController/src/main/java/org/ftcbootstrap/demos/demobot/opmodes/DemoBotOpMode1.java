@@ -4,14 +4,14 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
 
-import com.qualcomm.ftcrobotcontroller.R;
-
-import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.ColorSensorComponent;
 import org.ftcbootstrap.components.operations.motors.GamePadMotor;
 import org.ftcbootstrap.components.operations.servos.GamePadServo;
 import org.ftcbootstrap.components.operations.servos.ServoToTouch;
 import org.ftcbootstrap.demos.demobot.DemoBot;
+import org.ftcbootstrap.ActiveOpMode;
+
+import com.qualcomm.ftcrobotcontroller.R;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
@@ -47,14 +47,14 @@ public class DemoBotOpMode1 extends ActiveOpMode {
         //specify configuration name saved from scan operation
         robot = DemoBot.newConfig(hardwareMap, getTelemetryUtil());
 
-         //create an operation to normal the servo with a touch sensor
+         //create an operation to stop the servo with a touch sensor
         servoToTouch = new ServoToTouch("touch sensor for servo1", this, robot.getTouch1(), robot.getServo1(), 0.5);
 
         getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");
         getTelemetryUtil().sendTelemetry();
 
         colorSensorComponent = new ColorSensorComponent(this, robot.getMrColor1(), ColorSensorComponent.ColorSensorDevice.MODERN_ROBOTICS_I2C);
-
+        colorSensorComponent.enableLed(false);
 
         // get a reference to the RelativeLayout so we can change the background
         // color of the Robot Controller app to match the hue detected by the RGB sensor.

@@ -1,15 +1,14 @@
 package org.ftcbootstrap.components.utils;
 
-import org.ftcbootstrap.ActiveOpMode;
-
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.Map.Entry;
+import org.ftcbootstrap.ActiveOpMode;
 
 /**
  * Helper class for standard opmode.telemetry feature

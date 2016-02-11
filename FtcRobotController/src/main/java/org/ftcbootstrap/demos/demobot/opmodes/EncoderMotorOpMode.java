@@ -2,10 +2,10 @@ package org.ftcbootstrap.demos.demobot.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
+import org.ftcbootstrap.demos.demobot.DemoBot;
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.MotorToEncoder;
 import org.ftcbootstrap.components.utils.MotorDirection;
-import org.ftcbootstrap.demos.demobot.DemoBot;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
@@ -34,7 +34,8 @@ public class EncoderMotorOpMode extends ActiveOpMode {
         //specify configuration name save from scan operation
         robot = DemoBot.newConfig(hardwareMap, getTelemetryUtil());
 
-        motorToEncoder = new MotorToEncoder("motor1",  this, robot.getMotor1());
+        motorToEncoder = new MotorToEncoder(  this, robot.getMotor1());
+        motorToEncoder.setName("motor1");
 
         getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");
         getTelemetryUtil().sendTelemetry();
@@ -45,7 +46,6 @@ public class EncoderMotorOpMode extends ActiveOpMode {
     protected void onStart() throws InterruptedException  {
         super.onStart();
         step = 1;
-        motorToEncoder.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
 
     /**
@@ -66,7 +66,8 @@ public class EncoderMotorOpMode extends ActiveOpMode {
             case 1:
 
                 //full power , forward for 8880
-                targetReached = motorToEncoder.runToTarget(1, 8880);
+                targetReached = motorToEncoder.runToTarget(1, 8880,
+                        MotorDirection.MOTOR_FORWARD, DcMotorController.RunMode.RUN_USING_ENCODERS);
                 if (targetReached) {
                     step++;
                 }
@@ -74,7 +75,8 @@ public class EncoderMotorOpMode extends ActiveOpMode {
 
             case 2:
                 //  1/4 power backward for 1000
-                targetReached = motorToEncoder.runToTarget(0.25, 1000, MotorDirection.MOTOR_BACKWARD);
+                targetReached = motorToEncoder.runToTarget(0.25, 1000,
+                        MotorDirection.MOTOR_BACKWARD, DcMotorController.RunMode.RUN_USING_ENCODERS);
                 if (targetReached) {
                     step++;
                 }

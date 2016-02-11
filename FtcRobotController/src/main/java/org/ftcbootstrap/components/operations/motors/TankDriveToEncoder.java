@@ -29,8 +29,19 @@ public class TankDriveToEncoder extends OpModeComponent {
                               DcMotor rightMotor) {
 
         super(opMode);
-        leftMotorToEncoder =  new MotorToEncoder("left motor" , opMode, leftMotor );
-        rightMotorEncoder = new MotorToEncoder( "right motor" , opMode, rightMotor );
+        leftMotorToEncoder =  new MotorToEncoder(opMode, leftMotor );
+        leftMotorToEncoder.setName("left motor");
+        rightMotorEncoder = new MotorToEncoder( opMode, rightMotor );
+        leftMotorToEncoder.setName("right motor");
+
+    }
+
+    @Override
+    public void setOpModeLogLevel(int logLevel) {
+        super.setOpModeLogLevel(logLevel);
+
+        leftMotorToEncoder.setOpModeLogLevel(logLevel);
+        rightMotorEncoder.setOpModeLogLevel(logLevel);
 
     }
 
@@ -40,36 +51,41 @@ public class TankDriveToEncoder extends OpModeComponent {
      * @param power
      * @param encoderDistance
      * @param driveDirection  {@link DriveDirection}
+     * @param runMode  {@Link DcMotorController.RunMode}
      * @return boolean target reached
      * @throws InterruptedException
      */
-    public boolean runToTarget(double power, double encoderDistance, DriveDirection driveDirection) throws InterruptedException {
+    public boolean runToTarget(double power, int encoderDistance, DriveDirection driveDirection, DcMotorController.RunMode runMode) throws InterruptedException {
 
         boolean targetReached = false;
 
         MotorDirection motorDirection = TankDrive.leftMotorDirectionOn(driveDirection);
-        if (driveDirection == DriveDirection.PIVOT_LEFT) {
-            targetReached = leftMotorToEncoder.runToTarget(0f, encoderDistance, motorDirection);
+        if (driveDirection == DriveDirection.PIVOT_FORWARD_LEFT || driveDirection == DriveDirection.PIVOT_BACKWARD_LEFT) {
+            leftMotorToEncoder.stop();
         }
         else {
-            targetReached =  leftMotorToEncoder.runToTarget(power, encoderDistance, motorDirection);
+            targetReached =  leftMotorToEncoder.runToTarget(power, encoderDistance, motorDirection, runMode);
         }
 
-        //normal the other motor if this target is reached
+        //stop the other motor if this target is reached
         if ( targetReached) {
+
+            addTelemetry("left target reached.  Stopping right  left pos: " ,
+                    leftMotorToEncoder.motorCurrentPosition() + " right pos: "  + rightMotorEncoder.motorCurrentPosition());
+
             rightMotorEncoder.stop();
             return true;
         }
 
         motorDirection = TankDrive.rightMotorDirectionOn(driveDirection);
-        if (driveDirection == DriveDirection.PIVOT_RIGHT) {
-            targetReached = rightMotorEncoder.runToTarget(0f, encoderDistance, motorDirection);
+        if (driveDirection == DriveDirection.PIVOT_FORWARD_RIGHT || driveDirection == DriveDirection.PIVOT_BACKWARD_RIGHT) {
+            rightMotorEncoder.stop();
         }
         else {
-            targetReached = rightMotorEncoder.runToTarget(power, encoderDistance, motorDirection);
+            targetReached = rightMotorEncoder.runToTarget(power, encoderDistance, motorDirection, runMode);
         }
 
-        //normal the other motor if this target is reached
+        //stop the other motor if this target is reached
         if ( targetReached) {
             leftMotorToEncoder.stop();
             return true;
@@ -89,7 +105,7 @@ public class TankDriveToEncoder extends OpModeComponent {
 
 
     /**
-     * normal the motors
+     * stop the motors
      */
     public void stop()  throws InterruptedException {
 
@@ -108,10 +124,6 @@ public class TankDriveToEncoder extends OpModeComponent {
         return leftMotorToEncoder.targetReached() || rightMotorEncoder.targetReached();
     }
 
-    public void startRunMode(DcMotorController.RunMode runMode) throws InterruptedException {
 
-        leftMotorToEncoder.startRunMode(runMode);
-        rightMotorEncoder.startRunMode(runMode);
-    }
 
 }

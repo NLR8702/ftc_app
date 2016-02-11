@@ -1,23 +1,22 @@
-package org.ftcbootstrap.demos.pushbot.opmodes;
+package org.ftcbootstrap.demos.navbot.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.GamePadTankDrive;
 import org.ftcbootstrap.components.operations.motors.MotorToEncoder;
-import org.ftcbootstrap.demos.pushbot.PushBot;
+import org.ftcbootstrap.demos.navbot.NavBot;
+
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
- * saved the configuration named: "Pushbot" and creating a class by the same name: {@link PushBot}.
+ * saved the configuration named: "NavBot" and creating a class by the same name: {@link NavBot}.
  * <p/>
  * Note:  It is assumed that the proper registry is used for this set of demos. To confirm please
  * search for "Enter your custom registry here"  in  {@link com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity}
  * <p/>
  * Summary:
  * <p/>
- * Refactored from the original Qaulcomm PushBot examples to demonstrate the use of the latest
- * reusable components and operations
  * See:
  * <p/>
  * {@link org.ftcbootstrap.components},
@@ -26,11 +25,11 @@ import org.ftcbootstrap.demos.pushbot.PushBot;
  * <p/>
  * {@link org.ftcbootstrap.components.operations.motors}
  * <p/>
- * Also see: {@link PushBot} for the saved configuration
+ * Also see: {@link NavBot} for the saved configuration
  */
-public class EncoderTest2 extends ActiveOpMode {
+public class EncoderTestFromGamepadSticks extends ActiveOpMode {
 
-    private PushBot robot;
+    private NavBot robot;
 
     private MotorToEncoder leftMotorToEncoder;
     private MotorToEncoder rightMotorToEncoder;
@@ -45,11 +44,12 @@ public class EncoderTest2 extends ActiveOpMode {
     protected void onInit() {
 
         //specify configuration name save from scan operation
-        robot = PushBot.newConfig(hardwareMap, getTelemetryUtil());
+        robot = NavBot.newConfig(hardwareMap, getTelemetryUtil());
 
-        leftMotorToEncoder = new MotorToEncoder("left runToTarget",  this, robot.getLeftDrive());
-        rightMotorToEncoder = new MotorToEncoder("right runToTarget",  this, robot.getRightDrive());
-
+        leftMotorToEncoder = new MotorToEncoder(this, robot.getLeftDrive());
+        leftMotorToEncoder.setName("left runToTarget"  );
+        rightMotorToEncoder = new MotorToEncoder(this, robot.getRightDrive());
+        rightMotorToEncoder.setName("right runToTarget"  );
 
         getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");
         getTelemetryUtil().sendTelemetry();
@@ -63,11 +63,9 @@ public class EncoderTest2 extends ActiveOpMode {
         super.onStart();
         //set up tank runToTarget operation to use the gamepad joysticks
         tankDrive =  new GamePadTankDrive( this, gamepad1,robot.getLeftDrive(), robot.getRightDrive());
+        tankDrive.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
         step = 1;
-        leftMotorToEncoder.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        rightMotorToEncoder.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-
 
         //getTelemetryUtil().setSortByTime(true);
     }

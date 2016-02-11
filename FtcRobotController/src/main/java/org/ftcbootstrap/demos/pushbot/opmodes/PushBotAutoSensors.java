@@ -3,11 +3,11 @@ package org.ftcbootstrap.demos.pushbot.opmodes;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcbootstrap.ActiveOpMode;
+import org.ftcbootstrap.demos.pushbot.PushBot;
 import org.ftcbootstrap.components.operations.motors.MotorToTouch;
 import org.ftcbootstrap.components.operations.motors.TankDriveToEncoder;
 import org.ftcbootstrap.components.operations.motors.TankDriveToODS;
 import org.ftcbootstrap.components.utils.DriveDirection;
-import org.ftcbootstrap.demos.pushbot.PushBot;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
@@ -18,7 +18,7 @@ import org.ftcbootstrap.demos.pushbot.PushBot;
  * <p/>
  * Summary:
  * <p/>
- * Refactored from the original Qaulcomm PushBot examples to demonstrate the use of the latest
+ * Refactored from the original Qualcomm PushBot examples to demonstrate the use of the latest
  * reusable components and operations
  * See:
  * <p/>
@@ -68,9 +68,8 @@ public class PushBotAutoSensors extends ActiveOpMode {
         super.onStart();
         step = 1;
 
-        getTelemetryUtil().setSortByTime(true);
+       // getTelemetryUtil().setSortByTime(true);
 
-        tankDriveToEncoder.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
     }
 
 
@@ -91,7 +90,8 @@ public class PushBotAutoSensors extends ActiveOpMode {
             case 1:
                 //full power , forward for 2880
                 getTelemetryUtil().addData("step" + step + ": handleEncodedDrive", "forward");
-                targetReached =  tankDriveToEncoder.runToTarget(1, 2880, DriveDirection.DRIVE_FORWARD);
+                targetReached =  tankDriveToEncoder.runToTarget(1, 2880,
+                        DriveDirection.DRIVE_FORWARD,DcMotorController.RunMode.RUN_USING_ENCODERS);
                 if (targetReached) {
                     step++;
                 }
@@ -100,7 +100,8 @@ public class PushBotAutoSensors extends ActiveOpMode {
             case 2:
                 //turn left
                 getTelemetryUtil().addData("step" + step + ": handleEncodedDrive", "left");
-                targetReached =  tankDriveToEncoder.runToTarget(1, 2300, DriveDirection.SPIN_LEFT);
+                targetReached =  tankDriveToEncoder.runToTarget(1, 2300,
+                        DriveDirection.SPIN_LEFT,DcMotorController.RunMode.RUN_USING_ENCODERS);
                 if (targetReached) {
                     step++;
                 }
@@ -112,11 +113,11 @@ public class PushBotAutoSensors extends ActiveOpMode {
                 okToExtendArm = true;
 
                 //brightness assumes fixed distance from the target
-                //i.e. line follow or normal on white line
+                //i.e. line follow or stop on white line
                 double targetBrightness = 0.6;
                 //  full power , forward until ODS target brightness >= .6
                 double power =1;
-                targetReached =   tankDriveToODS.runToTarget("step" + step,  power, targetBrightness, DriveDirection.DRIVE_FORWARD);
+                targetReached =   tankDriveToODS.runToTarget( power, targetBrightness, DriveDirection.DRIVE_FORWARD);
                 if (targetReached) {
                     step++;
                 }

@@ -1,20 +1,16 @@
 package org.ftcbootstrap.demos.pushbot;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.NullOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 import org.ftcbootstrap.demos.TelemetryTest;
-import org.ftcbootstrap.demos.pushbot.opmodes.EncoderTest;
-import org.ftcbootstrap.demos.pushbot.opmodes.EncoderTest2;
 import org.ftcbootstrap.demos.pushbot.opmodes.PushBotAuto;
-import org.ftcbootstrap.demos.pushbot.opmodes.PushBotAutoSensors;
 import org.ftcbootstrap.demos.pushbot.opmodes.PushBotManual;
 import org.ftcbootstrap.demos.pushbot.opmodes.PushBotManual2;
-import org.ftcbootstrap.demos.pushbot.opmodes.PushBotOdsDetectEvent;
+import org.ftcbootstrap.demos.pushbot.opmodes.PushBotAutoSensors;
 import org.ftcbootstrap.demos.pushbot.opmodes.PushBotOdsFollowEvent;
+import org.ftcbootstrap.demos.pushbot.opmodes.PushBotOdsDetectEvent;
 import org.ftcbootstrap.demos.pushbot.opmodes.PushBotTouchEvent;
-import org.ftcbootstrap.demos.pushbot.opmodes.ResQBeaconTest;
 
 
 /**
@@ -37,9 +33,6 @@ public class PushBotRegistry implements OpModeRegister {
      *
      * If two or more op modes are registered with the same name, the app will display an error.
      */
-
-        manager.register("NullOp", NullOp.class);
-
         manager.register("PushBotAuto", PushBotAuto.class);
         manager.register("PushBotAutoSensors", PushBotAutoSensors.class);
         manager.register("PushBotManual", PushBotManual.class);
@@ -47,9 +40,6 @@ public class PushBotRegistry implements OpModeRegister {
         manager.register("PushBotOdsDetectEvent", PushBotOdsDetectEvent.class);
         manager.register("PushBotOdsFollowEvent", PushBotOdsFollowEvent.class);
         manager.register("PushBotTouchEvent", PushBotTouchEvent.class);
-        manager.register("EncoderTest",EncoderTest.class);
-        manager.register("EncoderTest2",EncoderTest2.class);
-        manager.register("ResQBeaconTest",ResQBeaconTest.class);
 
         manager.register("TelemetryTest", TelemetryTest.class);
 

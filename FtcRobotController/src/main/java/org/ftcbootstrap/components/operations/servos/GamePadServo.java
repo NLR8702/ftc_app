@@ -1,7 +1,7 @@
 package org.ftcbootstrap.components.operations.servos;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.OpModeComponent;
@@ -67,10 +67,9 @@ public class GamePadServo  extends OpModeComponent {
         boolean rightVal =  currentControl == Control.Y_A  ?  gamepad.y : gamepad.b;
         boolean leftVal =   currentControl == Control.Y_A  ?  gamepad.a : gamepad.x;
 
-        if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData("rightVal", rightVal) ;
-            getOpMode().getTelemetryUtil().addData("leftVal", leftVal);
-        }
+        addTelemetry("rightVal", rightVal); ;
+        addTelemetry("leftVal", leftVal);
+
 
         // update the position of the servo
         if (rightVal) {

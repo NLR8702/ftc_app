@@ -1,9 +1,12 @@
 package org.ftcbootstrap.demos.pushbot.opmodes;
 
+import com.qualcomm.robotcore.hardware.DcMotorController;
+
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.TankDriveToODS;
-import org.ftcbootstrap.components.utils.DriveDirection;
+import org.ftcbootstrap.components.utils.MotorDirection;
 import org.ftcbootstrap.demos.pushbot.PushBot;
+import org.ftcbootstrap.components.utils.DriveDirection;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
@@ -14,7 +17,7 @@ import org.ftcbootstrap.demos.pushbot.PushBot;
  * <p/>
  * Summary:
  * <p/>
- * Refactored from the original Qaulcomm PushBot examples to demonstrate the use of the latest
+ * Refactored from the original Qualcomm PushBot examples to demonstrate the use of the latest
  * reusable components and operations
  * See:
  * <p/>
@@ -30,12 +33,8 @@ public class PushBotOdsFollowEvent extends ActiveOpMode {
 
     private PushBot robot;
     private TankDriveToODS tankDriveToODS;
-    private DriveDirection lineFollowDirection = DriveDirection.PIVOT_LEFT;
-    //  full power , forward until target brightness >= .1
-    private double power = 0.2;
-    //brightness assumes fixed distance from the target
-    //i.e. line follow or normal on white line
-    private double targetBrightness = 0.8;
+
+    private int step;
 
     /**
      * Implement this method to define the code to run when the Init button is pressed on the Driver station.
@@ -45,11 +44,18 @@ public class PushBotOdsFollowEvent extends ActiveOpMode {
         //specify configuration name save from scan operation
         robot = PushBot.newConfig(hardwareMap, getTelemetryUtil());
         tankDriveToODS = new TankDriveToODS(this, robot.getOds(), robot.getLeftDrive(), robot.getRightDrive());
+
+
         getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");
         getTelemetryUtil().sendTelemetry();
     }
 
-
+    @Override
+    protected void onStart() throws InterruptedException {
+        super.onStart();
+        tankDriveToODS.setName("starting line follow");
+        step = 1;
+    }
     /**
      * Implement this method to define the code to run when the Start button is pressed on the Driver station.
      * This method will be called on each hardware cycle just as the loop() method is called for event based Opmodes
@@ -58,26 +64,26 @@ public class PushBotOdsFollowEvent extends ActiveOpMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
-        boolean targetReached = false;
 
-        targetReached =  tankDriveToODS.runToTarget("starting line follow", power, targetBrightness, lineFollowDirection);
-        if (targetReached) {
-            targetReached =   tankDriveToODS.runToTarget("turning away from line", power, targetBrightness, directionAwayFromLine());
-        }
-        else if (tankDriveToODS.getCurrentDirection() != lineFollowDirection) {
-            targetReached =   tankDriveToODS.runToTarget("turning to line", power, targetBrightness, lineFollowDirection);
+        switch (step) {
+            case 1:
+                double power = 0.1;
+                //brightness assumes fixed distance from the target
+                //i.e. line follow or stop on white line
+                double targetBrightness = 0.5;
+                double targetTime = 5;  //seconds
+                if (tankDriveToODS.lineFollowForTime( power, targetBrightness, targetTime, DriveDirection.PIVOT_FORWARD_RIGHT)) {
+                    step++;
+                }
+                break;
+
+            default:
+                setOperationsCompleted();
+                break;
         }
 
         //send any telemetry that may have been added in the above operations
         getTelemetryUtil().sendTelemetry();
-
-    }
-
-
-    private DriveDirection directionAwayFromLine() {
-
-        return tankDriveToODS.getCurrentDirection() == DriveDirection.PIVOT_LEFT ?
-                DriveDirection.PIVOT_RIGHT : DriveDirection.PIVOT_LEFT;
 
     }
 

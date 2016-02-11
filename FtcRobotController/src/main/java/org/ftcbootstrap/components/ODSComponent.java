@@ -8,7 +8,7 @@ import org.ftcbootstrap.ActiveOpMode;
  * OpMode Component for reading and data from the Optical distance sensor
  */
 
-public class ODSComponent extends OpModeComponent {
+public class ODSComponent extends OpModeComponent{
 
 
     private double targetValue;
@@ -23,7 +23,6 @@ public class ODSComponent extends OpModeComponent {
     public ODSComponent(ActiveOpMode opMode,
                         OpticalDistanceSensor ods) {
 
-
         super(opMode);
         this.ods = ods;
 
@@ -34,11 +33,10 @@ public class ODSComponent extends OpModeComponent {
      * Target Value will be the reflected light intensity at a fixed distance to and object.
      * Target Value will be a measure of distance for fixed reflective intensity of an object
      *
-     * @param name  supplied for telemetry
      * @param targetValue
      * @throws InterruptedException
      */
-    public void setTarget(String name, double targetValue)
+    public void setTarget( double targetValue)
             throws InterruptedException {
 
         this.targetValue = targetValue;
@@ -51,17 +49,19 @@ public class ODSComponent extends OpModeComponent {
      */
     public boolean targetReached() {
 
-        double odsReading = this.ods.getLightDetected();
+        double odsReading = getOdsReading();
         boolean result = odsReading >= this.targetValue;
 
-        if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData(
-                     ": WithinRange?", "odsReading:" + odsReading +
+        addTelemetry(" WithinRange?", "odsReading:" + odsReading +
                             "targetProximity: " + this.targetValue +
                             "result: " + result);
-        }
+
 
         return result;
+    }
+
+    public double getOdsReading () {
+        return  this.ods.getLightDetected();
     }
 
 

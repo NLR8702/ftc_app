@@ -1,6 +1,7 @@
 package org.ftcbootstrap.components.operations.motors;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.ftcbootstrap.ActiveOpMode;
@@ -36,5 +37,10 @@ public class GamePadTankDrive extends OpModeComponent {
         rightMotorStick.update();
     }
 
+
+    public void startRunMode(DcMotorController.RunMode runMode)  throws InterruptedException {
+        leftMotorStick.startRunMode( runMode);
+        rightMotorStick.startRunMode( runMode);
+    }
 
 }

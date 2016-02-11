@@ -1,16 +1,16 @@
 package org.ftcbootstrap.demos.beginner;
 
-import com.qualcomm.ftcrobotcontroller.opmodes.NullOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 import org.ftcbootstrap.demos.TelemetryTest;
-import org.ftcbootstrap.demos.beginner.opmodes.MyFirstBotOpMode1;
-import org.ftcbootstrap.demos.beginner.opmodes.MyFirstBotOpMode2;
-import org.ftcbootstrap.demos.beginner.opmodes.MyFirstBotOpMode3;
-import org.ftcbootstrap.demos.beginner.opmodes.MyFirstBotOpMode4;
-import org.ftcbootstrap.demos.beginner.opmodes.MyFirstBotOpMode5;
-import org.ftcbootstrap.demos.beginner.opmodes.MyFirstBotOpMode6;
+import org.ftcbootstrap.demos.beginner.opmodes.OpMode1RunForTime;
+import org.ftcbootstrap.demos.beginner.opmodes.OpMode2RunForTime;
+import org.ftcbootstrap.demos.beginner.opmodes.OpMode3RunForTime;
+import org.ftcbootstrap.demos.beginner.opmodes.OpMode4RunUntilTouch;
+import org.ftcbootstrap.demos.beginner.opmodes.OpMode5StateMachine;
+import org.ftcbootstrap.demos.beginner.opmodes.OpMode6DriveWithGamepad;
+import org.ftcbootstrap.demos.beginner.opmodes.OpMode7ServoWithGamepad;
 
 
 /**
@@ -34,14 +34,13 @@ public class MyFirstBotRegistry implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-    manager.register("NullOp", NullOp.class);
-
-    manager.register("MyFirstBotOpMode1", MyFirstBotOpMode1.class);
-    manager.register("MyFirstBotOpMode2", MyFirstBotOpMode2.class);
-    manager.register("MyFirstBotOpMode3", MyFirstBotOpMode3.class);
-    manager.register("MyFirstBotOpMode4", MyFirstBotOpMode4.class);
-    manager.register("MyFirstBotOpMode5", MyFirstBotOpMode5.class);
-    manager.register("MyFirstBotOpMode6", MyFirstBotOpMode6.class);
+    manager.register("OpMode1RunForTime", OpMode1RunForTime.class);
+    manager.register("OpMode2RunForTime", OpMode2RunForTime.class);
+    manager.register("OpMode3RunForTime", OpMode3RunForTime.class);
+    manager.register("OpMode4RunUntilTouch", OpMode4RunUntilTouch.class);
+    manager.register("OpMode5StateMachine", OpMode5StateMachine.class);
+    manager.register("OpMode6DriveWithGamepad", OpMode6DriveWithGamepad.class);
+    manager.register("OpMode7ServoWithGamepad", OpMode7ServoWithGamepad.class);
 
     manager.register("TelemetryTest", TelemetryTest.class);
 

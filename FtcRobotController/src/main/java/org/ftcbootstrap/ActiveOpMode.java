@@ -2,6 +2,8 @@ package org.ftcbootstrap;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+import org.ftcbootstrap.components.TimerComponent;
+import org.ftcbootstrap.components.utils.ErrorUtil;
 import org.ftcbootstrap.components.utils.TelemetryUtil;
 
 import java.io.PrintWriter;
@@ -13,8 +15,10 @@ import java.io.StringWriter;
  */
 public abstract class ActiveOpMode extends LinearOpMode {
 
+    private TimerComponent timerComponent;
     private TelemetryUtil telemetryUtil = new TelemetryUtil(this);
     private boolean operationsCompleted;
+
 
     /**
      * Implement this method to define the code to run when the Init button is pressed on the Driver station.
@@ -55,9 +59,10 @@ public abstract class ActiveOpMode extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         try {
+            setup();
             onInit();
         } catch (Throwable e) {
-            handleOpmodeException(e);
+            ErrorUtil.handleCatchAllException(e,getTelemetryUtil());
         }
 
         waitForStart();
@@ -70,11 +75,24 @@ public abstract class ActiveOpMode extends LinearOpMode {
             try {
                 activeLoop();
             } catch (Throwable e) {
-                handleOpmodeException(e);
+                ErrorUtil.handleCatchAllException(e, getTelemetryUtil());;
             }
 
             waitOneFullHardwareCycle();
         }
+
+        //wait for user to hit stop
+        while (opModeIsActive()) {
+            waitOneFullHardwareCycle();
+        }
+
+
+    }
+
+    private void setup() {
+
+        timerComponent = new TimerComponent(this);
+
     }
 
 
@@ -105,22 +123,6 @@ public abstract class ActiveOpMode extends LinearOpMode {
 
     }
 
-    protected void handleOpmodeException(Throwable e) throws InterruptedException {
-        getTelemetryUtil().addData("Opmode Exception", e.getMessage());
-        String stckTrace = stackTraceAsString(e);
-        getTelemetryUtil().addData("Opmode Stacktrace", stckTrace.substring(0, 200));
-        // DbgLog.msg(e.getLocalizedMessage());
-        //if( e instanceof Exception) {
-        //DbgLog.error(stckTrace);
-
-        //}
-
-
-        getTelemetryUtil().sendTelemetry();
-        if (e instanceof InterruptedException) {
-            throw (InterruptedException) e;
-        }
-    }
 
     /**
      * call to prevent leave the loop calling activeLoop()
@@ -130,13 +132,7 @@ public abstract class ActiveOpMode extends LinearOpMode {
         getTelemetryUtil().addData("Opmode Status", "Operations completed");
     }
 
-    private String stackTraceAsString(Throwable e) {
-
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        e.printStackTrace(pw);
-        return sw.toString();
-
+    public TimerComponent getTimer() {
+        return timerComponent;
     }
-
 }

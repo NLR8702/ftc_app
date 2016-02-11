@@ -15,9 +15,9 @@ import org.ftcbootstrap.demos.beginner.MyFirstBot;
  * Limitation:  The motor will continue to run during the 3 second sleep period but you cannot do anything else in the
  * code during that period.   For example , you may want to allow for a kill switch to turn the motor off
  * at any time ( even during the 3 seconds sleep period).
- * Therefore, a more appropriate solution would be here: {@link MyFirstBotOpMode2} .
+ * Therefore, a more appropriate solution would be here: {@link OpMode2RunForTime} .
  */
-public class MyFirstBotOpMode1 extends ActiveOpMode {
+public class OpMode1RunForTime extends ActiveOpMode {
 
     private MyFirstBot robot;
 
@@ -46,17 +46,35 @@ public class MyFirstBotOpMode1 extends ActiveOpMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
-        //run motor for 3 seconds
-        robot.getMotor1().setPower(1);
+        //NOTE:  activeLoop() should be called repeatedly  after each each hardware cycle period.
+        //However the below code is designed to only run once:  start motor, wait 3 seconds, stop motor.
+        //This is going to be a problem if you want to add a kill switch to stop the motors before the
+        // end of the 3 seconds
 
-        sleep(3000);
-        //waiting 3 seconds here (3000 miliseconds)
+        //Run the motor for 3 seconds
 
-        robot.getMotor1().setPower(0);
 
-        //Note: the above is a linear one time operation so you need to call
-        // setOperationsCompleted() to prevent activeLoop() from being called again
-        setOperationsCompleted();
+        //PROBLEM L  kill switch code will ony be checked once
+        if ( robot.getTouch().isPressed() ) {
+            robot.getMotor1().setPower(0);
+            setOperationsCompleted();
+        }
+        else {
+
+            //run motor for 3 seconds
+            robot.getMotor1().setPower(1);
+
+            //NOTE: This operation is generally not recommended because it causes the Opmode code to hold here
+            //while the thread sleeps.   See the next example where an alternative soultion will be required
+            sleep(3000);
+            //waiting 3 seconds here (3000 miliseconds)
+
+            robot.getMotor1().setPower(0);
+
+            //Note: the above is a linear one time operation so you need to call
+            // setOperationsCompleted() to prevent activeLoop() from being called again
+            setOperationsCompleted();
+        }
 
 
     }

@@ -1,23 +1,21 @@
-package org.ftcbootstrap.demos.pushbot.opmodes;
+package org.ftcbootstrap.demos.navbot.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.TankDriveToEncoder;
-import org.ftcbootstrap.demos.pushbot.PushBot;
 import org.ftcbootstrap.components.utils.DriveDirection;
+import org.ftcbootstrap.demos.navbot.NavBot;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
- * saved the configuration named: "Pushbot" and creating a class by the same name: {@link PushBot}.
+ * saved the configuration named: "NavBot" and creating a class by the same name: {@link NavBot}.
  * <p/>
  * Note:  It is assumed that the proper registry is used for this set of demos. To confirm please
  * search for "Enter your custom registry here"  in  {@link com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity}
  * <p/>
  * Summary:
  * <p/>
- * Refactored from the original Qualcomm PushBot examples to demonstrate the use of the latest
- * reusable components and operations
  * See:
  * <p/>
  * {@link org.ftcbootstrap.components},
@@ -26,11 +24,11 @@ import org.ftcbootstrap.components.utils.DriveDirection;
  * <p/>
  * {@link org.ftcbootstrap.components.operations.motors}
  * <p/>
- * Also see: {@link PushBot} for the saved configuration
+ * Also see: {@link NavBot} for the saved configuration
  */
-public class PushBotAuto extends ActiveOpMode {
+public class NavigateWithEncoders extends ActiveOpMode {
 
-    private PushBot robot;
+    private NavBot robot;
 
     private TankDriveToEncoder tankDriveToEncoder;
 
@@ -43,7 +41,7 @@ public class PushBotAuto extends ActiveOpMode {
     protected void onInit() {
 
         //specify configuration name save from scan operation
-        robot = PushBot.newConfig(hardwareMap, getTelemetryUtil());
+        robot = NavBot.newConfig(hardwareMap, getTelemetryUtil());
 
         tankDriveToEncoder = new TankDriveToEncoder(this, robot.getLeftDrive(), robot.getRightDrive());
         tankDriveToEncoder.setOpModeLogLevel(0);
@@ -75,18 +73,17 @@ public class PushBotAuto extends ActiveOpMode {
 
         int lp = robot.getLeftDrive().getCurrentPosition();
         int rp = robot.getRightDrive().getCurrentPosition();
-        getTelemetryUtil().addData("left motor position: ", lp);
-        getTelemetryUtil().addData("right motor position: ",  rp);
-        getTelemetryUtil().addData("dif: ",  lp - rp);
-
+        getTelemetryUtil().addData("left motor position in step:" + step, lp);
+        getTelemetryUtil().addData("right motor position in step:" + step, rp);
+        getTelemetryUtil().addData("dif in step:" + step,  lp - rp);
         boolean targetReached = false;
 
         switch (step) {
             case 1:
                 //full power  forward
                 getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "DRIVE_FORWARD");
-                targetReached = tankDriveToEncoder.runToTarget(.80, 10000,
-                        DriveDirection.DRIVE_FORWARD, DcMotorController.RunMode.RUN_USING_ENCODERS);
+                targetReached = tankDriveToEncoder.runToTarget(.65, 10000,
+                        DriveDirection.DRIVE_FORWARD,DcMotorController.RunMode.RUN_TO_POSITION);
                 if (targetReached) {
                     step++;
                 }
@@ -94,11 +91,12 @@ public class PushBotAuto extends ActiveOpMode {
 
             case 2:
                 //turn right
-                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "SPIN_RIGHT");
-                targetReached = tankDriveToEncoder.runToTarget(0.5, 3380,
-                        DriveDirection.SPIN_RIGHT, DcMotorController.RunMode.RUN_USING_ENCODERS);
+                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "PIVOT_RIGHT");
+                targetReached = tankDriveToEncoder.runToTarget(0.4, 5050,
+                        DriveDirection.PIVOT_FORWARD_RIGHT,DcMotorController.RunMode.RUN_TO_POSITION);
                 if (targetReached) {
                     step++;
+                   // step = 7;
                 }
                 break;
 
@@ -106,7 +104,7 @@ public class PushBotAuto extends ActiveOpMode {
                 //full power  forward
                 getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "DRIVE_FORWARD");
                 targetReached = tankDriveToEncoder.runToTarget(.65, 5000,
-                        DriveDirection.DRIVE_FORWARD, DcMotorController.RunMode.RUN_USING_ENCODERS);
+                        DriveDirection.DRIVE_FORWARD,DcMotorController.RunMode.RUN_TO_POSITION);
                 if (targetReached) {
                     step++;
                 }
@@ -114,9 +112,9 @@ public class PushBotAuto extends ActiveOpMode {
 
             case 4:
                 //turn right
-                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "SPIN_RIGHT");
-                targetReached = tankDriveToEncoder.runToTarget(0.4, 3380,
-                        DriveDirection.SPIN_RIGHT, DcMotorController.RunMode.RUN_USING_ENCODERS);
+                getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "PIVOT_RIGHT");
+                targetReached = tankDriveToEncoder.runToTarget(0.4, 5050,
+                        DriveDirection.PIVOT_FORWARD_RIGHT,DcMotorController.RunMode.RUN_TO_POSITION);
                 if (targetReached) {
                     step++;
                 }
@@ -126,7 +124,7 @@ public class PushBotAuto extends ActiveOpMode {
                 //full power  forward
                 getTelemetryUtil().addData("step" + step + ": handleDriveOperation", "DRIVE_FORWARD");
                 targetReached = tankDriveToEncoder.runToTarget(.65, 10000,
-                        DriveDirection.DRIVE_FORWARD, DcMotorController.RunMode.RUN_USING_ENCODERS);
+                        DriveDirection.DRIVE_FORWARD,DcMotorController.RunMode.RUN_TO_POSITION);
                 if (targetReached) {
                     step++;
                 }

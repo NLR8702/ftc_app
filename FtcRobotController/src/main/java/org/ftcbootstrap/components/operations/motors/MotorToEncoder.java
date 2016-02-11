@@ -15,27 +15,29 @@ import org.ftcbootstrap.components.utils.MotorDirection;
 public class MotorToEncoder extends OpModeComponent {
 
     private DcMotor motor;
-    private double targetEncoderDistance;
+    private int targetEncoderDistance;
     private int startingEncoderPosition;
     private boolean running = false;
-    private String name;
     //defaulted but can be changed in the app
     private int encoderResetThreshold = 3;
     private int encoderTargetThreshold = 3;
+
+    private Double rampingUp;
+    private static double INITIAL_RAMP_UP_POWER = 0.1;
+    private static double RAMP_UP_PERCENTAGE = 0.01;
+
 
     /**
      * Constructor for operation
      * Telemetry enabled by default.
      *
-     * @param name   String used for debugging
      * @param opMode
      * @param motor
      */
-    public MotorToEncoder(String name, ActiveOpMode opMode, DcMotor motor) {
+    public MotorToEncoder(ActiveOpMode opMode, DcMotor motor) {
 
         super(opMode);
         this.motor = motor;
-        this.name = name;
         try {
             this.resetEncoder();
         } catch (InterruptedException e) {
@@ -43,54 +45,79 @@ public class MotorToEncoder extends OpModeComponent {
         }
     }
 
-    /**
-     * default to forward direction
-     *
-     * @param power
-     * @param targetEncoderDistance
-     * @return boolean target reached
-     * @throws InterruptedException
-     */
-    public boolean runToTarget(double power,
-                            double targetEncoderDistance) throws InterruptedException {
-        return runToTarget(power, targetEncoderDistance, MotorDirection.MOTOR_FORWARD);
-    }
+
 
 
     /**
      * @param power
      * @param targetEncoderDistance
      * @param direction             {@link MotorDirection}
+     * @param runMode  {@Link DcMotorController.RunMode}
      * @return boolean target reached
      * @throws InterruptedException
      */
     public boolean runToTarget(double power,
-                            double targetEncoderDistance,
-                            MotorDirection direction) throws InterruptedException {
+                               int targetEncoderDistance,
+                               MotorDirection direction,
+                               DcMotorController.RunMode runMode)
+            throws InterruptedException {
+
 
         if (this.isRunning()) {
 
-            boolean reached =  this.targetReached();
-            if ( reached) {
-                stop();  // TODO : not needed when supporting RUN_TO_POSITION
+
+            getOpMode().getTelemetryUtil().addData("a1" + ": ",  power);
+
+            if ( rampingUp != null) {
+                // getOpMode().getTelemetryUtil().addData("a2" + ": ", rampingUp.doubleValue());
+                //getOpMode().getTelemetryUtil().addData("a3" + ": ",  (power - INITIAL_RAMP_UP_POWER) / RAMP_UP_PERCENTAGE);
+
+                rampingUp  +=  (power - INITIAL_RAMP_UP_POWER) * RAMP_UP_PERCENTAGE;
+                if ( rampingUp >=  power) {
+                    rampingUp = null;
+                }
+                else {
+                    double rampingUpPowerWithDirection = (direction == MotorDirection.MOTOR_FORWARD) ? rampingUp: -rampingUp;
+                    motor.setPower(rampingUpPowerWithDirection);
+                }
+            }
+
+            boolean reached = this.targetReached();
+            if (reached ) {
+                stop();
             }
             return reached;
         }
+
+
+        if ( power >= 0.3 ) {
+            rampingUp = INITIAL_RAMP_UP_POWER;
+            power = rampingUp;
+        }
+
+        if ( runMode !=  motor.getMode()) {
+
+            motor.setMode(runMode);
+            getOpMode().waitOneFullHardwareCycle();
+        }
+
+
         running = true;
         this.targetEncoderDistance = targetEncoderDistance;
-        this.startingEncoderPosition = motor.getCurrentPosition();
+        this.startingEncoderPosition =  motorCurrentPosition();
 
         double powerWithDirection = (direction == MotorDirection.MOTOR_FORWARD) ? power : -power;
+        addTelemetry("Starting motor ", powerWithDirection);
 
-        if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData(name + ":Starting motor ", powerWithDirection);
+        if (isRunToPosition()) {
+            int targetDirectionFactor = powerWithDirection >= 0 ? 1 : -1;
+            int newTarget = startingEncoderPosition + (targetEncoderDistance * targetDirectionFactor);
+            motor.setTargetPosition(newTarget);
         }
 
-        if (motor != null) {
-            motor.setPower(powerWithDirection);
-        }
+        motor.setPower(powerWithDirection);
+
         return false;
-
 
     }
 
@@ -105,14 +132,13 @@ public class MotorToEncoder extends OpModeComponent {
         boolean reached = false;
 
         if (motor != null) {
-            int position = Math.abs(motor.getCurrentPosition() - this.startingEncoderPosition);
+            int position = Math.abs( motorCurrentPosition() - this.startingEncoderPosition);
 
             if (position >=
                     (this.targetEncoderDistance - encoderTargetThreshold)) {
                 reached = true;
-                if (isTelemetryEnabled(1)) {
-                    getOpMode().getTelemetryUtil().addData(name + ": Target Reached ", position);
-                }
+                addTelemetry("Motor to Encoder Target Reached ", position);
+
             }
         }
 
@@ -123,15 +149,17 @@ public class MotorToEncoder extends OpModeComponent {
 
     /**
      * Stop the motor
-     *
-     * @throws InterruptedException
      */
-    public void stop() throws InterruptedException {
-        if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData(name + ":stopping motor ", "normal");
-        }
+    public void stop() {
+
         running = false;
-        motor.setPower(0);
+        if ( ! isRunToPosition()) {
+            addTelemetry("stopping motor ", "stop");
+            motor.setPower(0);
+        }
+        else {
+            motor.setTargetPosition(motorCurrentPosition());
+        }
 
     }
 
@@ -148,19 +176,18 @@ public class MotorToEncoder extends OpModeComponent {
     private void resetEncoder() throws InterruptedException {
 
         motor.setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        while (Math.abs(motor.getCurrentPosition()) > encoderResetThreshold) {
+        while (Math.abs(motorCurrentPosition()) > encoderResetThreshold) {
             getOpMode().waitForNextHardwareCycle();
         }
 
     }
 
-
-
-    public void startRunMode(DcMotorController.RunMode runMode) throws InterruptedException {
-        motor.setMode(runMode);
-        getOpMode().waitOneFullHardwareCycle();
-
+    public int motorCurrentPosition() {
+        return motor.getCurrentPosition();
     }
+
+
+
 
 
     /**
@@ -182,6 +209,12 @@ public class MotorToEncoder extends OpModeComponent {
     public void setEncoderTargetThreshold(int encoderTargetThreshold) {
         this.encoderTargetThreshold = encoderTargetThreshold;
     }
+
+
+    public boolean isRunToPosition() {
+        return motor.getMode() == DcMotorController.RunMode.RUN_TO_POSITION;
+    }
+
 
 
 }

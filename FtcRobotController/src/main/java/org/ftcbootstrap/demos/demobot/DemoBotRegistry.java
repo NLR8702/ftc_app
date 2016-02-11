@@ -32,13 +32,12 @@ public class DemoBotRegistry implements OpModeRegister {
      * If two or more op modes are registered with the same name, the app will display an error.
      */
 
-        manager.register("NullOp", NullOp.class);
-
         manager.register("DemoBotOpMode1", DemoBotOpMode1.class);
         manager.register("DemoBotTeleOpMode", DemoBotTeleOpMode.class);
         manager.register("EncoderMotorOpMode", EncoderMotorOpMode.class);
         manager.register("EncoderTankDriveOpMode", EncoderTankDriveOpMode.class);
         manager.register("DemoBotAdvancedOpMode", DemoBotAdvancedOpMode.class);
+
         manager.register("TelemetryTest", TelemetryTest.class);
 
 

@@ -1,9 +1,9 @@
 package org.ftcbootstrap.demos.demobot.opmodes;
 
+import org.ftcbootstrap.demos.demobot.DemoBot;
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.GamePadTankDrive;
 import org.ftcbootstrap.components.operations.servos.GamePadServo;
-import org.ftcbootstrap.demos.demobot.DemoBot;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and

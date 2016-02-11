@@ -48,9 +48,8 @@ public class ServoComponent extends OpModeComponent {
         // set the starting position of the servo
         updateServoTargetPosition(initialPosition);
 
-        if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData("adding servo component pos: " , initialPosition);
-        }
+        addTelemetry("adding servo component pos: " , initialPosition);
+
 
     }
 
@@ -70,9 +69,8 @@ public class ServoComponent extends OpModeComponent {
             servo.setPosition(1 - servoPosition);
         }
 
-        if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData("servoPosition", servoPosition) ;
-        }
+        addTelemetry("servoPosition", servoPosition); ;
+
     }
 
     /**

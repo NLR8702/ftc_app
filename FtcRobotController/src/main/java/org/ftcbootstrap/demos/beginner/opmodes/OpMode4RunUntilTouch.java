@@ -12,11 +12,13 @@ import org.ftcbootstrap.demos.beginner.MyFirstBot;
  * search for "Enter your custom registry here"  in  {@link com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity}
  * <p/>
  * Summary:  Use an Operation class to keep your opmode as small as possible.
- * In the last example: {@link MyFirstBotOpMode2}, the class was responsible for checking the touch sensor and
- * setting the motor power.   In this example,  we use a special operation to handle all of that.
+ * In the last example: {@link OpMode3RunForTime}, A special bootstrap operation was introduced to all
+ * the user to run a motor for a certian amount of time. In addition,   the class was responsible for
+ * checking the touch sensor and setting the motor power.
+ * In this example,  we use a special operation to handle all of that
  * see {@link org.ftcbootstrap.components.operations.motors.MotorToTouch}
  */
-public class MyFirstBotOpMode3 extends ActiveOpMode {
+public class OpMode4RunUntilTouch extends ActiveOpMode {
 
     private MyFirstBot robot;
     private MotorToTouch motorToTouch;
@@ -31,7 +33,7 @@ public class MyFirstBotOpMode3 extends ActiveOpMode {
 
         //create an operation to control a motor from a touch sensor
         motorToTouch = new MotorToTouch( "motor1" , this, robot.getMotor1(), robot.getTouch());
-        motorToTouch.setTelemetryLogLevel(1);
+        motorToTouch.setOpModeLogLevel(1);
 
         //Note The Telemetry Utility is designed to let you organize all telemetry data before sending it to
         //the Driver station via the sendTelemetry command
@@ -49,6 +51,7 @@ public class MyFirstBotOpMode3 extends ActiveOpMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
+        //run motor full power (1) until the touch sensor is pressed
         if ( motorToTouch.runToTarget(1)) {
             setOperationsCompleted();
         }

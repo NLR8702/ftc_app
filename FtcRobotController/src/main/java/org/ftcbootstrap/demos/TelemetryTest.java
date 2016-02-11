@@ -2,6 +2,7 @@ package org.ftcbootstrap.demos;
 
 
 import org.ftcbootstrap.ActiveOpMode;
+import org.ftcbootstrap.components.utils.ErrorUtil;
 
 public class TelemetryTest extends ActiveOpMode {
 
@@ -36,20 +37,20 @@ public class TelemetryTest extends ActiveOpMode {
       onInit();
     }
     catch (Throwable e ) {
-      super.handleOpmodeException(e);
+      ErrorUtil.handleCatchAllException(e, getTelemetryUtil());
     }
 
     waitForStart();
     getTelemetryUtil().reset();
 
-cnt = 20;
+    cnt = 20;
     while (opModeIsActive()) {
 
       try {
         activeLoop();
       }
       catch (Throwable e ) {
-        super.handleOpmodeException(e);
+        ErrorUtil.handleCatchAllException(e, getTelemetryUtil());
       }
 
       getTelemetryUtil().sendTelemetry();

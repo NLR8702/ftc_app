@@ -1,23 +1,22 @@
-package org.ftcbootstrap.demos.pushbot.opmodes;
+package org.ftcbootstrap.demos.navbot.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.MotorToEncoder;
 import org.ftcbootstrap.components.utils.MotorDirection;
-import org.ftcbootstrap.demos.pushbot.PushBot;
+import org.ftcbootstrap.demos.navbot.NavBot;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
- * saved the configuration named: "Pushbot" and creating a class by the same name: {@link PushBot}.
+ * saved the configuration named: "NavBot" and creating a class by the same name: {@link NavBot}.
  * <p/>
  * Note:  It is assumed that the proper registry is used for this set of demos. To confirm please
  * search for "Enter your custom registry here"  in  {@link com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity}
  * <p/>
  * Summary:
  * <p/>
- * Refactored from the original Qaulcomm PushBot examples to demonstrate the use of the latest
- * reusable components and operations
+ *
  * See:
  * <p/>
  * {@link org.ftcbootstrap.components},
@@ -26,11 +25,11 @@ import org.ftcbootstrap.demos.pushbot.PushBot;
  * <p/>
  * {@link org.ftcbootstrap.components.operations.motors}
  * <p/>
- * Also see: {@link PushBot} for the saved configuration
+ * Also see: {@link NavBot} for the saved configuration
  */
-public class EncoderTest extends ActiveOpMode {
+public class EncoderMotorTest extends ActiveOpMode {
 
-    private PushBot robot;
+    private NavBot robot;
 
     private MotorToEncoder leftMotorToEncoder;
     private MotorToEncoder rightMotorToEncoder;
@@ -44,15 +43,14 @@ public class EncoderTest extends ActiveOpMode {
     protected void onInit() {
 
         //specify configuration name save from scan operation
-        robot = PushBot.newConfig(hardwareMap, getTelemetryUtil());
+        robot = NavBot.newConfig(hardwareMap, getTelemetryUtil());
 
-        leftMotorToEncoder = new MotorToEncoder("left runToTarget",  this, robot.getLeftDrive());
-        rightMotorToEncoder = new MotorToEncoder("right runToTarget",  this, robot.getRightDrive());
-
+        leftMotorToEncoder = new MotorToEncoder(  this, robot.getLeftDrive());
+        leftMotorToEncoder.setName("left runToTarget");
+        rightMotorToEncoder = new MotorToEncoder( this, robot.getRightDrive());
+        rightMotorToEncoder.setName("right runToTarget");
         getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");
         getTelemetryUtil().sendTelemetry();
-
-
 
     }
 
@@ -60,12 +58,11 @@ public class EncoderTest extends ActiveOpMode {
     protected void onStart() throws InterruptedException  {
         super.onStart();
         step = 1;
-        leftMotorToEncoder.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-        rightMotorToEncoder.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
 
-
+        //telemetry rows written for everthing added ( not grouped by key)
         getTelemetryUtil().setSortByTime(true);
     }
+
 
     /**
      * Implement this method to define the code to run when the Start button is pressed on the Driver station.
@@ -75,27 +72,28 @@ public class EncoderTest extends ActiveOpMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
+        // RUN ONE MOTOR but OBSERVE encoder positions on both
         switch (step) {
             case 1:
-                handleMotorOperation(1, 2000, MotorDirection.MOTOR_FORWARD);
+                handleSingleMotorOperation(1, 2000, MotorDirection.MOTOR_FORWARD);
                 break;
 
             case 2:
-                handleMotorOperation(1, 1000, MotorDirection.MOTOR_BACKWARD);
+                handleSingleMotorOperation(1, 1000, MotorDirection.MOTOR_BACKWARD);
                 break;
 
 
             case 3:
-                handleMotorOperation(1, 4000, MotorDirection.MOTOR_BACKWARD);
+                handleSingleMotorOperation(1, 4000, MotorDirection.MOTOR_BACKWARD);
                 break;
 
             case 4:
-                handleMotorOperation(1, 2000, MotorDirection.MOTOR_FORWARD);
+                handleSingleMotorOperation(1, 2000, MotorDirection.MOTOR_FORWARD);
                 break;
 
 
             case 5:
-                handleMotorOperation(1, 6000, MotorDirection.MOTOR_FORWARD);
+                handleSingleMotorOperation(1, 6000, MotorDirection.MOTOR_FORWARD);
                 break;
 
 
@@ -116,7 +114,7 @@ public class EncoderTest extends ActiveOpMode {
 
     }
 
-    private void handleMotorOperation(int power, int encoderDistance, MotorDirection motorDirection) throws InterruptedException {
+    private void handleSingleMotorOperation(int power, int encoderDistance, MotorDirection motorDirection) throws InterruptedException {
 
         boolean targetReached = false;
 
@@ -128,14 +126,15 @@ public class EncoderTest extends ActiveOpMode {
             stepCounter = 0;
         }
 
-        targetReached =  leftMotorToEncoder.runToTarget(power, encoderDistance, motorDirection);
+        targetReached =  leftMotorToEncoder.runToTarget(power, encoderDistance,
+                motorDirection, DcMotorController.RunMode.RUN_USING_ENCODERS);
 
         if (targetReached) {
             getTelemetryUtil().addData("step" + step + " A: Left target reached ", robot.getLeftDrive().getCurrentPosition());
             getTelemetryUtil().addData("step" + step + " A: Right Position", robot.getRightDrive().getCurrentPosition());
             step++;
+            stepCounter = 0;
         }
-
 
     }
 

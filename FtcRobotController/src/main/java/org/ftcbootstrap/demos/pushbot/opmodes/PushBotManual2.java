@@ -1,5 +1,7 @@
 package org.ftcbootstrap.demos.pushbot.opmodes;
 
+import com.qualcomm.robotcore.hardware.DcMotorController;
+
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.GamePadMotor;
 import org.ftcbootstrap.components.operations.motors.GamePadTankDrive;
@@ -17,7 +19,7 @@ import org.ftcbootstrap.demos.pushbot.PushBot;
  * Summary: Use one gamepad's joysticks to Tank Drive and another gamepad to operate Arm with the left joystick
  * and operate the claw with left/right buttons
  * <p/>
- * Refactored from the original Qaulcomm PushBot examples to demonstrate the use of the latest
+ * Refactored from the original Qualcomm PushBot examples to demonstrate the use of the latest
  * reusable components and operations
  * See:
  * <p/>
@@ -56,6 +58,7 @@ public class PushBotManual2 extends ActiveOpMode {
 
     //set up tank drive operation to use the gamepad joysticks
     tankDrive =  new GamePadTankDrive( this,gamepad1, robot.getLeftDrive(), robot.getRightDrive());
+    tankDrive.startRunMode(DcMotorController.RunMode.RUN_WITHOUT_ENCODERS);
 
     //set up arm motor operation using the gamepad's left joystick
     armMotorStick = new GamePadMotor(this, gamepad2, robot.getLeftArm(),  GamePadMotor.Control.LEFT_STICK_Y  );

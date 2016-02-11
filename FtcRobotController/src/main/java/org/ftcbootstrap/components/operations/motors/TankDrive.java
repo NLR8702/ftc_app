@@ -1,6 +1,7 @@
 package org.ftcbootstrap.components.operations.motors;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.OpModeComponent;
@@ -14,8 +15,8 @@ import org.ftcbootstrap.components.utils.MotorDirection;
 
 public class TankDrive extends OpModeComponent {
 
-    private DcMotor leftMotor;
-    private DcMotor rightMotor;
+   private DcMotor leftMotor;
+   private DcMotor rightMotor;
     private boolean driving;
 
     private DriveDirection currentDirection;
@@ -41,12 +42,11 @@ public class TankDrive extends OpModeComponent {
 
 
     /**
-     * @param name           name for debugging
      * @param power
      * @param driveDirection {@link DriveDirection}
      * @throws InterruptedException
      */
-    public void drive(String name, double power, DriveDirection driveDirection)
+    public void drive( double power, DriveDirection driveDirection)
             throws InterruptedException {
 
         this.driving = true;
@@ -54,28 +54,28 @@ public class TankDrive extends OpModeComponent {
 
         MotorDirection motorDirection = TankDrive.leftMotorDirectionOn(driveDirection);
         double powerWithDirection = TankDrive.leftPowerWithDirection(motorDirection, driveDirection, power);
-        if (this.leftMotor != null) {
-            if (isTelemetryEnabled(1)) {
-                getOpMode().getTelemetryUtil().addData(name + ":Starting left motor", powerWithDirection);
-            }
-            this.leftMotor.setPower(powerWithDirection);
+        if (getLeftMotor() != null) {
+
+            addTelemetry("Starting left motor", powerWithDirection);
+
+            getLeftMotor().setPower(powerWithDirection);
         }
 
         motorDirection = TankDrive.rightMotorDirectionOn(driveDirection);
         powerWithDirection = TankDrive.rightPowerWithDirection(motorDirection, driveDirection, power);
 
 
-        if (driveDirection == DriveDirection.PIVOT_RIGHT) {
+        if (driveDirection == DriveDirection.PIVOT_FORWARD_RIGHT || driveDirection == DriveDirection.PIVOT_BACKWARD_RIGHT) {
             powerWithDirection = 0f;
         }
 
-        if (this.rightMotor != null) {
-            if (isTelemetryEnabled(1)) {
-                getOpMode().getTelemetryUtil().addData(name + ": A - Starting right motor", powerWithDirection);
-            }
-            this.rightMotor.setPower(powerWithDirection);
+        if (getRightMotor() != null) {
+            addTelemetry("Starting right motor", powerWithDirection);
+
+            getRightMotor().setPower(powerWithDirection);
         }
     }
+
 
     /**
      * Check if the operation is running.   Do this before calling drive()
@@ -88,17 +88,24 @@ public class TankDrive extends OpModeComponent {
 
 
     /**
-     * normal the motors
+     * stop the motors
      */
     public void stop() {
 
-        this.leftMotor.setPower(0.f);
-        this.rightMotor.setPower(0.f);
+        getLeftMotor().setPower(0.f);
+        getRightMotor().setPower(0.f);
+        driving = false;
 
     }
 
 
+    public DcMotor getLeftMotor() {
+        return leftMotor;
+    }
 
+    public DcMotor getRightMotor() {
+        return rightMotor;
+    }
 
     /**
      * Helper method to derive the left motor direction from the DriveDirection
@@ -110,7 +117,8 @@ public class TankDrive extends OpModeComponent {
 
         MotorDirection motorDirection = MotorDirection.MOTOR_FORWARD;
         if (driveDirection == DriveDirection.DRIVE_BACKWARD ||
-                driveDirection == DriveDirection.SPIN_LEFT) {
+                driveDirection == DriveDirection.SPIN_LEFT ||
+                driveDirection == DriveDirection.PIVOT_BACKWARD_LEFT) {
             motorDirection = MotorDirection.MOTOR_BACKWARD;
         }
         return motorDirection;
@@ -126,7 +134,8 @@ public class TankDrive extends OpModeComponent {
 
         MotorDirection motorDirection = MotorDirection.MOTOR_FORWARD;
         if (driveDirection == DriveDirection.DRIVE_BACKWARD ||
-                driveDirection == DriveDirection.SPIN_RIGHT) {
+                driveDirection == DriveDirection.SPIN_RIGHT||
+                driveDirection == DriveDirection.PIVOT_BACKWARD_RIGHT) {
             motorDirection = MotorDirection.MOTOR_BACKWARD;
         }
         return motorDirection;
@@ -135,13 +144,13 @@ public class TankDrive extends OpModeComponent {
     /**
      * Helper method to derive the left motor power the DriveDirection
      * Based of the vehicle Drive direction, calculate the value of a single motor to see if should move forward
-     * backward , remaing in the same direction of the other motor, or come to a normal
+     * backward , remaing in the same direction of the other motor, or come to a stop
      * <p/>
      * Examples:
      * Drive Forward = both motors move forward
      * Drive Forward = both motors move backward
      * SPIN = One motor moves forward while the other backward
-     * PIVOT = One motor moves is normal  while the other moves
+     * PIVOT = One motor moves is stop  while the other moves
      *
      * @param motorDirection current left motor direction {@link MotorDirection}
      * @param driveDirection current vehicle drive direction {@link DriveDirection}
@@ -151,7 +160,7 @@ public class TankDrive extends OpModeComponent {
     public static double leftPowerWithDirection(MotorDirection motorDirection, DriveDirection driveDirection, double power) {
 
         double powerWithDirection = (motorDirection == MotorDirection.MOTOR_FORWARD) ? power : -power;
-        if (driveDirection == DriveDirection.PIVOT_LEFT) {
+        if (driveDirection == DriveDirection.PIVOT_FORWARD_LEFT || driveDirection == DriveDirection.PIVOT_BACKWARD_LEFT) {
             powerWithDirection = 0f;
         }
         return powerWithDirection;
@@ -161,13 +170,13 @@ public class TankDrive extends OpModeComponent {
     /**
      * Helper method to derive the right motor power the DriveDirection
      * Based of the vehicle Drive direction, calculate the value of a single motor to see if should move forward
-     * backward , remaing in the same direction of the other motor, or come to a normal
+     * backward , remaing in the same direction of the other motor, or come to a stop
      * <p/>
      * Examples:
      * Drive Forward = both motors move forward
      * Drive Forward = both motors move backward
      * SPIN = One motor moves forward while the other backward
-     * PIVOT = One motor moves is normal  while the other moves
+     * PIVOT = One motor moves is stop  while the other moves
      *
      * @param motorDirection current right motor direction {@link MotorDirection}
      * @param driveDirection current vehicle drive direction  {@link DriveDirection}
@@ -177,7 +186,7 @@ public class TankDrive extends OpModeComponent {
     public static double rightPowerWithDirection(MotorDirection motorDirection, DriveDirection driveDirection, double power) {
 
         double powerWithDirection = (motorDirection == MotorDirection.MOTOR_FORWARD) ? power : -power;
-        if (driveDirection == DriveDirection.PIVOT_RIGHT) {
+        if (driveDirection == DriveDirection.PIVOT_FORWARD_RIGHT || driveDirection == DriveDirection.PIVOT_BACKWARD_RIGHT) {
             powerWithDirection = 0f;
         }
         return powerWithDirection;
@@ -191,5 +200,33 @@ public class TankDrive extends OpModeComponent {
         return currentDirection;
     }
 
+
+
+    public double getLeftMotorPower() {
+        return leftMotor.getPower();
+    }
+
+    public double getRightMotorPower() {
+        return rightMotor.getPower();
+    }
+
+
+    public void ensureNotRunToPosition() throws InterruptedException {
+
+        DcMotor motor = getLeftMotor();
+        boolean modeChanged = false;
+        if (motor.getMode() == DcMotorController.RunMode.RUN_TO_POSITION ) {
+            motor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            modeChanged = true;
+        }
+        motor = getRightMotor();
+        if (motor.getMode() == DcMotorController.RunMode.RUN_TO_POSITION ) {
+            motor.setMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
+            modeChanged = true;
+        }
+        if ( modeChanged) {
+            getOpMode().waitOneFullHardwareCycle();
+        }
+    }
 
 }

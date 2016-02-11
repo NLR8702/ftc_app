@@ -13,13 +13,13 @@ import org.ftcbootstrap.components.utils.MotorDirection;
  * Operation to assist with running a DcMotor with a touch sensor
  */
 
-public class MotorToTouch extends OpModeComponent {
+public class MotorToTime extends OpModeComponent {
 
     private DcMotor motor;
-
+    private double startTime;
+    private double targetTime;
     private boolean running = false;
 
-    private TouchSensor touchSensor;
 
     /**
      * Constructor for operation
@@ -27,34 +27,34 @@ public class MotorToTouch extends OpModeComponent {
      *
      * @param opMode
      * @param motor
-     * @param touchSensor
      */
-    public MotorToTouch(String name, ActiveOpMode opMode, DcMotor motor, TouchSensor touchSensor) {
+    public MotorToTime(String name, ActiveOpMode opMode, DcMotor motor) {
 
         super(opMode);
         this.motor = motor;
-        this.touchSensor = touchSensor;
     }
 
     /**
      * default to forward direction
      *
      * @param power
+     * @param targetTime
      * @return boolean targetReached
      * @throws InterruptedException
      */
-    public boolean runToTarget(double power) throws InterruptedException {
-        return runToTarget(power, MotorDirection.MOTOR_FORWARD);
+    public boolean runToTarget(double power, double targetTime) throws InterruptedException {
+        return runToTarget(power,targetTime, MotorDirection.MOTOR_FORWARD);
     }
 
 
     /**
      * @param power
+     * @param targetTime
      * @param direction {@link MotorDirection}
      * @return boolean
      * @throws InterruptedException
      */
-    public boolean runToTarget(double power, MotorDirection direction) throws InterruptedException {
+    public boolean runToTarget(double power, double targetTime, MotorDirection direction) throws InterruptedException {
 
         if( isRunning() ) {
             boolean reached =  this.targetReached();
@@ -67,6 +67,8 @@ public class MotorToTouch extends OpModeComponent {
 
         double powerWithDirection = (direction == MotorDirection.MOTOR_FORWARD) ? power : -power;
 
+        this.targetTime = targetTime;
+        this.startTime = getOpMode().getRuntime();
         addTelemetry("Starting motor ", powerWithDirection);
 
 
@@ -84,23 +86,14 @@ public class MotorToTouch extends OpModeComponent {
      */
     public boolean targetReached() {
 
-        boolean result = touchSensor.isPressed();
-        addTelemetry("Servo Target Reached", result);
+        boolean result = getOpMode().getRuntime() - startTime >= targetTime;
+        addTelemetry("Motor Target Reached", result);
 
         return result;
 
     }
 
-    /**
-     * convenience method for provide better abstraction of targetReached
-     *
-     * @return
-     */
-    public boolean touchPressed() {
 
-        return targetReached();
-
-    }
 
     /**
      * Stop the motor
@@ -122,11 +115,6 @@ public class MotorToTouch extends OpModeComponent {
         return running;
     }
 
-    public void startRunMode(DcMotorController.RunMode runMode) throws InterruptedException {
-        motor.setMode(runMode);
-        getOpMode().waitOneFullHardwareCycle();
-
-    }
 
 
 }

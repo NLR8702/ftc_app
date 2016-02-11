@@ -4,17 +4,18 @@ import com.qualcomm.ftccommon.DbgLog;
 import com.qualcomm.robotcore.hardware.HardwareDevice;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
+import org.ftcbootstrap.components.utils.ErrorUtil;
 import org.ftcbootstrap.components.utils.TelemetryUtil;
 
-import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.io.PrintWriter;
+
 
 
 /**
  * Abstract class to use as parent to the class you will define to mirror a "saved configuration" on the Robot controller
  */
 public abstract class RobotConfiguration {
-
 
     private TelemetryUtil telemetryUtil;
 
@@ -48,7 +49,7 @@ public abstract class RobotConfiguration {
      * @param hardwareDeviceMapping
      * @return
      */
-    protected HardwareDevice getHardwareOn(String name, Object hardwareDeviceMapping) {
+    protected  HardwareDevice getHardwareOn(String name, Object hardwareDeviceMapping) {
 
         HardwareDevice hardwareDevice = null;
         try {
@@ -57,10 +58,11 @@ public abstract class RobotConfiguration {
         }
         catch (Throwable e)
         {
-            getTelemetryUtil().addData("Exception", e.getClass().getSimpleName());
-            getTelemetryUtil().addData("Message", e.getLocalizedMessage());
-            DbgLog.msg(e.getLocalizedMessage());
-            DbgLog.msg(stackTraceAsString(e));
+            try {
+                ErrorUtil.handleCatchAllException(e, getTelemetryUtil());
+            } catch (InterruptedException e1) {
+                DbgLog.msg(e.getLocalizedMessage());
+            }
 
         }
 
@@ -68,14 +70,7 @@ public abstract class RobotConfiguration {
     }
 
 
-    private String stackTraceAsString(Throwable e) {
 
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        e.printStackTrace(pw);
-        return sw.toString();
-
-    }
 
 
 }

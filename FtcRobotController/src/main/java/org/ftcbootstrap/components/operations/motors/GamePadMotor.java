@@ -1,6 +1,7 @@
 package org.ftcbootstrap.components.operations.motors;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.Range;
 
@@ -13,6 +14,7 @@ import org.ftcbootstrap.components.OpModeComponent;
  */
 public class GamePadMotor extends OpModeComponent {
 
+
     // amount to change the servo position by
 
     public enum Control {
@@ -21,12 +23,21 @@ public class GamePadMotor extends OpModeComponent {
         RIGHT_STICK_X,
         RIGHT_STICK_Y,
         UP_DOWN_BUTTONS,
-        LEFT_RIGHT_BUTTONS
+        LEFT_RIGHT_BUTTONS,
+        LB_RB_BUTTONS,
+        Y_BUTTON,
+        A_BUTTON,
+        X_BUTTON,
+        B_BUTTON,
+        LEFT_BUMPER,
+        RIGHT_BUMPER
     }
 
     private Control control;
     private DcMotor motor;
     private Gamepad gamepad;
+    private static final float defaultButtonPower = 0.3f;
+    private float buttonPower ;
 
     /**
      * Constructor for operation.  Telemetry enabled by default.
@@ -38,12 +49,29 @@ public class GamePadMotor extends OpModeComponent {
      */
     public GamePadMotor(ActiveOpMode opMode, Gamepad gamepad, DcMotor motor, Control control) {
 
+        this(opMode,  gamepad , motor, control, defaultButtonPower);
+
+    }
+
+    /**
+     * Constructor for operation.  Telemetry enabled by default.
+     *
+     * @param opMode
+     * @param gamepad Gamepad
+     * @param motor   DcMotor to operate on
+     * @param control {@link org.ftcbootstrap.components.operations.motors.GamePadMotor.Control}
+     * @param buttonPower power to apply when using gamepad buttons
+     */
+    public GamePadMotor(ActiveOpMode opMode, Gamepad gamepad, DcMotor motor, Control control,float buttonPower) {
+
         super(opMode);
         this.gamepad = gamepad;
         this.motor = motor;
         this.control = control;
+        this.buttonPower = buttonPower;
 
     }
+
 
 
     /**
@@ -67,43 +95,72 @@ public class GamePadMotor extends OpModeComponent {
             case RIGHT_STICK_X:
                 power = scaleMotorPower(gamepad.right_stick_x);
                 break;
-            case UP_DOWN_BUTTONS:
-                power = motorPowerFromButtons(true);
-                break;
-            case LEFT_RIGHT_BUTTONS:
-                power = motorPowerFromButtons(false);
+            default:
+                power = motorPowerFromButtons();
                 break;
         }
 
+        addTelemetry("setting power: " + control.toString(), power);
 
-        if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData("setting power: " + control.toString(), power);
-        }
         motor.setPower(power);
 
     }
 
-    private float motorPowerFromButtons(boolean upDown) {
+    public void startRunMode(DcMotorController.RunMode runMode) throws InterruptedException {
+        motor.setMode(runMode);
+        getOpMode().waitOneFullHardwareCycle();
 
-        float power = 0f;
-        boolean rightVal = upDown ? gamepad.y : gamepad.b;
-        boolean leftVal = upDown ? gamepad.a : gamepad.x;
+    }
 
-        if (isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData("rightVal", rightVal);
-            getOpMode().getTelemetryUtil().addData("leftVal", leftVal);
+    private float motorPowerFromButtons() {
+
+        float powerToReturn = 0f;
+        boolean y = gamepad.y;
+        boolean a = gamepad.a;
+        boolean x = gamepad.x;
+        boolean b = gamepad.b;
+        boolean lb = gamepad.left_bumper;
+        boolean rb = gamepad.right_bumper;
+
+        if (((control == Control.UP_DOWN_BUTTONS) && a) ||
+                ((control == Control.LEFT_RIGHT_BUTTONS) && x)) {
+            powerToReturn = -buttonPower;
+        }
+        if ((control == Control.LB_RB_BUTTONS) && lb) {
+            powerToReturn = -buttonPower;
+        }
+        else {
+            switch (control) {
+                case UP_DOWN_BUTTONS:
+                    if ( y) powerToReturn = buttonPower;
+                case Y_BUTTON:
+                    if ( y) powerToReturn = buttonPower;
+                    break;
+                case X_BUTTON:
+                    if ( x) powerToReturn = buttonPower;
+                    break;
+                case A_BUTTON:
+                    if ( a) powerToReturn = buttonPower;
+                    break;
+                case B_BUTTON:
+                    if ( b) powerToReturn = buttonPower;
+                    break;
+                case LB_RB_BUTTONS:
+                    if ( rb) powerToReturn = buttonPower;
+                    break;
+                case LEFT_BUMPER:
+                    if ( lb) powerToReturn = buttonPower;
+                    break;
+                case RIGHT_BUMPER:
+                    if ( rb) powerToReturn = buttonPower;
+                    break;
+                default:
+                    powerToReturn = 0f;
+                    break;
+            }
         }
 
-        // update the position of the servo
-        if (rightVal) {
-            power = 0.3f;
-        }
-
-        if (leftVal) {
-            power = -0.3f;
-        }
-
-        return power;
+        return powerToReturn;
 
 
     }

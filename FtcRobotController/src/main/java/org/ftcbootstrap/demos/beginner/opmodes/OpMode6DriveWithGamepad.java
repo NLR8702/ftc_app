@@ -1,21 +1,23 @@
 package org.ftcbootstrap.demos.beginner.opmodes;
 
 import org.ftcbootstrap.ActiveOpMode;
+import org.ftcbootstrap.components.operations.motors.GamePadTankDrive;
 import org.ftcbootstrap.demos.beginner.MyFirstBot;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
  * saved the configuration named: "MyFirstBot" and creating a class by the same name: {@link MyFirstBot}.
  * <p/>
- * Note:  It is assumed that the proper registry is used for this set of demos. To confirm please
+ * Note:  It is assumed that the proper registry is used for this set of  demos. To confirm please
  * search for "Enter your custom registry here"  in  {@link com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity}
  * <p/>
- * Summary
- * Use a touch sensor to kill the motor at any time during the program
+ * Summary:  Use an Operation class to perform a tank drive using the gamepad joysticks.
+ * See: {@link GamePadTankDrive}
  */
-public class MyFirstBotOpMode2 extends ActiveOpMode {
+public class OpMode6DriveWithGamepad extends ActiveOpMode {
 
     private MyFirstBot robot;
+    private GamePadTankDrive gamePadTankDrive;
 
     /**
      * Implement this method to define the code to run when the Init button is pressed on the Driver station.
@@ -32,36 +34,31 @@ public class MyFirstBotOpMode2 extends ActiveOpMode {
 
     }
 
+    @Override
+    protected void onStart() throws InterruptedException {
+        super.onStart();
+        //create the operation  to perform a tank drive using the gamepad joysticks.
+        gamePadTankDrive = new GamePadTankDrive(this,gamepad1, robot.getMotor1(), robot.getMotor2());
+        gamePadTankDrive.setOpModeLogLevel(1);
+
+    }
+
     /**
      * Implement this method to define the code to run when the Start button is pressed on the Driver station.
      * This method will be called on each hardware cycle just as the loop() method is called for event based Opmodes
+     *
      * @throws InterruptedException
      */
     @Override
     protected void activeLoop() throws InterruptedException {
 
-        //run motor for 3 seconds or until kill switch is pressed.
+        //update the motors with the gamepad joystick values
+        gamePadTankDrive.update();
 
-        //kill switch can be pressed  at any time
-        if ( robot.getTouch().isPressed() ) {
-            robot.getMotor1().setPower(0);
-            setOperationsCompleted();
-        }
-        else {
-            // we are not using sleep() but rather checking an elapsed time
-            // therefore the the above kill switch will work whenever you press it
-            if (this.getRuntime() > 3) {
-                robot.getMotor1().setPower(0);
-                setOperationsCompleted();
-            }
-            else {
-                robot.getMotor1().setPower(1);
-            }
-        }
+        //send any telemetry that may have been added in the above operations
+        getTelemetryUtil().sendTelemetry();
 
 
     }
-
-
 
 }

@@ -1,9 +1,11 @@
 package org.ftcbootstrap.demos.pushbot.opmodes;
 
+import com.qualcomm.robotcore.hardware.DcMotorController;
+
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.TankDriveToODS;
-import org.ftcbootstrap.components.utils.DriveDirection;
 import org.ftcbootstrap.demos.pushbot.PushBot;
+import org.ftcbootstrap.components.utils.DriveDirection;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
@@ -14,7 +16,7 @@ import org.ftcbootstrap.demos.pushbot.PushBot;
  * <p/>
  * Summary:
  * <p/>
- * Refactored from the original Qaulcomm PushBot examples to demonstrate the use of the latest
+ * Refactored from the original Qualcomm PushBot examples to demonstrate the use of the latest
  * reusable components and operations
  * See:
  * <p/>
@@ -50,6 +52,11 @@ public class PushBotOdsDetectEvent extends ActiveOpMode {
 
     }
 
+    @Override
+    protected void onStart() throws InterruptedException {
+        super.onStart();
+        tankDriveToODS.setName("driving to white line");
+    }
 
     /**
      * Implement this method to define the code to run when the Start button is pressed on the Driver station.
@@ -62,7 +69,8 @@ public class PushBotOdsDetectEvent extends ActiveOpMode {
             return;
         }
 
-        reachedDestination =  tankDriveToODS.runToTarget("driving to white line", .2, 0.8, DriveDirection.DRIVE_FORWARD);
+        reachedDestination =  tankDriveToODS.runToTarget(0.2, 0.5, DriveDirection.DRIVE_FORWARD);
+
 
         //send any telemetry that may have been added in the above operations
         getTelemetryUtil().sendTelemetry();

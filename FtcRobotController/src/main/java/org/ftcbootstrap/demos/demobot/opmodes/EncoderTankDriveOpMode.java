@@ -2,10 +2,10 @@ package org.ftcbootstrap.demos.demobot.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
+import org.ftcbootstrap.demos.demobot.DemoBot;
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.TankDriveToEncoder;
 import org.ftcbootstrap.components.utils.DriveDirection;
-import org.ftcbootstrap.demos.demobot.DemoBot;
 
 /**
  * Note: This Exercise assumes that you have used your Robot Controller App to "scan" your hardware and
@@ -46,8 +46,6 @@ public class EncoderTankDriveOpMode extends ActiveOpMode {
     protected void onStart() throws InterruptedException  {
         super.onStart();
         step = 1;
-        tankDriveToEncoder.startRunMode(DcMotorController.RunMode.RUN_USING_ENCODERS);
-
     }
 
 
@@ -69,7 +67,8 @@ public class EncoderTankDriveOpMode extends ActiveOpMode {
             case 1:
                 //full power , forward for 20000
                 getTelemetryUtil().addData("step" + step + ": handleDriveToEncoder", "DRIVE_FORWARD");
-                targetReached  = tankDriveToEncoder.runToTarget(1, 2000 , DriveDirection.DRIVE_FORWARD);
+                targetReached  = tankDriveToEncoder.runToTarget(0.8, 2000 ,
+                        DriveDirection.DRIVE_FORWARD,DcMotorController.RunMode.RUN_USING_ENCODERS);
                 if (targetReached) {
                     step++;
                 }
@@ -78,7 +77,8 @@ public class EncoderTankDriveOpMode extends ActiveOpMode {
             case 2:
                 //turn left at half power
                 getTelemetryUtil().addData("step" + step + ": handleDriveToEncoder", "SPIN_LEFT");
-                targetReached  = tankDriveToEncoder.runToTarget(0.5, 5000 , DriveDirection.SPIN_LEFT);
+                targetReached  = tankDriveToEncoder.runToTarget(0.5, 5000 ,
+                        DriveDirection.SPIN_LEFT,DcMotorController.RunMode.RUN_USING_ENCODERS);
                 if (targetReached) {
                     step++;
                 }
@@ -87,7 +87,8 @@ public class EncoderTankDriveOpMode extends ActiveOpMode {
             case 3:
                 //full power , forward for 4000
                 getTelemetryUtil().addData("step" + step + ": handleDriveToEncoder", "DRIVE_FORWARD");
-                targetReached  = tankDriveToEncoder.runToTarget(1, 4000 , DriveDirection.DRIVE_FORWARD);
+                targetReached  = tankDriveToEncoder.runToTarget(0.8, 4000 ,
+                        DriveDirection.DRIVE_FORWARD,DcMotorController.RunMode.RUN_USING_ENCODERS);
                 if (targetReached) {
                     step++;
                 }

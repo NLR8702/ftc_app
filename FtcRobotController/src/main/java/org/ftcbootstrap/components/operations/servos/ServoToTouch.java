@@ -42,9 +42,8 @@ public class ServoToTouch  extends OpModeComponent {
     public void incrementServoTargetPosition( double servoDelta) {
 
         servoComponent.incrementServoTargetPosition(servoDelta);
-        if ( isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData(name + "servo targeted", servoComponent.getServoPosition());
-        }
+        addTelemetry(name + "servo targeted", servoComponent.getServoPosition());
+
 
     }
 
@@ -55,9 +54,8 @@ public class ServoToTouch  extends OpModeComponent {
     public boolean targetReached() {
 
         boolean result =  touchSensor.isPressed();
-        if ( isTelemetryEnabled(1)) {
-            getOpMode().getTelemetryUtil().addData(name + ": Servo Target Reached", result);
-        }
+        addTelemetry(name + ": Servo Target Reached", result);
+
         return result;
     }
 

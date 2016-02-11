@@ -2,6 +2,7 @@ package org.ftcbootstrap.demos.beginner.opmodes;
 
 import org.ftcbootstrap.ActiveOpMode;
 import org.ftcbootstrap.components.operations.motors.TankDrive;
+import org.ftcbootstrap.components.operations.motors.TankDriveToTime;
 import org.ftcbootstrap.components.utils.DriveDirection;
 import org.ftcbootstrap.demos.beginner.MyFirstBot;
 
@@ -12,13 +13,17 @@ import org.ftcbootstrap.demos.beginner.MyFirstBot;
  * Note:  It is assumed that the proper registry is used for this set of demos. To confirm please
  * search for "Enter your custom registry here"  in  {@link com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity}
  * <p/>
- * Summary:  Use an Operation class to perform a tank drive on two motors
+ * Summary:
+ *  <p/> Use an Operation class to perform a tank drive on two motors for a duration of time.
+ *  <p/> Introduce state machine to haandle several drive steps
  * See:  {@link TankDrive}
  */
-public class MyFirstBotOpMode4 extends ActiveOpMode {
+public class OpMode5StateMachine extends ActiveOpMode {
 
     private MyFirstBot robot;
-    private TankDrive tankDrive;
+    private TankDriveToTime tankDriveToTime;
+    private int step;
+
 
     /**
      * Implement this method to define the code to run when the Init button is pressed on the Driver station.
@@ -29,15 +34,22 @@ public class MyFirstBotOpMode4 extends ActiveOpMode {
         robot = MyFirstBot.newConfig(hardwareMap, getTelemetryUtil());
 
         //create an operation to perform a tank drive
-        tankDrive = new TankDrive(this, robot.getMotor1(), robot.getMotor2());
-        tankDrive.setTelemetryLogLevel(1);
+        tankDriveToTime = new TankDriveToTime(this, robot.getMotor1(), robot.getMotor2());
+        tankDriveToTime.setOpModeLogLevel(1);
 
         //Note The Telemetry Utility is designed to let you organize all telemetry data before sending it to
         //the Driver station via the sendTelemetry command
         getTelemetryUtil().addData("Init", getClass().getSimpleName() + " initialized.");
         getTelemetryUtil().sendTelemetry();
 
+        step = 1;
+
     }
+
+
+
+
+
 
     /**
      * Implement this method to define the code to run when the Start button is pressed on the Driver station.
@@ -48,25 +60,38 @@ public class MyFirstBotOpMode4 extends ActiveOpMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
-        //drive for 3 seconds
+        switch (step) {
+            case 1:
+                getTelemetryUtil().addData("step" + step + ": ", "Drive forward for power:1 for 4 seconds");
+                if (tankDriveToTime.runToTarget( 1, 4 , DriveDirection.DRIVE_FORWARD)) {
+                    step++;
+                }
+                break;
 
-        double elapsedTime = getRuntime();
-        getTelemetryUtil().addData("runtime",elapsedTime);
+            case 2:
+                getTelemetryUtil().addData("step" + step + ": ", "Pivoting right for power:.5 for 2 seconds");
+                if (tankDriveToTime.runToTarget(0.5, 2 , DriveDirection.PIVOT_FORWARD_RIGHT)) {
+                    step++;
+                }
+                break;
 
-        //start the vehicle
-        if (!tankDrive.isDriving()) {
-            tankDrive.drive("driving vehicle", 1, DriveDirection.DRIVE_FORWARD);
+            case 3:
+                getTelemetryUtil().addData("step" + step + ": ", "Drive forward for power:1 for 6 seconds");
+                if (tankDriveToTime.runToTarget( 1, 6 , DriveDirection.DRIVE_FORWARD)) {
+                    step++;
+                }
+                break;
+
+            default:
+                setOperationsCompleted();
+                break;
+
         }
-        //shut it down after 3 seconds
-        if (elapsedTime > 3) {
-            robot.getMotor1().setPower(0);
-            tankDrive.stop();
-            setOperationsCompleted();
-        }
+
+
 
         //send any telemetry that may have been added in the above operations
         getTelemetryUtil().sendTelemetry();
-
 
     }
 
