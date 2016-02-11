@@ -15,7 +15,7 @@ public class UltrasonicTestOp extends OpMode {
     @Override
     public void init() {
 
-        ultrasonicSensor = hardwareMap.ultrasonicSensor.get("Ult_1");
+        ultrasonicSensor = hardwareMap.ultrasonicSensor.get("ultrasonic1");
     }
 
     @Override
