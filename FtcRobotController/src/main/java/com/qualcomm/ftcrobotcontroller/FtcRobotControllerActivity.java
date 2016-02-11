@@ -73,6 +73,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 
+import org.ftcbootstrap.components.phone.AccelerometerComponent;
+import org.ftcTeam.FTCTeamRegistry;
+import org.ftcbootstrap.demos.navbot.NavBotRegistry;
+import org.ftcbootstrap.demos.pushbot.PushBotRegistry;
+import org.ftcbootstrap.demos.beginner.MyFirstBotRegistry;
+import org.ftcbootstrap.demos.demobot.DemoBotRegistry;
+
+
 public class FtcRobotControllerActivity extends Activity {
 
   private static final int REQUEST_CONFIG_WIFI_CHANNEL = 1;
@@ -100,6 +108,13 @@ public class FtcRobotControllerActivity extends Activity {
   protected UpdateUI updateUI;
   protected Dimmer dimmer;
   protected LinearLayout entireScreenLayout;
+
+  private AccelerometerComponent accelerometerComponent;
+
+  public AccelerometerComponent getAccelerometerComponent() {
+    return accelerometerComponent;
+  }
+
 
   protected FtcRobotControllerService controllerService;
 
@@ -209,11 +224,17 @@ public class FtcRobotControllerActivity extends Activity {
   @Override
   protected void onResume() {
     super.onResume();
+
+    // ADDED FOR ACCELEROMETER!!!
+    accelerometerComponent = new AccelerometerComponent();
+    accelerometerComponent.registerListener(this);
   }
 
   @Override
   public void onPause() {
     super.onPause();
+
+    accelerometerComponent.unregisterListener(this);
   }
 
   @Override
@@ -332,7 +353,13 @@ public class FtcRobotControllerActivity extends Activity {
     modernRoboticsFactory.setXmlInputStream(fis);
     factory = modernRoboticsFactory;
 
-    eventLoop = new FtcEventLoop(factory, new FtcOpModeRegister(), callback, this);
+    eventLoop = new FtcEventLoop(factory, new FTCTeamRegistry(), callback, this);
+
+    //see org/ftcbootstrap/demos
+    //eventLoop = new FtcEventLoop(factory, new MyFirstBotRegistry(), callback, this);
+    // eventLoop = new FtcEventLoop(factory, new DemoBotRegistry(), callback, this);
+    // eventLoop = new FtcEventLoop(factory, new PushBotRegistry(), callback, this);
+    // eventLoop = new FtcEventLoop(factory, new NavBotRegistry(), callback, this);
 
     controllerService.setCallback(callback);
     controllerService.setupRobot(eventLoop);

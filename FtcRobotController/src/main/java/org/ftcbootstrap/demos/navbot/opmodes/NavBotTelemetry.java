@@ -1,7 +1,7 @@
 package org.ftcbootstrap.demos.navbot.opmodes;
 
 import com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity;
-import com.qualcomm.hardware.ModernRoboticsI2cGyro;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcbootstrap.ActiveOpMode;
