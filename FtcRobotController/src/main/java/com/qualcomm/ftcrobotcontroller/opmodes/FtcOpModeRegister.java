@@ -36,6 +36,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
 import org.novalabs.robotics.techbytes.AutonomousModeRight;
 import org.novalabs.robotics.techbytes.FrameworkTestOpMode;
+import org.novalabs.robotics.techbytes.UltrasonicTestOp;
 import org.novalabs.robotics.techbytes.tests.AutonomousSleep;
 
 /**
@@ -96,5 +97,6 @@ public class FtcOpModeRegister implements OpModeRegister {
     //manager.register("PushBotDriveTouch", PushBotDriveTouch.java);
     //manager.register("PushBotIrSeek", PushBotIrSeek.java);
     //manager.register("PushBotSquare", PushBotSquare.java);
+    manager.register("UltrasonicTest", UltrasonicTestOp.class);
   }
 }
