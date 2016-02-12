@@ -32,7 +32,7 @@ public class TankDriveToEncoder extends OpModeComponent {
         leftMotorToEncoder =  new MotorToEncoder(opMode, leftMotor );
         leftMotorToEncoder.setName("left motor");
         rightMotorEncoder = new MotorToEncoder( opMode, rightMotor );
-        leftMotorToEncoder.setName("right motor");
+        rightMotorEncoder.setName("right motor");
 
     }
 
@@ -64,7 +64,7 @@ public class TankDriveToEncoder extends OpModeComponent {
             leftMotorToEncoder.stop();
         }
         else {
-            targetReached =  leftMotorToEncoder.runToTarget(power, encoderDistance, motorDirection, runMode);
+            targetReached =  leftMotorToEncoder.runToTarget(power, encoderDistance, motorDirection, runMode, false);
         }
 
         //stop the other motor if this target is reached
@@ -82,8 +82,10 @@ public class TankDriveToEncoder extends OpModeComponent {
             rightMotorEncoder.stop();
         }
         else {
-            targetReached = rightMotorEncoder.runToTarget(power, encoderDistance, motorDirection, runMode);
+            targetReached = rightMotorEncoder.runToTarget(power, encoderDistance, motorDirection, runMode, false);
         }
+
+ //       getOpMode().waitOneFullHardwareCycle();
 
         //stop the other motor if this target is reached
         if ( targetReached) {

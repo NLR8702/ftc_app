@@ -47,6 +47,14 @@ public class MotorToEncoder extends OpModeComponent {
 
 
 
+    public boolean runToTarget(double power,
+                               int targetEncoderDistance,
+                               MotorDirection direction,
+                               DcMotorController.RunMode runMode) throws InterruptedException
+    {
+        return runToTarget(power, targetEncoderDistance, direction, runMode, true);
+    }
+
 
     /**
      * @param power
@@ -59,46 +67,52 @@ public class MotorToEncoder extends OpModeComponent {
     public boolean runToTarget(double power,
                                int targetEncoderDistance,
                                MotorDirection direction,
-                               DcMotorController.RunMode runMode)
+                               DcMotorController.RunMode runMode, boolean shouldWait)
             throws InterruptedException {
 
 
         if (this.isRunning()) {
 
 
-            getOpMode().getTelemetryUtil().addData("a1" + ": ",  power);
+            getOpMode().getTelemetryUtil().addData(getName() + " state: ",  "running");
 
-            if ( rampingUp != null) {
-                // getOpMode().getTelemetryUtil().addData("a2" + ": ", rampingUp.doubleValue());
-                //getOpMode().getTelemetryUtil().addData("a3" + ": ",  (power - INITIAL_RAMP_UP_POWER) / RAMP_UP_PERCENTAGE);
-
-                rampingUp  +=  (power - INITIAL_RAMP_UP_POWER) * RAMP_UP_PERCENTAGE;
-                if ( rampingUp >=  power) {
-                    rampingUp = null;
-                }
-                else {
-                    double rampingUpPowerWithDirection = (direction == MotorDirection.MOTOR_FORWARD) ? rampingUp: -rampingUp;
-                    motor.setPower(rampingUpPowerWithDirection);
-                }
-            }
+//            if ( rampingUp != null) {
+//                // getOpMode().getTelemetryUtil().addData("a2" + ": ", rampingUp.doubleValue());
+//                //getOpMode().getTelemetryUtil().addData("a3" + ": ",  (power - INITIAL_RAMP_UP_POWER) / RAMP_UP_PERCENTAGE);
+//
+//                rampingUp  +=  (power - INITIAL_RAMP_UP_POWER) * RAMP_UP_PERCENTAGE;
+//                if ( rampingUp >=  power) {
+//                    rampingUp = null;
+//                }
+//                else {
+//                    double rampingUpPowerWithDirection = (direction == MotorDirection.MOTOR_FORWARD) ? rampingUp: -rampingUp;
+//                    getOpMode().getTelemetryUtil().addData(getName() + "setPower : ",  rampingUpPowerWithDirection);
+//                    motor.setPower(rampingUpPowerWithDirection);
+//                }
+//            }
 
             boolean reached = this.targetReached();
             if (reached ) {
+                getOpMode().getTelemetryUtil().addData(getName() + " state: ",  "stop");
                 stop();
             }
             return reached;
         }
 
 
-        if ( power >= 0.3 ) {
-            rampingUp = INITIAL_RAMP_UP_POWER;
-            power = rampingUp;
-        }
+//        if ( power >= 0.3 ) {
+//            rampingUp = INITIAL_RAMP_UP_POWER;
+//            power = rampingUp;
+//        }
 
         if ( runMode !=  motor.getMode()) {
-
+            getOpMode().getTelemetryUtil().addData(getName() + " state: ", "changing to run mode" + runMode.toString());
             motor.setMode(runMode);
-            getOpMode().waitOneFullHardwareCycle();
+            if (shouldWait) {
+                getOpMode().waitOneFullHardwareCycle();
+            } else {
+                return false;
+            }
         }
 
 
@@ -114,7 +128,7 @@ public class MotorToEncoder extends OpModeComponent {
             int newTarget = startingEncoderPosition + (targetEncoderDistance * targetDirectionFactor);
             motor.setTargetPosition(newTarget);
         }
-
+        getOpMode().getTelemetryUtil().addData(getName() + "setPower : ",  powerWithDirection);
         motor.setPower(powerWithDirection);
 
         return false;
@@ -154,10 +168,11 @@ public class MotorToEncoder extends OpModeComponent {
 
         running = false;
         if ( ! isRunToPosition()) {
-            addTelemetry("stopping motor ", "stop");
+            addTelemetry(getName(), " stop");
             motor.setPower(0);
         }
         else {
+            addTelemetry(getName(), " stop but setTargetPosition");
             motor.setTargetPosition(motorCurrentPosition());
         }
 
