@@ -32,6 +32,8 @@ import org.ftcbootstrap.demos.navbot.NavBot;
  */
 public class EncoderMotorTest8702 extends ActiveOpMode {
 
+    public final int PULSES_PER_REVOLUTION_AM60 = 1680;
+
     private Team8702Bot robot;
 
     private TankDriveToEncoder tankDriveToEncoder;
@@ -73,12 +75,12 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
 
         // RUN ONE MOTOR but OBSERVE encoder positions on both
         switch (step) {
-            case 1:
-                handleSingleMotorOperation(.1, 2000, DriveDirection.DRIVE_FORWARD);
+            case 1:  //(speed, encoder ticks,
+                handleSingleMotorOperation(.1, PULSES_PER_REVOLUTION_AM60 * 2, DriveDirection.DRIVE_FORWARD);
                 break;
 
             case 2:
-                handleSingleMotorOperation(.1, 2000, DriveDirection.DRIVE_BACKWARD);
+                handleSingleMotorOperation(.1, PULSES_PER_REVOLUTION_AM60 * 2, DriveDirection.DRIVE_BACKWARD);
                 break;
 
 
