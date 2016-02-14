@@ -77,10 +77,7 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
-        waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
+
 
         waitOneFullHardwareCycle();
         robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
@@ -94,84 +91,48 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
         getTelemetryUtil().sendTelemetry();
         goForward(0.3, target);
 
-        waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
+
 
         waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-
-        waitOneFullHardwareCycle();
-        target = 1680;
+        target = target+1680;
 
         getTelemetryUtil().addData("status", "about to go forward 2");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
         getTelemetryUtil().sendTelemetry();
         goForward(0.3, target);
 
-        waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
 
         waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-
-        waitOneFullHardwareCycle();
-        target = 1680*2;
+        target = target+(7560);
 
         getTelemetryUtil().addData("status", "about to go forward 3");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
         getTelemetryUtil().sendTelemetry();
         spinRight(0.3, target);
-        waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
+
 
         waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-
-        waitOneFullHardwareCycle();
-        target = 1680*2;
+        target = target+(7560);
 
         getTelemetryUtil().addData("status", "about to go forward 4");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
         getTelemetryUtil().sendTelemetry();
         spinRight(0.3, target);
 
-        waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
+
+
 
         waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-
-        waitOneFullHardwareCycle();
-        target = 1680*2;
+        target = target+ (7560);
 
         getTelemetryUtil().addData("status", "about to go forward 5");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
         getTelemetryUtil().sendTelemetry();
         spinRight(0.3, target);
 
-        waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-        robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
 
         waitOneFullHardwareCycle();
-        robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
-
-        waitOneFullHardwareCycle();
-        target = 1680*2;
+        target = target+(7560);
 
         getTelemetryUtil().addData("status", "about to go forward 6");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
