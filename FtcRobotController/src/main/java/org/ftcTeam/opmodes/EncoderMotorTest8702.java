@@ -1,5 +1,6 @@
 package org.ftcTeam.opmodes;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcTeam.Team8702Bot;
@@ -73,46 +74,64 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
-        // RUN ONE MOTOR but OBSERVE encoder positions on both
-        switch (step) {
-            case 1:  //(speed, encoder ticks,
-                handleSingleMotorOperation(.1, PULSES_PER_REVOLUTION_AM60 * 2, DriveDirection.DRIVE_FORWARD);
-                break;
+        waitOneFullHardwareCycle();
+        robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
 
-            case 2:
-                handleSingleMotorOperation(.1, PULSES_PER_REVOLUTION_AM60 * 2, DriveDirection.DRIVE_BACKWARD);
-                break;
+        waitOneFullHardwareCycle();
+        robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
+        waitOneFullHardwareCycle();
 
-            case 3:
-                skipStep();
-                break;
+        int target = 1680;
+        robot.getLeftDrive().setTargetPosition(target);
+        robot.getRightDrive().setTargetPosition(target);
 
-            case 4:
-                skipStep();
-                break;
+        waitOneFullHardwareCycle();
 
+        robot.getLeftDrive().setPower(0.3);
+        robot.getRightDrive().setPower(0.3);
 
-            case 5:
-                skipStep();
-                break;
+        waitOneFullHardwareCycle();
 
+        getTelemetryUtil().addData("status", "running");
+        getTelemetryUtil().sendTelemetry();
 
+        int lastLeftPos = robot.getLeftDrive().getCurrentPosition();
+        int lastRightPos = robot.getRightDrive().getCurrentPosition();
 
-            default:
-                setOperationsCompleted();
-                getTelemetryUtil().addData("OperationsCompleted Left ", robot.getLeftDrive().getCurrentPosition());
-                getTelemetryUtil().addData("OperationsCompleted Right", robot.getRightDrive().getCurrentPosition());
+        int leftPos = robot.getLeftDrive().getCurrentPosition();
+        int rightPos = robot.getRightDrive().getCurrentPosition();
+       // while (robot.getLeftDrive().getCurrentPosition() < 2000 ||  (robot.getLeftDrive().getCurrentPosition() < (2000 - 100)) &&  (lastPos != robot.getLeftDrive().getCurrentPosition() )) {
+        while ((leftPos < (target - 100)) || ((leftPos >= (target - 10)) &&  (lastLeftPos != leftPos ))) {
+            getTelemetryUtil().addData("leftpos", leftPos);
+            getTelemetryUtil().addData("lastLefPos", lastLeftPos);
+            getTelemetryUtil().addData("rightpos", rightPos);
+            getTelemetryUtil().addData("lastRightPos", lastRightPos);
+            getTelemetryUtil().sendTelemetry();
 
-                break;
+            sleep(100);
 
+            lastLeftPos = leftPos;
+            lastRightPos = rightPos;
+            leftPos = robot.getLeftDrive().getCurrentPosition();
+            rightPos = robot.getRightDrive().getCurrentPosition();
         }
 
 
-        //send any telemetry that may have been added in the above operations
+        getTelemetryUtil().addData("status", "at position");
         getTelemetryUtil().sendTelemetry();
 
 
+        robot.getLeftDrive().setPower(0.0);
+        robot.getRightDrive().setPower(0.0);
+        waitOneFullHardwareCycle();
+
+//        robot.getRightDrive().setPower(0.0);
+
+        setOperationsCompleted();
     }
 
     private void skipStep() {
