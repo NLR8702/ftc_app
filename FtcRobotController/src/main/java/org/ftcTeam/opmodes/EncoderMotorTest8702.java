@@ -86,7 +86,23 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
         waitOneFullHardwareCycle();
 
         int target = 1680;
+
+        getTelemetryUtil().addData("status", "about to go forward 1");
         goForward(0.3, target);
+
+        waitOneFullHardwareCycle();
+        robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
+        robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
+
+        waitOneFullHardwareCycle();
+        robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
+
+        waitOneFullHardwareCycle();
+        getTelemetryUtil().addData("status", "about to go forward 1");
+
+
         goForward(0.3, target);
 
 
