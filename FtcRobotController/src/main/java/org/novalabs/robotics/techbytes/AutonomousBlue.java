@@ -12,7 +12,7 @@ import java.util.List;
  * Created by Zach Shuster on 12/28/2015.
  * Tested with some success on 12/30/2015
  */
-public class AutonomousModeRight extends LinearOpMode {
+public class AutonomousBlue extends LinearOpMode {
     private DcMotor leftMotor;
     private DcMotor rightMotor;
 //     private List<HardwareController> controllerList = new ArrayList<HardwareController>();
@@ -106,7 +106,7 @@ public class AutonomousModeRight extends LinearOpMode {
 //    private int loopRotations = 0;
 //    private static int CurrentStage = 0;
 //
-//    public AutonomousModeRight() {
+//    public AutonomousBlue() {
 //        controllerList.add(new KickstandHardwareController());
 //        controllerList.add(new NavigationColorSensor());
 //        controllerList.add(new BeaconDetector());
