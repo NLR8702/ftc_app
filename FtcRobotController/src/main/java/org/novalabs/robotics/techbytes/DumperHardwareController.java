@@ -32,11 +32,11 @@ public class DumperHardwareController implements HardwareController {
 //            DumperMotor.setPosition(1);
 //        } else if (opMode.gamepad2.dpad_down) {
 //            DumperMotor.setPosition(0);
-        if (opMode.gamepad2.dpad_up && dumperPosition < (1 - increment)) {
-            dumperPosition = dumperPosition + increment;
-
-        } else if (opMode.gamepad2.dpad_down && dumperPosition > (0 + increment)) {
+        if (opMode.gamepad2.dpad_up && dumperPosition < (0 + increment)) {
             dumperPosition = dumperPosition - increment;
+
+        } else if (opMode.gamepad2.dpad_down && dumperPosition > (1 - increment)) {
+            dumperPosition = dumperPosition + increment;
         }
         DumperMotor.setPosition(dumperPosition);
     }
