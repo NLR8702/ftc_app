@@ -42,9 +42,9 @@ public class DriveHardwareController implements HardwareController {
 //            rightMotor.setPower(opMode.gamepad1.right_stick_y*.5);
         if (opMode.gamepad1.a) {
                 rightMotor.setPower(opMode.gamepad1.left_stick_y*.5);
-                leftMotor.setPower(opMode.gamepad1.left_stick_y*.5);
+                leftMotor.setPower(opMode.gamepad1.left_stick_y*-.5);
             } else {
-                leftMotor.setPower(opMode.gamepad1.left_stick_y*.5);
+                leftMotor.setPower(opMode.gamepad1.left_stick_y*-.5);
                 rightMotor.setPower(opMode.gamepad1.right_stick_y*.5);
             }
         }
