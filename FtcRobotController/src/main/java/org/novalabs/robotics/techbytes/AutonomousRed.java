@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 /**
  * Created by Zach Shuster on 1/21/2016.
  */
-public class AutonomousModeLeft extends LinearOpMode {
+public class AutonomousRed extends LinearOpMode {
     private DcMotor leftMotor;
     private DcMotor rightMotor;
 //    private void turnleft;

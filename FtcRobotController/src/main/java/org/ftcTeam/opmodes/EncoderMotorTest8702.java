@@ -40,6 +40,7 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
     private TankDriveToEncoder tankDriveToEncoder;
     private int step;
     private int stepCounter;
+    public final int PULSES_PER_90=1935;
 
     /**
      * Implement this method to define the code to run when the Init button is pressed on the Driver station.
@@ -83,63 +84,68 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
         robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
         robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
+//        waitOneFullHardwareCycle();
+//
+//        int target = 1680;
+//
+//        getTelemetryUtil().addData("status", "about to go forward 1");
+//        getTelemetryUtil().sendTelemetry();
+//        goForward(0.3, target);
+
+
+
+//        waitOneFullHardwareCycle();
+//        target = target+1680;
+//
+//        getTelemetryUtil().addData("status", "about to go forward 2");
+//        getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
+//        getTelemetryUtil().sendTelemetry();
+//        goForward(0.3, target);
+
+
         waitOneFullHardwareCycle();
-
-        int target = 1680;
-
-        getTelemetryUtil().addData("status", "about to go forward 1");
-        getTelemetryUtil().sendTelemetry();
-        goForward(0.3, target);
-
-
-
-        waitOneFullHardwareCycle();
-        target = target+1680;
-
-        getTelemetryUtil().addData("status", "about to go forward 2");
-        getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
-        getTelemetryUtil().sendTelemetry();
-        goForward(0.3, target);
-
-
-        waitOneFullHardwareCycle();
-        target = target+(7560);
+        int target = (PULSES_PER_90);
 
         getTelemetryUtil().addData("status", "about to go forward 3");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
         getTelemetryUtil().sendTelemetry();
         spinRight(0.3, target);
 
+        waitOneFullHardwareCycle();
+        sleep(500);
 
         waitOneFullHardwareCycle();
-        target = target+(7560);
+        target = target+(PULSES_PER_90);
 
         getTelemetryUtil().addData("status", "about to go forward 4");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
         getTelemetryUtil().sendTelemetry();
         spinRight(0.3, target);
 
-
+        waitOneFullHardwareCycle();
+        sleep(500);
 
 
         waitOneFullHardwareCycle();
-        target = target+ (7560);
+        target = target+ (PULSES_PER_90);
 
         getTelemetryUtil().addData("status", "about to go forward 5");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
         getTelemetryUtil().sendTelemetry();
         spinRight(0.3, target);
 
+        waitOneFullHardwareCycle();
+        sleep(500);
 
         waitOneFullHardwareCycle();
-        target = target+(7560);
+        target = target+(PULSES_PER_90);
 
         getTelemetryUtil().addData("status", "about to go forward 6");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
         getTelemetryUtil().sendTelemetry();
         spinRight(0.3, target);
 
-
+        waitOneFullHardwareCycle();
 
 //        robot.getRightDrive().setPower(0.0);
 
@@ -258,6 +264,86 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
             leftPos = robot.getLeftDrive().getCurrentPosition();
             rightPos = robot.getRightDrive().getCurrentPosition();
         }
+        getTelemetryUtil().addData("status", "at position");
+        getTelemetryUtil().sendTelemetry();
+
+
+        robot.getLeftDrive().setPower(0.0);
+        robot.getRightDrive().setPower(0.0);
+        waitOneFullHardwareCycle();
+    }
+
+
+    private void spinLeft(double power, int target) throws InterruptedException {
+        robot.getLeftDrive().setTargetPosition(0);
+        robot.getRightDrive().setTargetPosition(target);
+
+        waitOneFullHardwareCycle();
+
+        robot.getLeftDrive().setPower(0);
+        robot.getRightDrive().setPower(power);
+
+        waitOneFullHardwareCycle();
+
+        getTelemetryUtil().addData("status", "running");
+        getTelemetryUtil().sendTelemetry();
+
+        int lastLeftPos = robot.getLeftDrive().getCurrentPosition();
+        int lastRightPos = robot.getRightDrive().getCurrentPosition();
+
+        int leftPos = robot.getLeftDrive().getCurrentPosition();
+        int rightPos = robot.getRightDrive().getCurrentPosition();
+        // while (robot.getLeftDrive().getCurrentPosition() < 2000 ||  (robot.getLeftDrive().getCurrentPosition() < (2000 - 100)) &&  (lastPos != robot.getLeftDrive().getCurrentPosition() )) {
+        while ((leftPos < (target - 100)) || ((leftPos >= (target - 10)) &&  (lastLeftPos != leftPos ))) {
+            getTelemetryUtil().addData("leftpos", leftPos);
+            getTelemetryUtil().addData("lastLefPos", lastLeftPos);
+            getTelemetryUtil().addData("rightpos", rightPos);
+            getTelemetryUtil().addData("lastRightPos", lastRightPos);
+            getTelemetryUtil().sendTelemetry();
+
+            sleep(100);
+
+            lastLeftPos = leftPos;
+            lastRightPos = rightPos;
+            leftPos = robot.getLeftDrive().getCurrentPosition();
+            rightPos = robot.getRightDrive().getCurrentPosition();
+        }
+    }
+
+
+    private void goBack(double power, int target) throws InterruptedException {
+        robot.getLeftDrive().setTargetPosition(target);
+        robot.getRightDrive().setTargetPosition(target);
+
+        waitOneFullHardwareCycle();
+
+        robot.getLeftDrive().setPower(-power);
+        robot.getRightDrive().setPower(-power);
+
+        waitOneFullHardwareCycle();
+
+        getTelemetryUtil().addData("status", "running");
+        getTelemetryUtil().sendTelemetry();
+
+        int lastLeftPos = robot.getLeftDrive().getCurrentPosition();
+        int lastRightPos = robot.getRightDrive().getCurrentPosition();
+
+        int leftPos = robot.getLeftDrive().getCurrentPosition();
+        int rightPos = robot.getRightDrive().getCurrentPosition();
+        // while (robot.getLeftDrive().getCurrentPosition() < 2000 ||  (robot.getLeftDrive().getCurrentPosition() < (2000 - 100)) &&  (lastPos != robot.getLeftDrive().getCurrentPosition() )) {
+        while ((leftPos < (target - 100)) || ((leftPos >= (target - 10)) &&  (lastLeftPos != leftPos ))) {
+            getTelemetryUtil().addData("leftpos", leftPos);
+            getTelemetryUtil().addData("lastLefPos", lastLeftPos);
+            getTelemetryUtil().addData("rightpos", rightPos);
+            getTelemetryUtil().addData("lastRightPos", lastRightPos);
+            getTelemetryUtil().sendTelemetry();
+
+            sleep(100);
+
+            lastLeftPos = leftPos;
+            lastRightPos = rightPos;
+            leftPos = robot.getLeftDrive().getCurrentPosition();
+            rightPos = robot.getRightDrive().getCurrentPosition();
 
 
         getTelemetryUtil().addData("status", "at position");
@@ -271,4 +357,5 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
 
 
 
+}
 }
