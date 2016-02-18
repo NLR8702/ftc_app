@@ -79,7 +79,7 @@ public class AutonomousSleep extends LinearOpMode {
 //    private int loopRotations = 0;
 //    private static int CurrentStage = 0;
 //
-//    public AutonomousModeRight() {
+//    public AutonomousBlue() {
 //        controllerList.add(new KickstandHardwareController());
 //        controllerList.add(new NavigationColorSensor());
 //        controllerList.add(new BeaconDetector());

@@ -34,7 +34,7 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
-import org.novalabs.robotics.techbytes.AutonomousModeRight;
+import org.novalabs.robotics.techbytes.AutonomousBlue;
 import org.novalabs.robotics.techbytes.FrameworkTestOpMode;
 import org.novalabs.robotics.techbytes.UltrasonicTestOp;
 import org.novalabs.robotics.techbytes.tests.AutonomousSleep;
@@ -63,7 +63,7 @@ public class FtcOpModeRegister implements OpModeRegister {
 
     manager.register("FrameworkTestOpMode", FrameworkTestOpMode.class);
     manager.register("Navigation", org.novalabs.robotics.techbytes.tests.NavigationColorSensor.class);
-    manager.register("AutonomousModeRight", AutonomousModeRight.class);
+    manager.register("AutonomousBlue", AutonomousBlue.class);
     manager.register("AutonomousTest", AutonomousSleep.class);
     /*
 
