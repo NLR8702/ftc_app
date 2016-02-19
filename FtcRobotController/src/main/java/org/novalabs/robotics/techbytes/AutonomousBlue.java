@@ -49,7 +49,7 @@ public class AutonomousBlue extends ActiveOpMode {
         robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
         robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
-        AutonomousUtility.Forwards(this, robot, 12);
+        AutonomousUtility.Forwards(this, robot, 12*2);
         AutonomousUtility.turnLeft(this, robot, 90);
     }
 }

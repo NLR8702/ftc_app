@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 import org.ftcTeam.opmodes.EncoderMotorTest8702;
 import org.ftcTeam.opmodes.GamePadDriveOpMode;
 import org.ftcbootstrap.demos.TelemetryTest;
+import org.ftcbootstrap.demos.navbot.opmodes.EncoderMotorTest;
 import org.ftcbootstrap.demos.pushbot.opmodes.PushBotAuto;
 import org.novalabs.robotics.techbytes.AutonomousBlue;
 import org.novalabs.robotics.techbytes.FrameworkTestOpMode;
@@ -52,6 +53,7 @@ public class FTCTeamRegistry implements OpModeRegister {
     manager.register("AutonomousTest", AutonomousSleep.class);
     manager.register("UltrasonicTest", UltrasonicTestOp.class);
     manager.register("EncoderTest", EncoderMotorTest8702.class);
+    manager.register("EncoderMotor8702", EncoderMotorTest8702.class);
 
     //manager.register("MR Gyro Test", MRGyroTest.class);
 
