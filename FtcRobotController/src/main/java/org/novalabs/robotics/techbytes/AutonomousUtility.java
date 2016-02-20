@@ -15,7 +15,7 @@ public class AutonomousUtility {
 
     static final double PULSE_PER_90_DEGREE = 1940;
     static final double PULSE_PER_FOOT = 1120;
-
+//  Operation Methods
     private static void sleep(long milliseconds)throws InterruptedException {
         Thread.sleep(milliseconds);
     }
@@ -27,23 +27,21 @@ public class AutonomousUtility {
         return (int)(inches * PULSE_PER_FOOT / 12.0);
     }
 
-    public static void GoUpMountain(Team8702Bot robot, int inches) throws InterruptedException {
-
-
-    }
-    public static void Backwards(Team8702Bot robot, int inches) throws InterruptedException {
-
-    }
-
+//  Turn Methods
     public static void turnRight(ActiveOpMode opMode, Team8702Bot robot, int degree ) throws InterruptedException {
-       double rightPower = 2.3;
+       double rightPower = 0.3;
        int pulse = Degrees_to_Pulse(degree);
-
-
-        turnRightWithPulse(opMode, robot, rightPower, pulse);
-
+        //turnRightWithPulse(opMode, robot, rightPower, pulse);
+        spinRight(opMode, robot, 0.3, pulse);
 
     }
+    public static void turnLeft(ActiveOpMode opMode, Team8702Bot robot, int degree) throws InterruptedException {
+        double leftPower = 0.3;
+        int pulse = Degrees_to_Pulse(degree);
+        turnRightWithPulse(opMode, robot, leftPower, pulse );
+    }
+
+
     private static void turnRightWithPulse(ActiveOpMode opMode, Team8702Bot robot, double power, int target ) throws InterruptedException {
         robot.getLeftDrive().setTargetPosition(target);
         robot.getRightDrive().setTargetPosition(0);
@@ -88,13 +86,6 @@ public class AutonomousUtility {
         robot.getLeftDrive().setPower(0.0);
         robot.getRightDrive().setPower(0.0);
         opMode.waitOneFullHardwareCycle();
-    }
-
-
-    public static void turnLeft(ActiveOpMode opMode, Team8702Bot robot, int degree) throws InterruptedException {
-        double leftPower = 0.3;
-        int pulse = Degrees_to_Pulse(degree);
-        turnRightWithPulse(opMode, robot, leftPower, pulse );
     }
     public static void Forwards(ActiveOpMode opMode, Team8702Bot robot, int inches) throws InterruptedException {
         double power = 0.3;
@@ -193,11 +184,13 @@ public class AutonomousUtility {
         opMode.waitOneFullHardwareCycle();
     }
 
-    public static void stop(DcMotor leftMotor, DcMotor rightMotor){
+    public static void Stop(Team8702Bot robot){
+        robot.getLeftDrive().setPower(1);
+        robot.getRightDrive().setPower(1);
 
     }
 
-    private void spinRight(ActiveOpMode opMode, Team8702Bot robot, double power, int target) throws InterruptedException {
+    private static void spinRight(ActiveOpMode opMode, Team8702Bot robot, double power, int target) throws InterruptedException {
         robot.getLeftDrive().setTargetPosition(target);
         robot.getRightDrive().setTargetPosition(0);
 

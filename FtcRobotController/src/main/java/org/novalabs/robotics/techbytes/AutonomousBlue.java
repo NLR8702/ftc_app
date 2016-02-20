@@ -31,6 +31,7 @@ public class AutonomousBlue extends ActiveOpMode {
         robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
         robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
         robot.getRightDrive().setDirection(DcMotor.Direction.REVERSE);
+        robot.getLeftDrive().setDirection(DcMotor.Direction.FORWARD);
 
     }
     @Override
@@ -49,8 +50,12 @@ public class AutonomousBlue extends ActiveOpMode {
         robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
         robot.getRightDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
 
+        // parameters (ActiveOpMode opMode "this", robot, (DOUBLE) power (inches), (INT) target)
         AutonomousUtility.Forwards(this, robot, 12*2);
-        AutonomousUtility.turnLeft(this, robot, 90);
+        AutonomousUtility.turnRight(this, robot, 90);
+        AutonomousUtility.Stop(robot);
+//        AutonomousUtility.Forwards(this, robot,12*2);
+//        AutonomousUtility.Stop(robot);
     }
 }
 
