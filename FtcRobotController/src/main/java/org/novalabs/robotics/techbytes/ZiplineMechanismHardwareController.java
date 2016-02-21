@@ -47,10 +47,10 @@ public class ZiplineMechanismHardwareController implements HardwareController {
             if (rightZiplineState == 0) {
                 rightZiplineState = 1;
             } else if (rightZiplineState == 1) {
-                rightZiplineState = 2;
-
-            } else if (rightZiplineState == 2) {
                 rightZiplineState = 0;
+
+//            } else if (rightZiplineState == 2) {
+//                rightZiplineState = 0;
             }
             rightbuttonState = ButtonState.DOWN;
         } else if (rightbuttonState == ButtonState.DOWN && opMode.gamepad2.dpad_right == false) {
@@ -73,10 +73,10 @@ public class ZiplineMechanismHardwareController implements HardwareController {
             if (leftZiplineState == 0) {
                 leftZiplineState = 1;
             } else if (leftZiplineState == 1) {
-                leftZiplineState = 2;
-
-            } else if (leftZiplineState == 2) {
                 leftZiplineState = 0;
+
+//            } else if (leftZiplineState == ) {
+//                leftZiplineState = 0;
             }
             leftbuttonState = ButtonState.DOWN;
         } else if (leftbuttonState == ButtonState.DOWN && opMode.gamepad2.dpad_left == false) {
@@ -94,7 +94,7 @@ public class ZiplineMechanismHardwareController implements HardwareController {
 
     }
 
-//    @Override
+    //    @Override
     public String getName() {
         return "ZiplineMechanismHardwareController";
     }
