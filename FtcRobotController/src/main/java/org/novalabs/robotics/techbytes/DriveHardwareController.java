@@ -23,7 +23,7 @@ public class DriveHardwareController implements HardwareController {
         state.set(NORMAL);
         leftMotor = opMode.hardwareMap.dcMotor.get("leftMotor");
         rightMotor = opMode.hardwareMap.dcMotor.get("rightMotor");
-
+//        leftMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
     }
@@ -44,11 +44,17 @@ public class DriveHardwareController implements HardwareController {
 //            leftMotor.setPower(opMode.gamepad1.left_stick_y*.5);
 //            rightMotor.setPower(opMode.gamepad1.right_stick_y*.5);
             if (opMode.gamepad1.a) {
-                rightMotor.setPower(opMode.gamepad1.left_stick_y * .5);
-                leftMotor.setPower(opMode.gamepad1.left_stick_y *- .5);
+                double leftPower = opMode.gamepad1.left_stick_y * - .5;
+                double rightPower = opMode.gamepad1.left_stick_y *  .5;
+                rightMotor.setPower(leftPower);
+                leftMotor.setPower(rightPower);
             } else {
-                leftMotor.setPower(opMode.gamepad1.left_stick_y *- .5);
-                rightMotor.setPower(opMode.gamepad1.right_stick_y * .5);
+                double leftPower = opMode.gamepad1.right_stick_y * .5;
+                double rightPower = opMode.gamepad1.left_stick_y * - .5;
+                rightMotor.setPower(rightPower);
+                leftMotor.setPower(leftPower);
+                opMode.telemetry.addData("leftMotor", leftPower);
+                opMode.telemetry.addData("leftMotor", rightPower);
             }
         }
         if (state.get() == FORWARD_SLOW) {
