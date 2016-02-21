@@ -1,5 +1,7 @@
 package org.novalabs.robotics.techbytes;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -9,6 +11,7 @@ import com.qualcomm.robotcore.robocol.Telemetry;
  * Created by tylerkim on 12/1/15.
  */
 public class TapeHardwareController implements HardwareController {
+    private static final String TAG = "FTC TapeHardware";
     private DcMotor TapeMotor;
     private Servo tapeGuide;
     private float tapePosition;
@@ -29,10 +32,10 @@ public class TapeHardwareController implements HardwareController {
         //tapeLock= opMode.hardwareMap.servo.get("tapeLock");
 
 
-        increment=.05f;
+        increment=.01f;
         tapePosition=.5f;
 
-        tapeLock.setPosition(0.5);
+   //     tapeLock.setPosition(0.5);
     }
 
     @Override
@@ -54,11 +57,13 @@ public class TapeHardwareController implements HardwareController {
 //            TapeMotor.setPower(0);
 
 
-        if (opMode.gamepad2.b && tapePosition < (1-increment)) {
+        if (opMode.gamepad2.b && (tapePosition <= (1-increment))) {
             tapePosition = tapePosition + increment;
+            Log.d(TAG, "tapePosition: " + tapePosition);
 
-        } else if (opMode.gamepad2.x && tapePosition > (0+increment)) {
+        } else if (opMode.gamepad2.x && (tapePosition >= (0+increment))) {
             tapePosition = tapePosition - increment;
+            Log.d(TAG, "tapePosition: " + tapePosition);
         }
         if (opMode.gamepad2.left_bumper) {
             tapeLock.setPosition(0.4);
