@@ -4,16 +4,16 @@ import com.qualcomm.ftcrobotcontroller.opmodes.NullOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
-import org.ftcTeam.opmodes.AutonomousMode;
-import org.ftcTeam.opmodes.EncoderMotorTest8702;
 import org.ftcTeam.opmodes.GamePadDriveOpMode;
-import org.ftcbootstrap.demos.TelemetryTest;
-import org.ftcbootstrap.demos.navbot.opmodes.EncoderMotorTest;
-import org.ftcbootstrap.demos.pushbot.opmodes.PushBotAuto;
-import org.novalabs.robotics.techbytes.AutonomousBlue;
+import org.ftcTeam.opmodes.autonomous.OneBlueBlue;
+import org.ftcTeam.opmodes.autonomous.OneBlueRed;
+import org.ftcTeam.opmodes.autonomous.OneRedBlue;
+import org.ftcTeam.opmodes.autonomous.OneRedRed;
+import org.ftcTeam.opmodes.autonomous.TwoBlueBlue;
+import org.ftcTeam.opmodes.autonomous.TwoBlueRed;
+import org.ftcTeam.opmodes.autonomous.TwoRedBlue;
+import org.ftcTeam.opmodes.autonomous.TwoRedRed;
 import org.novalabs.robotics.techbytes.FrameworkTestOpMode;
-import org.novalabs.robotics.techbytes.UltrasonicTestOp;
-import org.novalabs.robotics.techbytes.tests.AutonomousSleep;
 
 
 /**
@@ -42,20 +42,33 @@ public class FTCTeamRegistry implements OpModeRegister {
     manager.register("GamePadDriveOpMode", GamePadDriveOpMode.class);
 
 
-    manager.register("TelemetryTest", TelemetryTest.class);
+    //manager.register("TelemetryTest", TelemetryTest.class);
 
-    manager.register("PushBotTest", PushBotAuto.class);
+    //manager.register("PushBotTest", PushBotAuto.class);
 
-    manager.register("Ultrasonic Test1", UltrasonicTestOp.class);
+    //manager.register("Ultrasonic Test1", UltrasonicTestOp.class);
 
     manager.register("FrameworkTestOpMode", FrameworkTestOpMode.class);
-    manager.register("Navigation", org.novalabs.robotics.techbytes.tests.NavigationColorSensor.class);
-    manager.register("AutonomousBlue", AutonomousBlue.class);
-    manager.register("AutonomousTest", AutonomousSleep.class);
-    manager.register("UltrasonicTest", UltrasonicTestOp.class);
-    manager.register("EncoderTest", EncoderMotorTest8702.class);
-    manager.register("EncoderMotor8702", EncoderMotorTest8702.class);
-    manager.register("AutonomusMode", AutonomousMode.class);
+    //manager.register("Navigation", org.novalabs.robotics.techbytes.tests.NavigationColorSensor.class);
+    //manager.register("AutonomousBlue", AutonomousBlue.class);
+    //manager.register("AutonomousTest", AutonomousSleep.class);
+    //manager.register("UltrasonicTest", UltrasonicTestOp.class);
+    //manager.register("EncoderTest", EncoderMotorTest8702.class);
+   // manager.register("EncoderMotor8702", EncoderMotorTest8702.class);
+    //manager.register("AutonomusMode", AutonomousMode.class);
+    manager.register("OneBlueBlue", OneBlueBlue.class);
+    manager.register("TwoBlueBlue", TwoBlueBlue.class);
+    manager.register("OneRedRed", OneRedRed.class);
+    manager.register("TwoRedRed", TwoRedRed.class);
+    manager.register("OneBlueRed", OneBlueRed.class);
+    manager.register("TwoBlueRed", TwoBlueRed.class);
+    manager.register("OneRedBlue", OneRedBlue.class);
+    manager.register("TwoRedBlue", TwoRedBlue.class);
+
+
+
+
+
 
     //manager.register("MR Gyro Test", MRGyroTest.class);
 

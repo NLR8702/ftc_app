@@ -2,6 +2,7 @@ package org.novalabs.robotics.techbytes;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -14,6 +15,7 @@ public class DriveHardwareController implements HardwareController {
 
     private DcMotor leftMotor;
     private DcMotor rightMotor;
+
     private AtomicInteger state = new AtomicInteger(0);
 
     @Override
@@ -23,11 +25,12 @@ public class DriveHardwareController implements HardwareController {
         rightMotor = opMode.hardwareMap.dcMotor.get("rightMotor");
 
 
+
     }
 
     @Override
     public void loop(OpMode opMode) {
-        double  rt = opMode. gamepad1.right_trigger;
+        double rt = opMode.gamepad1.right_trigger;
 
         if (opMode.gamepad1.left_stick_y != 0 || opMode.gamepad1.right_stick_y != 0) {
             state.set(NORMAL);
@@ -40,32 +43,26 @@ public class DriveHardwareController implements HardwareController {
         if (state.get() == NORMAL) {
 //            leftMotor.setPower(opMode.gamepad1.left_stick_y*.5);
 //            rightMotor.setPower(opMode.gamepad1.right_stick_y*.5);
-        if (opMode.gamepad1.a) {
-                rightMotor.setPower(opMode.gamepad1.left_stick_y*.5);
-                leftMotor.setPower(opMode.gamepad1.left_stick_y*-.5);
+            if (opMode.gamepad1.a) {
+                rightMotor.setPower(opMode.gamepad1.left_stick_y * .5);
+                leftMotor.setPower(opMode.gamepad1.left_stick_y *- .5);
             } else {
-                leftMotor.setPower(opMode.gamepad1.left_stick_y*-.5);
-                rightMotor.setPower(opMode.gamepad1.right_stick_y*.5);
+                leftMotor.setPower(opMode.gamepad1.left_stick_y *- .5);
+                rightMotor.setPower(opMode.gamepad1.right_stick_y * .5);
             }
         }
-        if (state.get() ==  FORWARD_SLOW) {
+        if (state.get() == FORWARD_SLOW) {
             leftMotor.setPower(-.08);
             rightMotor.setPower(-.08);
-        }
-
-
-
-
-
-
-
-//        if (opMode.gamepad1.a) {
-//            rightMotor.setPower(.2);
+        }//        if (opMode.gamepad1.a) {
+//            rightMotor.setPower(.2);w
 //            leftMotor.setPower(.2);
 //        } else { leftMotor.setPower(opMode.gamepad1.left_stick_y);
 //            rightMotor.setPower(opMode.gamepad1.right_stick_y);}
 
-    }
+
+        }
+
 
     public void forwardSlow() {
         this.state.set(FORWARD_SLOW);
@@ -74,4 +71,7 @@ public class DriveHardwareController implements HardwareController {
     public void normal() {
         this.state.set(NORMAL);
     }
+
+
+
 }

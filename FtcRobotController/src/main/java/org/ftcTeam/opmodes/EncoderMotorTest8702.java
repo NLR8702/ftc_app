@@ -88,7 +88,7 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
 
 
         waitOneFullHardwareCycle();
-        int target = (1120)+280;  // 1120 = 1ft, 93 = 1inch, attempting to go 15inches
+        int target = (1120)+280;
 
         getTelemetryUtil().addData("status", "about to go forward 1");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
@@ -96,7 +96,7 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
         goForward(0.3, target);
 
         waitOneFullHardwareCycle();
-        target = target+(970); // attempting to go turn 45 degrees 970 * 2 = 90 degrees
+        target = target+(970);
 
         getTelemetryUtil().addData("status", "about to go forward 2");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
@@ -104,7 +104,7 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
         spinLeft(0.3, target);
 
         waitOneFullHardwareCycle();
-        target = target+(GO_FORWARD_3_FEET)+2240+(186); // forward 3 + 2 ft + 2 inches
+        target = target+(GO_FORWARD_3_FEET)+2240+(186);
 
         getTelemetryUtil().addData("status", "about to go forward 3");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
@@ -112,7 +112,7 @@ public class EncoderMotorTest8702 extends ActiveOpMode {
         goForward(0.3, target);
 
         waitOneFullHardwareCycle();
-        target = target+2240+93; // forward 2ft + 1 inch
+        target = target+2240+93;
 
         getTelemetryUtil().addData("status", "about to go forward 4");
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
