@@ -16,6 +16,7 @@ public class TankDriveToEncoder extends OpModeComponent {
 
     private MotorToEncoder leftMotorToEncoder;
     private MotorToEncoder rightMotorEncoder;
+    private MotorToEncoder guardMotor;
 
     /**
      * Constructor for operation
@@ -33,6 +34,7 @@ public class TankDriveToEncoder extends OpModeComponent {
         leftMotorToEncoder.setName("left motor");
         rightMotorEncoder = new MotorToEncoder( opMode, rightMotor );
         rightMotorEncoder.setName("right motor");
+
 
     }
 
