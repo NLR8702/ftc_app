@@ -24,6 +24,7 @@ public class Team8702Bot extends RobotConfiguration {
     //motors
     private DcMotor leftMotor;
     private DcMotor rightMotor;
+    private DcMotor guardMotor;
 
     /**
      * Factory method for this class
@@ -54,6 +55,7 @@ param hardwareMap
 
         leftMotor = (DcMotor) getHardwareOn("leftMotor", hardwareMap.dcMotor);
         rightMotor = (DcMotor) getHardwareOn("rightMotor", hardwareMap.dcMotor);
+        guardMotor=(DcMotor) getHardwareOn("guardMotor", hardwareMap.dcMotor);
 //        rightMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
@@ -75,4 +77,7 @@ param hardwareMap
     }
 
 
+    public DcMotor getGuardMotor() {
+        return guardMotor;
+    }
 }

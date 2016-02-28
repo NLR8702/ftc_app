@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcTeam.Team8702Bot;
 import org.ftcbootstrap.ActiveOpMode;
+import org.ftcbootstrap.components.operations.motors.MotorToEncoder;
 import org.ftcbootstrap.components.operations.motors.TankDriveToEncoder;
 import org.ftcbootstrap.components.utils.DriveDirection;
 import org.ftcbootstrap.demos.navbot.NavBot;
@@ -43,6 +44,7 @@ public class AutonomousMode extends ActiveOpMode {
     public final int PULSES_PER_90=1940;
     public final int GO_FORWARD_3_FEET=3360;
 
+
     /**
      * Implement this method to define the code to run when the Init button is pressed on the Driver station.
      */
@@ -57,6 +59,7 @@ public class AutonomousMode extends ActiveOpMode {
         getTelemetryUtil().sendTelemetry();
         robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
         robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
+
         robot.getLeftDrive().setDirection(DcMotor.Direction.REVERSE);
 
     }
