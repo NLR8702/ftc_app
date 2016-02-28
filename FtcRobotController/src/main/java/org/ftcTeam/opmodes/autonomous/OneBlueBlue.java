@@ -11,7 +11,7 @@ public class OneBlueBlue extends AutonomousMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
-
+        sleep(5000);
 
         waitOneFullHardwareCycle();
         robot.getLeftDrive().setMode(DcMotorController.RunMode.RUN_TO_POSITION);
@@ -21,35 +21,22 @@ public class OneBlueBlue extends AutonomousMode {
         int target = 0;
         getTelemetryUtil().addData("status", "about to go forward 36 inchs");
         getTelemetryUtil().sendTelemetry();
-
-        target = Inches_to_Pulse(12);
-        move(0.3, target);
-
-        getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
-        getTelemetryUtil().sendTelemetry();
-
+        move(0.3, 15);
 
         waitOneFullHardwareCycle();
-
-        target = Degrees_to_Pulse(45);
-        spinLeft(0.3, target);
-
-        //target = target + Inches_to_Pulse(12);
-        // target = target + Inches_to_Pulse(12);
-        waitOneFullHardwareCycle();
-        target = Inches_to_Pulse(36);
-        move(0.3, target);
+        spinRight(0.3, 45);
 
         waitOneFullHardwareCycle();
-        target = Inches_to_Pulse(12);
-        move(-0.3, -target);
-
+        move(0.3, 60);
 
         waitOneFullHardwareCycle();
-        target = Degrees_to_Pulse(90);
-        spinRight(0.3, target);
+        move(-0.3, -24);
 
+        waitOneFullHardwareCycle();
+        spinLeft(0.3, 90);
 
+        waitOneFullHardwareCycle();
+        move(-.3, -12);
 
         this.setOperationsCompleted();
     }
