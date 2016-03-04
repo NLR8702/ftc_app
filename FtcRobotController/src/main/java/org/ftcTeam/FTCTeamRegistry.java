@@ -4,7 +4,9 @@ import com.qualcomm.ftcrobotcontroller.opmodes.NullOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
+import org.ftcTeam.opmodes.AutonomousMode;
 import org.ftcTeam.opmodes.GamePadDriveOpMode;
+import org.ftcTeam.opmodes.autonomous.AutonomousTest;
 import org.ftcTeam.opmodes.autonomous.OneBlueBlue;
 import org.ftcTeam.opmodes.autonomous.OneBlueRed;
 import org.ftcTeam.opmodes.autonomous.OneRedBlue;
@@ -64,6 +66,7 @@ public class FTCTeamRegistry implements OpModeRegister {
     manager.register("TwoBlueRed", TwoBlueRed.class);
     manager.register("OneRedBlue", OneRedBlue.class);
     manager.register("TwoRedBlue", TwoRedBlue.class);
+    manager.register("autonomous test", AutonomousTest.class);
 
 
 

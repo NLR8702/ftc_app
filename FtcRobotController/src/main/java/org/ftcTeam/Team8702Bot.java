@@ -17,6 +17,12 @@ import org.ftcbootstrap.components.utils.TelemetryUtil;
  * saved configuration on the phone.
  */
 public class Team8702Bot extends RobotConfiguration {
+    static final double ANDYMARK60 = 60;
+    static final double ANDYMARK40 = 40;
+    static final double ROBOT_MOTOR = ANDYMARK60;
+    static final double PULSES_PER_REVOLUTION = 28 * ROBOT_MOTOR;
+    static final double INCHES_PER_REVOLUTION = 18.625;
+
 
     //sensors
 //    private TouchSensor touch;
@@ -41,6 +47,9 @@ param hardwareMap
         return config;
 
     }
+    public int pulsesPerInch(double inches) {
+        return (int) (inches * PULSES_PER_REVOLUTION/INCHES_PER_REVOLUTION);
+    }
 
     /**
      * Assign your class instance variables to the saved device names in the hardware map
@@ -60,6 +69,9 @@ param hardwareMap
 
 
     }
+
+
+
 
 
     /**

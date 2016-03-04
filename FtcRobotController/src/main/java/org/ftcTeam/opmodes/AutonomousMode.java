@@ -93,7 +93,8 @@ public class AutonomousMode extends ActiveOpMode {
         getTelemetryUtil().addData("status", "about to go forward 36 inchs");
         getTelemetryUtil().sendTelemetry();
 
-        target = Inches_to_Pulse(12);
+        //target = Inches_to_Pulse(12);
+        target = robot.pulsesPerInch(12);
         move(0.3, target);
 
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
@@ -108,11 +109,11 @@ public class AutonomousMode extends ActiveOpMode {
         //target = target + Inches_to_Pulse(12);
        // target = target + Inches_to_Pulse(12);
         waitOneFullHardwareCycle();
-        target = Inches_to_Pulse(36);
+        target = robot.pulsesPerInch(36);
         move(0.3, target);
 
         waitOneFullHardwareCycle();
-        target = Inches_to_Pulse(12);
+        target = robot.pulsesPerInch(12);
         move(-0.3, -target);
 
 
@@ -362,7 +363,7 @@ public class AutonomousMode extends ActiveOpMode {
         return (int)(degrees * PULSE_PER_90_DEGREE / 90.0);
     }
 
-    public  int Inches_to_Pulse(int inches){
-        return (int)(inches * PULSE_PER_FOOT / 12.0);
-    }
+    //public  int Inches_to_Pulse(int inches){
+        //return (int)(inches * PULSE_PER_FOOT / 12.0);
+    //}
 }
