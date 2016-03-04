@@ -22,7 +22,7 @@ public class OneBlueRed extends AutonomousMode {
         getTelemetryUtil().addData("status", "about to go forward 36 inchs");
         getTelemetryUtil().sendTelemetry();
 
-        target = Inches_to_Pulse(12);
+        target = robot.pulsesPerInch(12);
         move(0.3, target);
 
         getTelemetryUtil().addData("currentPos", robot.getLeftDrive().getCurrentPosition());
@@ -37,16 +37,16 @@ public class OneBlueRed extends AutonomousMode {
         //target = target + Inches_to_Pulse(12);
         // target = target + Inches_to_Pulse(12);
         waitOneFullHardwareCycle();
-        target = Inches_to_Pulse(36);
+        target = robot.pulsesPerInch(36);
         move(0.3, target);
 
         waitOneFullHardwareCycle();
-        target = Inches_to_Pulse(12);
+        target = robot.pulsesPerInch(12);
         move(-0.3, -target);
 
 
         waitOneFullHardwareCycle();
-        target = Degrees_to_Pulse(90);
+        target = robot.pulsesPerInch(90);
         spinRight(0.3, target);
 
 
