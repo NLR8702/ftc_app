@@ -65,11 +65,11 @@ public class TapeHardwareController implements HardwareController {
             tapePosition = tapePosition - increment;
             Log.d(TAG, "tapePosition: " + tapePosition);
         }
-        if (opMode.gamepad2.left_bumper) {
-            tapeLock.setPosition(0.4);
-        } else if (opMode.gamepad2.right_bumper) {
-            tapeLock.setPosition(0);
-        }
+//        if (opMode.gamepad2.left_bumper) {
+//            tapeLock.setPosition(0.4);
+//        } else if (opMode.gamepad2.right_bumper) {
+//            tapeLock.setPosition(0);
+//        }
         telemetry.addData("tapePosition", tapePosition);
         tapeGuide.setPosition(tapePosition);
     }
