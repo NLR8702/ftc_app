@@ -31,7 +31,7 @@ public class TwoRedBlue extends AutonomousMode {
 
         waitOneFullHardwareCycle();
 
-        target = Degrees_to_Pulse(45);
+        target = robot.pulsesPerDegree(45);
         spinLeft(0.3, target);
 
         //target = target + Inches_to_Pulse(12);
@@ -46,7 +46,7 @@ public class TwoRedBlue extends AutonomousMode {
 
 
         waitOneFullHardwareCycle();
-        target = Degrees_to_Pulse(90);
+        target = robot.pulsesPerDegree(90);
         spinRight(0.3, target);
 
 

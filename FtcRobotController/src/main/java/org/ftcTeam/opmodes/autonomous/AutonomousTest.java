@@ -23,6 +23,7 @@ public class AutonomousTest extends AutonomousMode {
         getTelemetryUtil().sendTelemetry();
         move(0.3, target);
 
+        waitOneFullHardwareCycle();
 
 
         this.setOperationsCompleted();

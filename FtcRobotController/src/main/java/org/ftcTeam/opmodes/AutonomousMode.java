@@ -103,7 +103,7 @@ public class AutonomousMode extends ActiveOpMode {
 
         waitOneFullHardwareCycle();
 
-        target = Degrees_to_Pulse(45);
+        target = robot.pulsesPerDegree(45);
         spinLeft(0.3, target);
 
         //target = target + Inches_to_Pulse(12);
@@ -118,7 +118,7 @@ public class AutonomousMode extends ActiveOpMode {
 
 
         waitOneFullHardwareCycle();
-        target = Degrees_to_Pulse(90);
+        target = robot.pulsesPerDegree(90);
         spinRight(0.3, target);
 
 
@@ -359,9 +359,9 @@ public class AutonomousMode extends ActiveOpMode {
 
 }
 
-    public  int Degrees_to_Pulse(int degrees){
-        return (int)(degrees * PULSE_PER_90_DEGREE / 90.0);
-    }
+//    public  int Degrees_to_Pulse(int degrees){
+//        return (int)(degrees * PULSE_PER_90_DEGREE / 90.0);
+//    }
 
     //public  int Inches_to_Pulse(int inches){
         //return (int)(inches * PULSE_PER_FOOT / 12.0);

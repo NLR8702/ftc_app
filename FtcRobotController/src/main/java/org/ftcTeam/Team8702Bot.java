@@ -22,6 +22,8 @@ public class Team8702Bot extends RobotConfiguration {
     static final double ROBOT_MOTOR = ANDYMARK60;
     static final double PULSES_PER_REVOLUTION = 28 * ROBOT_MOTOR;
     static final double INCHES_PER_REVOLUTION = 18.625;
+    public final int PULSES_PER_90=1940;
+
 
 
     //sensors
@@ -50,6 +52,11 @@ param hardwareMap
     public int pulsesPerInch(double inches) {
         return (int) (inches * PULSES_PER_REVOLUTION/INCHES_PER_REVOLUTION);
     }
+
+    public int pulsesPerDegree(int degrees) {
+        return (int)((double)degrees * PULSES_PER_90 / 90.0D);
+    }
+
 
     /**
      * Assign your class instance variables to the saved device names in the hardware map

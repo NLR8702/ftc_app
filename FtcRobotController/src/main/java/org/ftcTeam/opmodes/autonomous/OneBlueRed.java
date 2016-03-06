@@ -31,7 +31,7 @@ public class OneBlueRed extends AutonomousMode {
 
         waitOneFullHardwareCycle();
 
-        target = Degrees_to_Pulse(45);
+        target = robot.pulsesPerDegree(45);
         spinLeft(0.3, target);
 
         //target = target + Inches_to_Pulse(12);
