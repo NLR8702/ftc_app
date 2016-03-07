@@ -12,6 +12,9 @@
         <Motor name="tapeMotor" port="1" />
         <Motor name="guardMotor" port="2" />
     </MotorController>
+    <DeviceInterfaceModule name="Device Interface Module 1" serialNumber="AI02RINB">
+        <TouchSensor name="guardLimit" port="0" />
+    </DeviceInterfaceModule>
     <MotorController name="Motor Controller 1" serialNumber="AL00XR3T">
         <Motor name="leftMotor" port="1" />
         <Motor name="rightMotor" port="2" />
