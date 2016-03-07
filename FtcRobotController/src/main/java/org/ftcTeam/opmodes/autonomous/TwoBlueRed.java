@@ -21,7 +21,7 @@ public class TwoBlueRed extends AutonomousMode {
 
         waitOneFullHardwareCycle();
         int target = 0;
-        move(0.3, Inches_to_Pulse(15));
+        move(0.3, robot.pulsesPerInch(15));
 
 //        waitOneFullHardwareCycle();
 //        spinLeft(0.3, Degrees_to_Pulse(45));git

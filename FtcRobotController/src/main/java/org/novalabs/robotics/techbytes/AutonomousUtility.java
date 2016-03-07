@@ -13,6 +13,7 @@ import org.ftcbootstrap.ActiveOpMode;
 public class AutonomousUtility {
 
 
+    static final double INCHES_PER_REVOLUTION = 18.625;
     static final double PULSE_PER_90_DEGREE = 1940;
     static final double PULSE_PER_FOOT = 1120;
 //  Operation Methods
