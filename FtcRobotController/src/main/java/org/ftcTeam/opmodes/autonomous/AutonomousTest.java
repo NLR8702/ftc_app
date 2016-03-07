@@ -1,5 +1,6 @@
 package org.ftcTeam.opmodes.autonomous;
 
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
 import org.ftcTeam.opmodes.AutonomousMode;
@@ -19,12 +20,16 @@ public class AutonomousTest extends AutonomousMode {
 
         waitOneFullHardwareCycle();
         int target = robot.pulsesPerInch(24);
+        int rightTurn = robot.pulsesPerDegree(90);
         getTelemetryUtil().addData("status", "about to go forward 36 inchs");
         getTelemetryUtil().sendTelemetry();
         move(0.3, target);
+        waitOneFullHardwareCycle();
+        spinRight(0.3, rightTurn);
+        waitOneFullHardwareCycle();
+        guardOn();
 
         waitOneFullHardwareCycle();
-
 
         this.setOperationsCompleted();
     }
