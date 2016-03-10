@@ -16,7 +16,7 @@ public class GuardHardwareController implements HardwareController {
 
     public void init(OpMode opMode) {
         guardMotor = opMode.hardwareMap.dcMotor.get("guardMotor");
-        gaurdLimit = opMode.hardwareMap.touchSensor.get("gaurdLimit");
+        gaurdLimit = opMode.hardwareMap.touchSensor.get("guardLimit");
         int stage=0;
         guardMotor.setPower(0);
         int time=0;

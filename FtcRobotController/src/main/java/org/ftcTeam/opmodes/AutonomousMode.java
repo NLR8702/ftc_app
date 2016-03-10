@@ -2,6 +2,7 @@ package org.ftcTeam.opmodes;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.ftcTeam.Team8702Bot;
 import org.ftcbootstrap.ActiveOpMode;
@@ -43,6 +44,8 @@ public class AutonomousMode extends ActiveOpMode {
     private int stepCounter;
     public final int PULSES_PER_90=1940;
     public final int GO_FORWARD_3_FEET=3360;
+    private DcMotor guardMotor;
+    private TouchSensor gaurdLimit;
 
 
     /**
@@ -59,8 +62,11 @@ public class AutonomousMode extends ActiveOpMode {
         getTelemetryUtil().sendTelemetry();
         robot.getLeftDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
         robot.getRightDrive().setMode(DcMotorController.RunMode.RESET_ENCODERS);
-
         robot.getLeftDrive().setDirection(DcMotor.Direction.REVERSE);
+        guardMotor = hardwareMap.dcMotor.get("guardMotor");
+        gaurdLimit = hardwareMap.touchSensor.get("guardLimit");
+        int stage=0;
+        guardMotor.setPower(0);
 
     }
 
@@ -353,17 +359,22 @@ public class AutonomousMode extends ActiveOpMode {
 //        robot.getLeftDrive().setPower(0.0);
 //        robot.getRightDrive().setPower(0.0);
 //        waitOneFullHardwareCycle();
+        }
     }
+    public void guardOn() {
+        robot.getGuardMotor().setDirection(DcMotor.Direction.FORWARD);
 
 
+        int target = 2;
+        robot.getGuardMotor().setPower(0.1);
 
-}
+        while(true) {
+            if (gaurdLimit.isPressed() == true){
+                robot.getGuardMotor().setPower(0.0);
+                break;
+            }
+        }
 
-//    public  int Degrees_to_Pulse(int degrees){
-//        return (int)(degrees * PULSE_PER_90_DEGREE / 90.0);
-//    }
 
-    //public  int Inches_to_Pulse(int inches){
-        //return (int)(inches * PULSE_PER_FOOT / 12.0);
-    //}
+    }
 }
