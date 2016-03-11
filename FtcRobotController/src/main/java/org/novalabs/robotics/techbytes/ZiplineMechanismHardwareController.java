@@ -5,6 +5,7 @@ import android.util.Log;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.Servo;
 
+
 /**
  * Created by tylerkim on 12/11/15.
  */
@@ -18,10 +19,10 @@ public class ZiplineMechanismHardwareController implements HardwareController {
     private Servo leftZiplineServo;
     int leftZiplineState=0;
     double rightZiplineRetracted = 1;
-    double rightZiplineMiddle = .2;
+    double rightZiplineMiddle = .13;
     double rightZiplineFull = 0;
     double leftZiplineRetracted =0;
-    double leftZiplineMiddle =.8;
+    double leftZiplineMiddle =.86;
     double leftZiplineFull =1;
     ButtonState rightbuttonState;
     ButtonState leftbuttonState;
@@ -61,7 +62,7 @@ public class ZiplineMechanismHardwareController implements HardwareController {
             rightZiplineServo.setPosition(rightZiplineRetracted);
         } else if (rightZiplineState == 1) {
             rightZiplineServo.setPosition(rightZiplineMiddle);
-        } else if (rightZiplineState == 2) {
+        } else if (rightZiplineState == 0) {
             rightZiplineServo.setPosition(rightZiplineFull);
         }
         opMode.telemetry.addData("right servo: ", rightZiplineServo.getPosition());
@@ -75,7 +76,7 @@ public class ZiplineMechanismHardwareController implements HardwareController {
             } else if (leftZiplineState == 1) {
                 leftZiplineState = 0;
 
-//            } else if (leftZiplineState == ) {
+//            } else if (leftZiplineState ==2 ) {
 //                leftZiplineState = 0;
             }
             leftbuttonState = ButtonState.DOWN;
