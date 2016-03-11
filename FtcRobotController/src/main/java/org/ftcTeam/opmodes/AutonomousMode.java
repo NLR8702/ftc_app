@@ -163,7 +163,7 @@ public class AutonomousMode extends ActiveOpMode {
 //        }
 
  //   }
-
+//TODO change parameter (deltatarget)
     protected void move(double power, int deltaTarget) throws InterruptedException {
         int leftCurrent = robot.getLeftDrive().getCurrentPosition();
         int rightCurrent = robot.getRightDrive().getCurrentPosition();
