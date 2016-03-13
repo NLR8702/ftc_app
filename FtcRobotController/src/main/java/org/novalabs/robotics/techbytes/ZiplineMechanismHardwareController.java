@@ -19,10 +19,10 @@ public class ZiplineMechanismHardwareController implements HardwareController {
     private Servo leftZiplineServo;
     int leftZiplineState=0;
     double rightZiplineRetracted = 1;
-    double rightZiplineMiddle = .13;
+    double rightZiplineMiddle = .07;
     double rightZiplineFull = 0;
     double leftZiplineRetracted =0;
-    double leftZiplineMiddle =.86;
+    double leftZiplineMiddle =.92;
     double leftZiplineFull =1;
     ButtonState rightbuttonState;
     ButtonState leftbuttonState;
