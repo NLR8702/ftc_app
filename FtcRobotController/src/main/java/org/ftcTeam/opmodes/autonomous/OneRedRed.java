@@ -26,16 +26,20 @@ public class OneRedRed extends AutonomousMode {
         getTelemetryUtil().sendTelemetry();
 
         waitOneFullHardwareCycle();
-        int fourFeetForward = robot.pulsesPerInch(48);
-        move(0.3, fourFeetForward);
+        int fiveFeetForward = robot.pulsesPerInch(-60);
+        move(0.3, fiveFeetForward);
 
         waitOneFullHardwareCycle();
         int ninetyDegreeTurn = robot.pulsesPerDegree(90);
         spinLeft(0.3, ninetyDegreeTurn);
 
         waitOneFullHardwareCycle();
-        int pushDebrie = robot.pulsesPerInch(36);
+        int pushDebrie = robot.pulsesPerInch(-60);
         move(0.3, pushDebrie);
+
+        waitOneFullHardwareCycle();
+        int Park = robot.pulsesPerInch(0);
+        move(0.0, Park);
 
         this.setOperationsCompleted();
     }

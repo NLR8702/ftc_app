@@ -24,8 +24,20 @@ public class OneBlueBlue extends AutonomousMode {
         move(0.3, 15);
 
         waitOneFullHardwareCycle();
-        int twoFeetForward = robot.pulsesPerInch(30);
-        move(0.3, twoFeetForward);
+        int fiveFeetForward = robot.pulsesPerInch(-60);
+        move(0.3, fiveFeetForward);
+
+        waitOneFullHardwareCycle();
+        int ninetyDegreeTurn = robot.pulsesPerDegree(90);
+        spinRight(0.3, ninetyDegreeTurn);
+
+        waitOneFullHardwareCycle();
+        int pushDebrie = robot.pulsesPerInch(-60);
+        move(0.3, pushDebrie);
+
+        waitOneFullHardwareCycle();
+        int Park = robot.pulsesPerInch(0);
+        move(0.0, Park);
 
         this.setOperationsCompleted();
     }
