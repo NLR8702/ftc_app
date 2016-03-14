@@ -22,11 +22,11 @@ public class OneRedRed extends AutonomousMode {
 
         waitOneFullHardwareCycle();
         int target = 0;
-        getTelemetryUtil().addData("status", "about to go forward 36 inchs");
-        getTelemetryUtil().sendTelemetry();
+        //getTelemetryUtil().addData("status", "about to go forward 36 inchs");
+        //getTelemetryUtil().sendTelemetry();
 
         waitOneFullHardwareCycle();
-        int fiveFeetForward = robot.pulsesPerInch(-60);
+        int fiveFeetForward = robot.pulsesPerInch(-48);
         move(0.3, fiveFeetForward);
 
         waitOneFullHardwareCycle();
@@ -34,7 +34,7 @@ public class OneRedRed extends AutonomousMode {
         spinLeft(0.3, ninetyDegreeTurn);
 
         waitOneFullHardwareCycle();
-        int pushDebrie = robot.pulsesPerInch(-60);
+        int pushDebrie = robot.pulsesPerInch(-89);
         move(0.3, pushDebrie);
 
         waitOneFullHardwareCycle();
