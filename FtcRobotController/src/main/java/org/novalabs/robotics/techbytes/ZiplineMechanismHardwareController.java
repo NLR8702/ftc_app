@@ -53,20 +53,20 @@ public class ZiplineMechanismHardwareController implements HardwareController {
     @Override
     public void loop(OpMode opMode) {
 
-        if (opMode.gamepad2.left_trigger>=.75&&opMode.gamepad2.left_stick_y>=0 && leftZiplinePosition > (0 + LeftIncrement)) {
+        if (opMode.gamepad2.left_trigger>=.75&&opMode.gamepad2.left_stick_y<=0 && leftZiplinePosition > (0 + LeftIncrement)) {
             leftZiplinePosition = leftZiplinePosition - LeftIncrement;
 
-        } else if ( opMode.gamepad2.left_trigger>=.75&&opMode.gamepad2.left_stick_y<=0&&leftZiplinePosition < (1 - LeftIncrement)) {
+        } else if ( opMode.gamepad2.left_trigger>=.75&&opMode.gamepad2.left_stick_y>=0&&leftZiplinePosition < (1 - LeftIncrement)) {
             leftZiplinePosition = leftZiplinePosition + LeftIncrement;
         }
         leftZiplineServo.setPosition(leftZiplinePosition);
 
 
-        if (opMode.gamepad2.right_trigger>=.75&&opMode.gamepad2.left_stick_y>=0 &&rightZiplinePosition < (1 - RightIncrement)) {
-            rightZiplinePosition = rightZiplinePosition - RightIncrement;
-
-        } else if ( opMode.gamepad2.right_trigger>=.75&&opMode.gamepad2.left_stick_y<=0&&rightZiplinePosition > (0 + RightIncrement)) {
+        if (opMode.gamepad2.right_trigger>=.75&&opMode.gamepad2.left_stick_y<=0 &&rightZiplinePosition < (1 - RightIncrement)) {
             rightZiplinePosition = rightZiplinePosition + RightIncrement;
+
+        } else if ( opMode.gamepad2.right_trigger>=.75&&opMode.gamepad2.left_stick_y>=0&&rightZiplinePosition > (0 + RightIncrement)) {
+            rightZiplinePosition = rightZiplinePosition - RightIncrement;
         }
         rightZiplineServo.setPosition(rightZiplinePosition);
     }
