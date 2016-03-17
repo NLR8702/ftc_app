@@ -4,17 +4,12 @@ import com.qualcomm.ftcrobotcontroller.opmodes.NullOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeManager;
 import com.qualcomm.robotcore.eventloop.opmode.OpModeRegister;
 
-import org.ftcTeam.opmodes.AutonomousMode;
 import org.ftcTeam.opmodes.GamePadDriveOpMode;
 import org.ftcTeam.opmodes.autonomous.AutonomousTest;
-import org.ftcTeam.opmodes.autonomous.OneBlueBlue;
-import org.ftcTeam.opmodes.autonomous.OneBlueRed;
-import org.ftcTeam.opmodes.autonomous.OneRedBlue;
-import org.ftcTeam.opmodes.autonomous.OneRedRed;
-import org.ftcTeam.opmodes.autonomous.TwoBlueBlue;
-import org.ftcTeam.opmodes.autonomous.TwoBlueRed;
-import org.ftcTeam.opmodes.autonomous.TwoRedBlue;
-import org.ftcTeam.opmodes.autonomous.TwoRedRed;
+import org.ftcTeam.opmodes.autonomous.InsideBlue;
+import org.ftcTeam.opmodes.autonomous.InsideRed;
+import org.ftcTeam.opmodes.autonomous.OutsideBlue;
+import org.ftcTeam.opmodes.autonomous.OutsideRed;
 import org.novalabs.robotics.techbytes.FrameworkTestOpMode;
 
 
@@ -58,14 +53,14 @@ public class FTCTeamRegistry implements OpModeRegister {
     //manager.register("EncoderTest", EncoderMotorTest8702.class);
    // manager.register("EncoderMotor8702", EncoderMotorTest8702.class);
     //manager.register("AutonomusMode", AutonomousMode.class);
-    manager.register("OneBlueBlue", OneBlueBlue.class);
-    manager.register("TwoBlueBlue", TwoBlueBlue.class);
-    manager.register("OneRedRed", OneRedRed.class);
-    manager.register("TwoRedRed", TwoRedRed.class);
-    manager.register("OneBlueRed", OneBlueRed.class);
-    manager.register("TwoBlueRed", TwoBlueRed.class);
-    manager.register("OneRedBlue", OneRedBlue.class);
-    manager.register("TwoRedBlue", TwoRedBlue.class);
+    manager.register("InsideBlue", InsideBlue.class);
+    manager.register("OutsideBlue", OutsideBlue.class);
+    manager.register("InsideRed", InsideRed.class);
+    manager.register("OutsideRed", OutsideRed.class);
+//    manager.register("OneBlueRed", OneBlueRed.class);
+//    manager.register("TwoBlueRed", TwoBlueRed.class);
+//    manager.register("OneRedBlue", OneRedBlue.class);
+//    manager.register("TwoRedBlue", TwoRedBlue.class);
     manager.register("autonomous test", AutonomousTest.class);
 
 

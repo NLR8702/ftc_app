@@ -7,11 +7,13 @@ import org.ftcTeam.opmodes.AutonomousMode;
 /**
  * Created by tylerkim on 2/20/16.
  */
-public class TwoRedRed extends AutonomousMode {
+public class InsideRed extends AutonomousMode {
     @Override
     protected void activeLoop() throws InterruptedException {
+        waitOneFullHardwareCycle();
+        guardOn();
 
-
+        waitOneFullHardwareCycle();
         sleep(5000);
 
         waitOneFullHardwareCycle();
@@ -20,22 +22,24 @@ public class TwoRedRed extends AutonomousMode {
 
         waitOneFullHardwareCycle();
         int target = 0;
-        move(0.3, 15);
+        //getTelemetryUtil().addData("status", "about to go forward 36 inchs");
+        //getTelemetryUtil().sendTelemetry();
 
         waitOneFullHardwareCycle();
-        spinLeft(0.3, 45);
+        int fiveFeetForward = robot.pulsesPerInch(-48);
+        move(0.3, fiveFeetForward);
 
         waitOneFullHardwareCycle();
-        move(0.3, 48);
+        int ninetyDegreeTurn = robot.pulsesPerDegree(90);
+        spinLeft(0.3, ninetyDegreeTurn);
 
         waitOneFullHardwareCycle();
-        spinRight(0.3, 225);
+        int pushDebrie = robot.pulsesPerInch(-89);
+        move(0.3, pushDebrie);
 
         waitOneFullHardwareCycle();
-        spinLeft(0.3, 90);
-
-        waitOneFullHardwareCycle();
-        move(-.3, -12);
+        int Park = robot.pulsesPerInch(0);
+        move(0.0, Park);
 
         this.setOperationsCompleted();
     }

@@ -1,4 +1,4 @@
-package org.ftcTeam.opmodes.autonomous;
+ package org.ftcTeam.opmodes.autonomous;
 
 import com.qualcomm.robotcore.hardware.DcMotorController;
 
@@ -7,7 +7,7 @@ import org.ftcTeam.opmodes.AutonomousMode;
 /**
  * Created by tylerkim on 2/20/16.
  */
-public class OneBlueRed extends AutonomousMode {
+public class OutsideBlue extends AutonomousMode {
     @Override
     protected void activeLoop() throws InterruptedException {
 
@@ -46,7 +46,7 @@ public class OneBlueRed extends AutonomousMode {
 
 
         waitOneFullHardwareCycle();
-        target = robot.pulsesPerInch(90);
+        target = robot.pulsesPerDegree(90);
         spinRight(0.3, target);
 
 
